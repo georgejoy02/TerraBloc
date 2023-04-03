@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
+import Signup from "./pages/RegisterAdmin";
+import { Login} from "./pages/Login";
 import { Contact } from "./pages/Contact";
 import { Pagenotfound } from "./pages/Pagenotfound";
 import './App.css';
@@ -13,6 +15,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<Pagenotfound />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     

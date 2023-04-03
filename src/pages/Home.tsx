@@ -145,11 +145,7 @@ export const Home = () => {
                         <Typography variant="h5">
                             TerraWallet is a blockchain based platform that provides a secure and decentralized marketplace for buying and selling land. Our platform ensures that all transactions are transparent and tamper-proof, stored securely on a trusted blockchain network. By registering their land with the government through TerraWallet, users can enjoy increased protection against fraud and ensure their property rights are upheld. With TerraWallet, users can easily and confidently engage in land transactions, knowing that they are backed by a trusted and secure platform.
                         </Typography>
-                    
-                    
                     </Box>
-            
-
         </div>
     )
 }
