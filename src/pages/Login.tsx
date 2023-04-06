@@ -26,7 +26,6 @@ export const Login = () => {
   return (
     <div>
       <Navbar />
-
     <Box
       sx={{
         display: "flex",

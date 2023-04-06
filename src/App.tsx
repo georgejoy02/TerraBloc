@@ -4,6 +4,7 @@ import Signup from "./pages/RegisterAdmin";
 import { Login} from "./pages/Login";
 import { Contact } from "./pages/Contact";
 import { Pagenotfound } from "./pages/Pagenotfound";
+import LandGallery from "./pages/LandGallery";
 import './App.css';
 
 
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="*" element={<Pagenotfound />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/landgallery" element={<LandGallery />} />
         </Routes>
       </BrowserRouter>
     

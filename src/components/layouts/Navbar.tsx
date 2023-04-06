@@ -17,7 +17,7 @@ export const Navbar = () => {
         </Box>
         <Stack direction='row' spacing={2} >
           <Button component={Link} to="/" sx={{color:"black"}}>Home</Button>
-          <Button component={Link} to="/about" sx={{color:"black"}}>LandGallery</Button>
+          <Button component={Link} to="/landgallery" sx={{color:"black"}}>LandGallery</Button>
           <Button component={Link} to="/news" sx={{color:"black"}}>News</Button>
           <Button component={Link} to="/contact" sx={{color:"black"}}>Contact</Button>
           <Divider orientation="vertical" flexItem  />
