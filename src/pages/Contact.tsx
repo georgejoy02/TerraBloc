@@ -1,7 +1,12 @@
 import React from 'react'
+import Webcam from "../components/WebcamImage"
 
 export const Contact = () => {
   return (
-    <div>Contact</div>
+    <div>
+      <div>Contact</div>
+      <Webcam/>
+    </div>
+    
   )
 }

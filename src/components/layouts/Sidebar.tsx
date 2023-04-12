@@ -43,7 +43,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <Drawer variant="permanent" sx={{ width: 240, backgroundColor: '#E6F7FF' }}>
+    <Drawer variant="permanent" sx={{ width: 240, backgroundColor: "#E6F7FF" }}>
       <Box
         sx={{
           display: "flex",
@@ -53,7 +53,7 @@ const Sidebar = () => {
         }}
         mb={-4}
       >
-        <PersonIcon sx={{ mr: 1, fontSize:70 }} />
+        <PersonIcon sx={{ mr: 1, fontSize: 70 }} />
       </Box>
       <Box
         sx={{
@@ -63,7 +63,11 @@ const Sidebar = () => {
           p: 2,
         }}
       >
-        <Typography variant="subtitle1" fontWeight="bold" sx={{ mr: 1, fontSize:25 }}>
+        <Typography
+          variant="subtitle1"
+          fontWeight="bold"
+          sx={{ mr: 1, fontSize: 25 }}
+        >
           Super Admin
         </Typography>
       </Box>
@@ -79,62 +83,3 @@ const Sidebar = () => {
   );
 };
 export default Sidebar;
-
-// const RegisterAdmin = () => {
-//   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-//     event.preventDefault();
-//     // Handle form submission here
-//   };
-
-//   return (
-//     <Box sx={{ display: "flex" }}>
-//       <PermanentDrawer />
-//       <Box
-//         component="form"
-//         sx={{
-//           flexGrow: 1,
-//           p: 3,
-//         }}
-//         onSubmit={handleSubmit}
-//       >
-//         <Stack
-//           spacing={4}
-//           justifyContent="center"
-//           alignItems="center"
-//           display="flex"
-//         >
-//           <Typography variant="h4" mb={3}>
-//             Register Admin
-//           </Typography>
-//           <Box mb={2}>
-//             <TextField label="Address" sx={{ width: "600px" }} />
-//           </Box>
-
-//           <Box mb={2}>
-//             <TextField label="Name" sx={{ width: "600px" }} />
-//           </Box>
-
-//           <Box mb={2}>
-//             <TextField label="Age" sx={{ width: "600px" }} />
-//           </Box>
-
-//           <Box mb={2}>
-//             <TextField label="Designation" sx={{ width: "600px" }} />
-//           </Box>
-
-//           <Box mb={2}>
-//             <TextField label="City" sx={{ width: "600px" }} />
-//           </Box>
-
-//           <Stack>
-//             <Button type="submit" variant="contained" color="primary">
-//               Submit
-//             </Button>
-//           </Stack>
-//         </Stack>
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// export default RegisterAdmin;
