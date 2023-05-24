@@ -1,4 +1,3 @@
-
 // eslint-disable-next-line no-undef
 const landContract = artifacts.require("Land");
 

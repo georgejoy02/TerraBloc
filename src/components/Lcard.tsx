@@ -1,36 +1,39 @@
-
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-// import Alimanhal from '../images/aliManhal.jpeg'
+import { IData } from "../components/DummyData";
 
-export default function Lcard() {
+export default function Lcard({ item }: { item: IData }) {
   return (
-    <Card sx={{ maxWidth: 345 }} >
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="150"
-          image="../images/aliManhal.jpeg"
-          alt="alimanhal"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-      </CardActions>
-    </Card>
+    <div>
+      <Card key={item.id} sx={{ maxWidth: 345 }} >
+        <CardActionArea>
+          <CardMedia
+            component="img"
+            height="150"
+            image={item.img}
+            alt="cardImage"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {item.title}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">PRICE:{item.price}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">{item.category}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">{item.desc}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button size="small" color="primary">
+            Buy
+          </Button>
+        </CardActions>
+      </Card>
+    </div>
   );
 }

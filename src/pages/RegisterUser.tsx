@@ -40,29 +40,7 @@ const RegisterUser: React.FC = () => {
   return (
     <div>
       <Box>
-        <AppBar
-          position="fixed" 
-        // sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
-        >
-          <Toolbar>
-            <Typography variant="h6" textAlign='center' noWrap component="div">
-              Register User
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </Box>
-      <Box>
         <Container maxWidth="md">
-          {/* <Box mt={6} mb={2}>
-            <Typography
-              variant="h4"
-              align="center"
-              fontWeight={"bold"}
-              sx={{ color: "#6D6D6D" }}
-            >
-              User Registration
-            </Typography>
-          </Box> */}
           <FormContainer onSubmit={handleSubmit}>
             <TextField
               required
