@@ -20,7 +20,7 @@ export const Navbar = () => {
           <Button component={Link} to="/news" sx={{ color: "black" }}>News</Button>
           <Button component={Link} to="/contact" sx={{ color: "black" }}>Contact</Button>
           <Divider orientation="vertical" flexItem />
-          <Button component={Link} to="/loginop" color='primary' variant="contained">LogIn</Button>
+          <Button component={Link} to="/loginoption" color='primary' variant="contained">LogIn</Button>
           <Button component={Link} to="/registeruser" color='primary' variant="contained">Register</Button>
         </Stack>
       </Toolbar>

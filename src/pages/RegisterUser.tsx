@@ -2,6 +2,7 @@ import * as React from "react";
 import { AppBar, Toolbar, Box, Button, Container, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { Appbar } from "../components/Appbar";
 const FormContainer = styled("form")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -39,7 +40,8 @@ const RegisterUser: React.FC = () => {
 
   return (
     <div>
-      <Box>
+      <Appbar title='Register User'/>
+      <Box marginTop={4}>
         <Container maxWidth="md">
           <FormContainer onSubmit={handleSubmit}>
             <TextField

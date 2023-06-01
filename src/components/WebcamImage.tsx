@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 
@@ -16,27 +17,35 @@ function WebcamImage() {
     setImg(imageSrc ?? null);
   }, [webcamRef]);
 
+  const retake = useCallback(() => {
+    setImg(null);
+  }, []);
+
   return (
-    <div className="Container">
-      {img === null ? (
-        <>
-          <Webcam
-            audio={false}
-            mirrored={true}
-            height={400}
-            width={400}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            videoConstraints={videoConstraints}
-          />
-          <button onClick={capture}>Capture photo</button>
-        </>
-      ) : (
-        <>
-          <img src={img} alt="screenshot" />
-          <button onClick={() => setImg(null)}>Retake</button>
-        </>
-      )}
+    <div className="Container" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div style={{ position: "relative" }}>
+        <Webcam
+          audio={false}
+          mirrored={true}
+          height={300}
+          width={300}
+          ref={webcamRef}
+          screenshotFormat="image/jpeg"
+          videoConstraints={videoConstraints}
+        />
+        {img !== null && (
+          <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+            <img src={img} alt="screenshot" />
+          </div>
+        )}
+        <div style={{ position: "absolute", bottom: "10px", left: "50%", transform: "translateX(-50%)" }}>
+          {img === null ? (
+            <Button variant="contained" onClick={capture}>Capture photo</Button>
+          ) : (
+            <Button variant="contained" onClick={retake}>Retake</Button>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
