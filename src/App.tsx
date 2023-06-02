@@ -12,10 +12,14 @@ import './App.css';
 import TransferOwnershipFinal from "./pages/TransferOwnershipFinal";
 import ConfirmPaymentPopup from "./components/ConfirmPayementPopup";
 
+
 export default function App() {
+  
+
   return (
     <div>
       <BrowserRouter>
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<TransferOwnershipFinal />} />
@@ -26,6 +30,7 @@ export default function App() {
           <Route path="/loginoption" element={<LoginPage />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/registeruser" element={<RegisterUser />} />
+          
         </Routes>
       </BrowserRouter>
       {/* <ConfirmPaymentPopup open={true} onClose={function (): void {

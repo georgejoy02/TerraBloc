@@ -1,16 +1,29 @@
-//testCode---------------------------------------------
-const express = require("express");
-const cors = require("cors");
-const app = express();
+const dotenv = require('dotenv')
+dotenv.config();
+const express = require('express')
+const app = express()
+const cors = require("cors")
+app.use(cors())
 
-app.use(cors());
-app.use(express.json());
+const router = require('./router/router')
 
-app.get("/message", (req, res) => {
-  res.json({ message: "Hello from server!" });
+app.use(express.json())
+
+app.use('/', router)
+//------------------------------MAIN----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+//--------------------------------------------------------------------------------------------------
+const PORT = process.env.PORT || 4000
+
+app.listen(PORT, () => {
+  console.log(`server runnning on ${PORT}`)
 });
-
-app.listen(8000, () => {
-  console.log(`Server is running on port 8000.`);
-});
-//-----------------------------------------------
