@@ -7,11 +7,8 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import {
   Dashboard,
   Person as PersonIcon,
@@ -26,7 +23,6 @@ import VerifyUser from "../pages/AdminVerifyUser";
 import { AdminVerifyLand } from "../pages/AdminVerifyLand";
 import TransferOwnership from "../pages/TransferOwnership";
 import { useNavigate } from "react-router-dom";
-import { Appbar } from "./Appbar";
 
 const drawerWidth = 240;
 
