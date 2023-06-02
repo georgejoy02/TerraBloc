@@ -26,3 +26,4 @@ yarn-error.log*
 #custom added
 /src/contracts
 /server/.env
+/server/node_modules
