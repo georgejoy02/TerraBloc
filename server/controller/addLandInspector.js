@@ -11,7 +11,7 @@ const addLinsp = async (req, res) => {
         .send({ from: addresses[0], gas: '1000000' })
         .then(
             (val) => {
-                console.log(val);
+                console.log(val.events);
                 res.json(val)
             },
             (error) => {

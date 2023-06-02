@@ -4,7 +4,7 @@ const allLiList = async (req, res) => {
     try {
         const land_contract = await getWeb3();
         const result = await land_contract.methods.ReturnAllLandIncpectorList().call();
-        if (result) {
+        if (result.lenth !== 0) {
             res.json(result)
         } else {
             res.json("not added any")
@@ -13,7 +13,7 @@ const allLiList = async (req, res) => {
 
 
         const Web3 = require("web3")
-        const rpcURL = "http://127.0.0.1:7545"
+        const rpcURL = process.env.RPC_URL;
         const web3 = new Web3(rpcURL)
 
         const addresses = await web3.eth.getAccounts();
@@ -29,6 +29,7 @@ const allLiList = async (req, res) => {
 
     } catch (err) {
         console.log(err)
+        res.send(err.message)
     }
 }
 module.exports = allLiList
