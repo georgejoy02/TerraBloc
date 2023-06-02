@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React, { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 
 function WebcamImage() {

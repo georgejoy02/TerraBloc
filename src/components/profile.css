@@ -1,0 +1,54 @@
+.box {
+  width: 600px;
+  height: 730px;
+  background-color: #fff;
+  margin: 0 auto;
+  margin-top: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  font-family: sans-serif;
+}
+.box h3 {
+  padding-left: 20px;
+  padding-top: 20px;
+  margin: 0;
+}
+
+.box h5 {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  margin: 0;
+  color: green;
+}
+
+.inputField {
+  margin-bottom: 5px;
+  width: 500px;
+  text-align: center;
+}
+
+.inputField input {
+  font-size: 14px;
+  padding: 10px;
+}
+
+.inputContainer .inputField {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputFields > a {
+  text-align: center;
+}
+
+.webcamImageContainer {
+  margin-top: -40px;
+}
