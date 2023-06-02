@@ -1,33 +1,38 @@
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import CssBaseline from "@mui/material/CssBaseline";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
 import {
-  Dashboard, Person as PersonIcon,
-  FactCheck, Logout, TransferWithinAStationRounded, VerifiedUser
-} from '@mui/icons-material';
-import LandInDashboard from '../pages/AdminDashboard';
-import { useState } from 'react';
-import VerifyUser from '../pages/AdminVerifyUser';
-import { AdminVerifyLand } from '../pages/AdminVerifyLand';
-import TransferOwnership from '../pages/TransferOwnership';
-import { useNavigate } from 'react-router-dom';
+  Dashboard,
+  Person as PersonIcon,
+  FactCheck,
+  Logout,
+  TransferWithinAStationRounded,
+  VerifiedUser,
+} from "@mui/icons-material";
+import LandInDashboard from "../pages/AdminDashboard";
+import { useState } from "react";
+import VerifyUser from "../pages/AdminVerifyUser";
+import { AdminVerifyLand } from "../pages/AdminVerifyLand";
+import TransferOwnership from "../pages/TransferOwnership";
+import { useNavigate } from "react-router-dom";
+import { Appbar } from "./Appbar";
 
 const drawerWidth = 240;
 
 export default function Sidebar() {
-  const navigate = useNavigate()
-  const [selectedItem, setSelectedItem] = useState("Dashboard")
+  const navigate = useNavigate();
+  const [selectedItem, setSelectedItem] = useState("Dashboard");
   const menuItems = [
     {
       label: "Dashboard",
@@ -56,12 +61,17 @@ export default function Sidebar() {
     {
       label: "Logout",
       icon: <Logout />,
-      onClick: () => navigate('/'),
+      onClick: () => navigate("/"),
     },
   ];
 
+    const renderComponent = () => {
+    const menuItem = menuItems.find((item) => item.label === selectedItem);
+    return menuItem ? menuItem.component : null;
+  };
+
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -73,13 +83,15 @@ export default function Sidebar() {
           </Typography>
         </Toolbar>
       </AppBar>
+      {/* <Appbar 
+      title="Land Inspector" /> */}
       <Drawer
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          '& .MuiDrawer-paper': {
+          "& .MuiDrawer-paper": {
             width: drawerWidth,
-            boxSizing: 'border-box',
+            boxSizing: "border-box",
           },
         }}
         variant="permanent"
@@ -105,7 +117,11 @@ export default function Sidebar() {
             p: 2,
           }}
         >
-          <Typography variant="subtitle1" fontWeight="bold" sx={{ mr: 1, fontSize: 25 }}>
+          <Typography
+            variant="subtitle1"
+            fontWeight="bold"
+            sx={{ mr: 1, fontSize: 25 }}
+          >
             User Name
           </Typography>
         </Box>
@@ -121,7 +137,12 @@ export default function Sidebar() {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, marginTop: '42px', bgcolor: 'background.default', paddingTop: 3 }}
+        sx={{
+          flexGrow: 1,
+          marginTop: "42px",
+          bgcolor: "background.default",
+          paddingTop: 3,
+        }}
       >
         {menuItems.map(({ label, component }) => {
           if (selectedItem === label) {

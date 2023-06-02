@@ -1,7 +1,10 @@
 import React from 'react'
+import { Appbar } from '../components/Appbar'
 
 export const Pagenotfound = () => {
   return (
-    <div>Pagenotfound</div>
+    <div>
+      <Appbar title='News'/>
+    </div>
   )
 }
