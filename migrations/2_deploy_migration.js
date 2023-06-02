@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-undef
 const landContract = artifacts.require("Land");
 
-module.exports = function(deployer) {
+module.exports = (deployer)=> {
   deployer.deploy(landContract);
 };

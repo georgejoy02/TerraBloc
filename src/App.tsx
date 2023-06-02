@@ -12,10 +12,14 @@ import './App.css';
 import { Navbar } from "./components/layouts/Navbar"
 import { Appbar } from "./components/Appbar";
 
+
 export default function App() {
+  
+
   return (
     <div>
       <BrowserRouter>
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
@@ -26,7 +30,7 @@ export default function App() {
           <Route path="/loginoption" element={<LoginPage />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/registeruser" element={<RegisterUser />} />
-          
+
         </Routes>
       </BrowserRouter>
     </div>

@@ -4,7 +4,10 @@ import { ParticleJs } from "../components/particles";
 import { styled } from '@mui/system';
 import Mainlogo from "../images/bcIcon2.svg"
 
+
 export const Home = () => {
+    
+
 
     const Blurbox = styled(Box)({
         background: '#transparent',
@@ -17,7 +20,9 @@ export const Home = () => {
 
     return (
         <div style={{ position: "relative", overflow: "hidden" }}>
+
             <Navbar />
+
             <Box p={10} sx={{ flexGrow: 1 }}>
                 <ParticleJs />
                 <Grid container spacing={10} >
