@@ -35,7 +35,7 @@ const ConfirmPaymentPopup: React.FC<ConfirmPaymentPopupProps> = ({
         <hr style={{ margin: "16px 0" }} />
         <Typography variant="h6">Total amount in ₹</Typography>
         <Typography variant="h4">{totalAmountInRupees}</Typography>
-        <Typography variant="body2">1 ETH = {ethValue}</Typography>
+        <Typography variant="body2">1 ETH = {ethValue} ₹</Typography>
         <Typography variant="h6">Total ETH:</Typography>
         <Typography variant="h4">{totalAmountInEth} ETH</Typography>
         <Box sx={{ mt: 2 }}>
