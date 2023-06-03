@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Box, Button, Container, TextField, Typography } from "
 import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Appbar } from "../components/Appbar";
+import { useState } from "react";
 const FormContainer = styled("form")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -16,14 +17,14 @@ const FormContainer = styled("form")(({ theme }) => ({
 
 const drawerWidth = 240;
 
-const RegisterUser: React.FC = () => {
-  const [name, setName] = React.useState<string>("");
-  const [age, setAge] = React.useState<number | null>(null);
-  const [address, setAddress] = React.useState<string>("");
-  const [aadhar, setAadhar] = React.useState<string>("");
-  const [pan, setPan] = React.useState<string>("");
-  const [email, setEmail] = React.useState<string>("");
-  const [aadharDoc, setAadharDoc] = React.useState<File | null>(null);
+const RegisterUser = () => {
+  const [name, setName] = useState("");
+  const [age, setAge] = useState<number | null>(null);
+  const [address, setAddress] =useState<string>("");
+  const [aadhar, setAadhar] = useState<string>("");
+  const [pan, setPan] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [aadharDoc, setAadharDoc] =useState<File | null>(null);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

@@ -27,3 +27,4 @@ yarn-error.log*
 /src/contracts
 /server/.env
 /server/node_modules
+.vscode/
