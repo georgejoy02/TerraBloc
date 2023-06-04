@@ -194,6 +194,17 @@ contract Land {
         }
     }
 
+    event userReg(
+        address indexed registeredUser,
+        string _userName,
+        uint256 _userAge,
+        string _city,
+        string _aadharNumber,
+        string _panNumber,
+        string _document,
+        string _email
+    );
+
     function registerUser(
         string memory _userName,
         uint256 _userAge,
@@ -204,7 +215,6 @@ contract Land {
         string memory _email
     ) external {
         require(!isRegUserMap[msg.sender], "Already a registered user");
-
         isRegUserMap[msg.sender] = true;
         userCount++;
         allUsersListMap[1].push(msg.sender);
@@ -220,10 +230,23 @@ contract Land {
             _email,
             false
         );
+        emit userReg(
+            msg.sender,
+            _userName,
+            _userAge,
+            _city,
+            _aadharNumber,
+            _panNumber,
+            _document,
+            _email
+        );
     }
+
+    event userVerify(address indexed user, string msg);
 
     function verifyUser(address _userId) external LiVerifyCheck {
         UserMap[_userId].userVerified = true;
+        emit userVerify(_userId,"user verified by land inspector");
     }
 
     function isUserVerified(address id) public view returns (bool) {
