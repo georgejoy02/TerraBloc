@@ -194,6 +194,17 @@ contract Land {
         }
     }
 
+    event userReg(
+        address indexed registeredUser,
+        string _userName,
+        uint256 _userAge,
+        string _city,
+        string _aadharNumber,
+        string _panNumber,
+        string _document,
+        string _email
+    );
+
     function registerUser(
         string memory _userName,
         uint256 _userAge,
@@ -219,6 +230,16 @@ contract Land {
             _document,
             _email,
             false
+        );
+        emit userReg(
+            msg.sender,
+            _userName,
+            _userAge,
+            _city,
+            _aadharNumber,
+            _panNumber,
+            _document,
+            _email
         );
     }
 

@@ -1,52 +1,20 @@
-const multer = require('multer');
-const storeFiles = require("../ipfs/ipfsstorage")
-const retrieveFiles = require("../ipfs/ipfsretrieve")
-const fs = require('fs');
-
-const storeFile = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'fileTempStorage/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    }
-});
-const filterFile = (req, file, cb) => {
-    if (file.mimetype === 'application/pdf') {
-        cb(null, true);
-    } else {
-        cb(new Error('Invalid file type. Only PDF files are allowed.'), false);
-    }
-};
-
-
-
-const upload = multer({ storage: storeFile, fileFilter: filterFile });
+const ipfsUrlRetrieve = require("../utils/ipfsUrlRetrieve")
+const regUserBlockchain = require("../utils/regUserBlockchain")
 
 const userReg = async (req, res) => {
-
-    const test = async (path) => {
-        const filePath = path;
-        console.log(filePath)
-        const cid = await storeFiles(filePath)
-        console.log(cid)
-        const filelink = await retrieveFiles(cid);
-        console.log(filelink)
-        fs.unlink(path, (err) => {
-            if (err) {
-                throw err;
-            }
-            console.log("Delete File successfully.");
-        });
+    const { name, age, city, aadharNo, panNo, email } = req.body
+    console.log(req.body)
+    const ruser = async (name, age, city, aadharNo, panNo, docUrl, email) => {
+        const receipt = await regUserBlockchain(name, age, city, aadharNo, panNo, docUrl, email)
+        if (receipt.events)
+            console.log(receipt.events)
+        else
+            console.log(receipt)
     }
+    const file = req.file
+    const docUrl = await ipfsUrlRetrieve(file.path, file.destination)
+    ruser(name, age, city, aadharNo, panNo, docUrl, email)
+    res.send({ message: 'PDF file uploaded  to ipfs successfully', file: req.file });
 
-    await upload.single('file')
-        (req, res, (err) => {
-            const { name, password } = req.body
-            console.log(`name is ${name} and password is ${password} `)
-            const file = req.file
-            test(file.path);
-            res.send({ message: 'PDF file uploaded successfully.', file: req.file });
-        })
 }
 module.exports = userReg
