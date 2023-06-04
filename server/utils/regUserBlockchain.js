@@ -6,7 +6,7 @@ const regUserBlockchain = async (name, age, city, aadharNo, panNo, docUrl, email
     const web3 = new Web3(rpcURL)
     const land_contract = await web3Init();
     const addresses = await web3.eth.getAccounts();
-    const fromAddress = addresses[0];
+    const fromAddress = addresses[2];
     if (fromAddress) {
         const test = await land_contract.methods.registerUser(name, age, city, aadharNo, panNo, docUrl, email)
             .send({ from: fromAddress, gas: '1000000' })

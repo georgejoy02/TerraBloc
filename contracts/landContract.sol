@@ -242,8 +242,11 @@ contract Land {
         );
     }
 
+    event userVerify(address indexed user, string msg);
+
     function verifyUser(address _userId) external LiVerifyCheck {
         UserMap[_userId].userVerified = true;
+        emit userVerify(_userId,"user verified by land inspector");
     }
 
     function isUserVerified(address id) public view returns (bool) {

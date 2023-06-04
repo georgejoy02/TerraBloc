@@ -17,6 +17,7 @@ const allLiList = async (req, res) => {
         const web3 = new Web3(rpcURL)
 
         const addresses = await web3.eth.getAccounts();
+        console.log(addresses)
         const privateKey = addresses[0]
         console.log(privateKey)
         var number = await web3.eth.getBalance(privateKey);
