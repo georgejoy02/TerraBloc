@@ -6,16 +6,22 @@ const regUserBlockchain = async (name, age, city, aadharNo, panNo, docUrl, email
     const web3 = new Web3(rpcURL)
     const land_contract = await web3Init();
     const addresses = await web3.eth.getAccounts();
-    const test = await land_contract.methods.registerUser(name, age, city, aadharNo, panNo, docUrl, email)
-        .send({ from: addresses[9], gas: '1000000' })
-        .then(
-            (val) => {
-                return val
-            },
-            (error) => {
-                return error.reason
-            }
-        );
-    return test
+    const fromAddress = addresses[0];
+    if (fromAddress) {
+        const test = await land_contract.methods.registerUser(name, age, city, aadharNo, panNo, docUrl, email)
+            .send({ from: fromAddress, gas: '1000000' })
+            .then(
+                (val) => {
+                    return val
+                },
+                (err) => {
+                    return err
+                }
+            );
+        return test
+    } else {
+        return "send from a valid address"
+    }
+
 }
 module.exports = regUserBlockchain

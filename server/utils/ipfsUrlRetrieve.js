@@ -6,7 +6,6 @@ const path = require("path")
 const ipfsUrlRetrieve = async (filePath,directory) => {
     console.log(filePath)
     const cid = await storeFiles(filePath)
-    console.log(cid)
     const filelink = await retrieveFiles(cid);
     console.log(filelink)
 

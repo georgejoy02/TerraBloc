@@ -215,7 +215,6 @@ contract Land {
         string memory _email
     ) external {
         require(!isRegUserMap[msg.sender], "Already a registered user");
-
         isRegUserMap[msg.sender] = true;
         userCount++;
         allUsersListMap[1].push(msg.sender);
