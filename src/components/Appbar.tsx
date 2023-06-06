@@ -18,6 +18,7 @@ export const Appbar = (props: {
     | ReactPortal
     | null
     | undefined;
+    hideIconButton?: boolean;
 }) => {
   const navigate = useNavigate();
 
@@ -32,16 +33,18 @@ export const Appbar = (props: {
         style={{ background: "#ffffff", height: "70px" }}
       >
         <Toolbar>
-          <IconButton
-            edge="start"
-            color="primary"
-            aria-label="back"
-            onClick={handleGoBack}
-            size="large"
-            sx={{ mr: 2 }}
-          >
-            <ArrowBackIcon fontSize="large" />
-          </IconButton>
+        {!props.hideIconButton && (
+            <IconButton
+              edge="start"
+              color="primary"
+              aria-label="back"
+              onClick={handleGoBack}
+              size="large"
+              sx={{ mr: 2 }}
+            >
+              <ArrowBackIcon fontSize="large" />
+            </IconButton>
+          )}
           <Box
             display="flex"
             justifyContent="center"
