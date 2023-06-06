@@ -93,13 +93,14 @@ const RegisterUser = () => {
 
   return (
     <div>
-      <Appbar title="Register User" />
+      <Appbar title="Register User" hideIconButton={true}/>
       <Box marginTop={4}>
         <Container maxWidth="md">
           <FormContainer onSubmit={handleSubmit}>
             <TextField
               required
               label="Name"
+              type="text"
               value={name}
               style={{ marginBottom: "20px" }}
               onChange={(event) => setName(event.target.value)}

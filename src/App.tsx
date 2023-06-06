@@ -11,6 +11,7 @@ import RegisterUser from "./pages/RegisterUser";
 import './App.css';
 import TransferOwnershipFinal from "./pages/TransferOwnershipFinal";
 import ConfirmPaymentPopup from "./components/ConfirmPayementPopup";
+import RegisterAdmin from "./pages/RegisterAdmin";
 
 
 export default function App() {
@@ -26,12 +27,14 @@ export default function App() {
           <Route path="*" element={<Pagenotfound />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/landgallery" element={<LandGallery />} />
+          {/* <Route path="/landgallery" element={<LandGallery />} /> */}
+          <Route path="/landgallery" element={<RegisterAdmin/>} />
           <Route path="/loginoption" element={<LoginPage />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/registeruser" element={<RegisterUser />} />
         </Routes>
       </BrowserRouter>
+      
     </div>
   )
 }
