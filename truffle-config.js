@@ -21,7 +21,7 @@ module.exports = {
       host: "127.0.0.1"
     }
   },
-  contracts_build_directory: "./src/contracts/",
+  contracts_build_directory: "./artifacts/",
   compilers: {
     solc: {
       optimizer: {

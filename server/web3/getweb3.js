@@ -1,5 +1,5 @@
 const Web3 = require("web3")
-const contract = require("../../src/contracts/Land.json")
+const contract = require("../../artifacts/Land.json")
 
 const rpcURL = process.env.RPC_URL;
 const web3 = new Web3(rpcURL)

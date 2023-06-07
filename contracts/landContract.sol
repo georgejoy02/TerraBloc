@@ -246,7 +246,7 @@ contract Land {
 
     function verifyUser(address _userId) external LiVerifyCheck {
         UserMap[_userId].userVerified = true;
-        emit userVerify(_userId,"user verified by land inspector");
+        emit userVerify(_userId, "user verified by land inspector");
     }
 
     function isUserVerified(address id) public view returns (bool) {
@@ -353,7 +353,7 @@ contract Land {
         return LandRequestMap[id].isPaymentDone;
     }
 
-    function landPrice(uint256 id) public view returns (uint256) {
+    function landPriceFind(uint256 id) public view returns (uint256) {
         return landsMap[id].landPrice;
     }
 
@@ -366,9 +366,10 @@ contract Land {
             LandRequestMap[_requestId].requestStatus == reqStatus.accepted,
             "makePayment function restricted to only seller-accepted requests"
         );
-        assert(
-            landsMap[LandRequestMap[_requestId].landId].ownerAddress.balance >=
-                msg.value
+        uint256 amt = landPriceFind(LandRequestMap[_requestId].landId);
+        require(
+            msg.value == amt,
+            "sent amount not same as requested land price"
         );
         landsMap[LandRequestMap[_requestId].landId].ownerAddress.transfer(
             msg.value
