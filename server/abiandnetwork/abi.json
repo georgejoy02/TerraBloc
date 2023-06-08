@@ -1,0 +1,943 @@
+{
+    "abi": [
+        {
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "sender",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "recipient",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "age",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "designation",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "city",
+                    "type": "string"
+                }
+            ],
+            "name": "LiAdd",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "registeredUser",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "_userName",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "_userAge",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "_city",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "_aadharNumber",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "_panNumber",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "_document",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "_email",
+                    "type": "string"
+                }
+            ],
+            "name": "userReg",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "msg",
+                    "type": "string"
+                }
+            ],
+            "name": "userVerify",
+            "type": "event"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "InspMap",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_addr",
+                    "type": "address"
+                },
+                {
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "age",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "designation",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "city",
+                    "type": "string"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "LandRequestMap",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "reqId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address payable",
+                    "name": "sellerId",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address payable",
+                    "name": "buyerId",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "landId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "enum Land.reqStatus",
+                    "name": "requestStatus",
+                    "type": "uint8"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isPaymentDone",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "UserMap",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "id",
+                    "type": "address"
+                },
+                {
+                    "internalType": "string",
+                    "name": "name",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "age",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "city",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "aadharNumber",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "panNumber",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "document",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "userVerified",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [],
+            "name": "documentId",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [],
+            "name": "landsCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "landsMap",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "area",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "landAddress",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "landPrice",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "allLatitudeLongitude",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "propertyPID",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "physicalSurveyNumber",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "document",
+                    "type": "string"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "isforSell",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "address payable",
+                    "name": "ownerAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "landVerified",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [],
+            "name": "userCount",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_addr",
+                    "type": "address"
+                }
+            ],
+            "name": "isContractOwner",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_addr",
+                    "type": "address"
+                }
+            ],
+            "name": "changeContractOwner",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_addr",
+                    "type": "address"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_inspName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_inspAge",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_designation",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_city",
+                    "type": "string"
+                }
+            ],
+            "name": "addLandInspector",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "ReturnAllLandIncpectorList",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_addr",
+                    "type": "address"
+                }
+            ],
+            "name": "removeLandInspector",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_id",
+                    "type": "address"
+                }
+            ],
+            "name": "isLandInspector",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_addr",
+                    "type": "address"
+                }
+            ],
+            "name": "isUserRegistered",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "_userName",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_userAge",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_city",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_aadharNumber",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_panNumber",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_document",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_email",
+                    "type": "string"
+                }
+            ],
+            "name": "registerUser",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_userId",
+                    "type": "address"
+                }
+            ],
+            "name": "verifyUser",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "id",
+                    "type": "address"
+                }
+            ],
+            "name": "isUserVerified",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [],
+            "name": "ReturnAllUserList",
+            "outputs": [
+                {
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_area",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_address",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_landPrice",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_allLatiLongi",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_propertyPID",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_surveyNum",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_document",
+                    "type": "string"
+                }
+            ],
+            "name": "addLand",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "ReturnAllLandList",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "verifyLand",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "isLandVerified",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "id",
+                    "type": "address"
+                }
+            ],
+            "name": "myAllLands",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "makeItforSell",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_landId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "requestforBuy",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "myReceivedLandRequests",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [],
+            "name": "mySentLandRequests",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_requestId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "acceptRequest",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_requestId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "rejectRequest",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "requesteStatus",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "landPriceFind",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_requestId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "makePayment",
+            "outputs": [],
+            "stateMutability": "payable",
+            "type": "function",
+            "payable": true
+        },
+        {
+            "inputs": [],
+            "name": "returnPaymentDoneList",
+            "outputs": [
+                {
+                    "internalType": "uint256[]",
+                    "name": "",
+                    "type": "uint256[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function",
+            "constant": true
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_requestId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "string",
+                    "name": "documentUrl",
+                    "type": "string"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "networks": {
+        "1685634277669": {
+            "events": {},
+            "links": {},
+            "address": "0xe5923e73F840B72691f59E4eCC25259765A37E3A",
+            "transactionHash": "0x09c8e8118e43ce2b1d99b5a356c0a6367d656d8ce2d6941678d19b90329dfa1d"
+        },
+        "1685703777492": {
+            "events": {},
+            "links": {},
+            "address": "0x6d3c67B705877B73aD9E0244895eA4a42B4FD1CE",
+            "transactionHash": "0xc9bf199cfef825eafb70fce14b2ba4438227bddaab6679daae9441c5afd94812"
+        },
+        "1685712880882": {
+            "events": {},
+            "links": {},
+            "address": "0x14783865Bec132807302BBB16921668b4542Cf6F",
+            "transactionHash": "0xf0604005a771cd26f60ae5c7a6f071bae81e1512ecee680577fdf8577c0aa32a"
+        },
+        "1685713059024": {
+            "events": {},
+            "links": {},
+            "address": "0x3361b66E8ADbC75D42B38ea888C0416146726866",
+            "transactionHash": "0x4f676411afd1466ed028047a8d90761850e4c5d5171cd7e54dafcf088551ce0e"
+        },
+        "1685713743039": {
+            "events": {},
+            "links": {},
+            "address": "0xFB7BD7d525980faF0C4C62486D75567DB3D80A99",
+            "transactionHash": "0xb01e645163811ac9617729066b0d7f90d56929b5411d0944db5ca31a8740cbff"
+        },
+        "1685716000101": {
+            "events": {},
+            "links": {},
+            "address": "0x08B2304C19615Cb899192C702FF2f5c0387F410D",
+            "transactionHash": "0x41bd40aba8bbe563a46b0503d63978173290f1c68fbdb655425fe9ff2d1e7df7"
+        },
+        "1685746594700": {
+            "events": {},
+            "links": {},
+            "address": "0x4268323E536349F4e34aD93aC322d6c967965271",
+            "transactionHash": "0x02c3e61182db3d9ecbb2f259c7e6c15e40761597943953d80a4ac57bc43e8987"
+        },
+        "1685832764660": {
+            "events": {},
+            "links": {},
+            "address": "0x8ddD581bFad3E286C1610Bb4a3Fd9457680eA26B",
+            "transactionHash": "0x5e86c1b171498407e7fd18fdde2f429904f901266f7ab2c56e1c5654c4260db5"
+        },
+        "1686255734793": {
+            "events": {},
+            "links": {},
+            "address": "0x19C39733Da4ca70105FA77a3a90e16d16D103906",
+            "transactionHash": "0x05e74da8708ad90514b171af7d3a50226fc3e40ea4fa321f5c0659d74ea723d1"
+        }
+    }
+}

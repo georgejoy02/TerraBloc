@@ -2,6 +2,7 @@ const HDWalletProvider = require('@truffle/hdwallet-provider');
 require('dotenv').config();
 const mnemonic = process.env.MM_MNEMONIC;
 const mumbaiRpcUrl = process.env.MUMBAI_RPC_URL;
+
 module.exports = {
   networks: {
     development: {
@@ -37,3 +38,5 @@ module.exports = {
     }
   }
 };
+
+
