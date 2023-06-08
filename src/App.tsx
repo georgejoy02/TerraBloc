@@ -10,7 +10,6 @@ import Admin from "./pages/Admin";
 import RegisterUser from "./pages/RegisterUser";
 import './App.css';
 import TransferOwnershipFinal from "./pages/TransferOwnershipFinal";
-import ConfirmPaymentPopup from "./components/ConfirmPayementPopup";
 import RegisterAdmin from "./pages/RegisterAdmin";
 
 
