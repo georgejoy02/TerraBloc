@@ -37,7 +37,7 @@ const writeFiles = (abiDir) => {
         if (err) {
           console.error(`Error writing file: ${err}`);
         } else {
-          console.log(`File is written successfully at ${abiDir}!`);
+          console.log(`File is written successfully at ${abiDir}`);
         }
       });
     }

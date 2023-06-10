@@ -9,7 +9,8 @@ interface SmartContractProviderProps {
 }
 
 const contractABI: any = landcontract.abi;
-const contratAddress = process.env.CONTRACT_ADDRESS;
+const contratAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+//  || "0x2aC3001ACd7e2E59ABA277885f94f1F78AaB24C6";
 
 export const SmartContractProvider: React.FC<SmartContractProviderProps> = ({ children }) => {
 

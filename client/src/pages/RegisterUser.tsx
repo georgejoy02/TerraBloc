@@ -21,7 +21,6 @@ const FormContainer = styled("form")(({ theme }) => ({
   },
 }));
 
-const drawerWidth = 240;
 
 const RegisterUser: React.FC = () => {
 
