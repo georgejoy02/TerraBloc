@@ -3,9 +3,9 @@ import Web3 from 'web3';
 import Contract from '../../abiandnetwork/abi.json';
 const contractABI:any = Contract.abi;
 
-const CONTRACT_ADDRESS = '<your_contract_address_here>';
+const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
 
-const App: React.FC = () => {
+const Getweb3: React.FC = () => {
     const [web3, setWeb3] = useState<Web3 | null>(null);
     const [contract, setContract] = useState<any>(null);
 
@@ -28,6 +28,9 @@ const App: React.FC = () => {
         }
     }, [web3]);
 
+
+
+
     return (
         <div>
             {/* Your app code here */}
@@ -35,4 +38,4 @@ const App: React.FC = () => {
     );
 };
 
-export default App;
+export default Getweb3;
