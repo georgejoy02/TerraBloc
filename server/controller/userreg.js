@@ -3,16 +3,16 @@ const regUserBlockchain = require("../utils/regUserBlockchain")
 
 const userReg = async (req, res) => {
     try {
-        const { name, age, city, aadharNo, panNo, email } = req.body
+        // const { name, age, city, aadharNo, panNo, email } = req.body
         console.log(req.body)
         const file = req.file
         const docUrl = await ipfsUrlRetrieve(file)
-        const receipt = await regUserBlockchain(name, age, city, aadharNo, panNo, docUrl, email)
-        if (receipt.events)
-            console.log(`userReg${receipt.events}`)
-        else
-            throw receipt
-        res.json({ message: 'PDF file uploaded  to ipfs successfully', file: req.file, receipt: receipt.events });
+        // const receipt = await regUserBlockchain(name, age, city, aadharNo, panNo, docUrl, email)
+        // if (receipt.events)
+        //     console.log(`userReg${receipt.events}`)
+        // else
+        //     throw receipt
+        res.json(docUrl);
     }
     catch (err) {
         console.log(`${err}:${JSON.stringify(err.receipt)}`)

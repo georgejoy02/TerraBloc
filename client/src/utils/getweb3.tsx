@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
-import Contract from '../../abiandnetwork/abi.json';
-const contractABI:any = Contract.abi;
+import landcontract from '../abiandnetwork/abi.json';
+import { Contract } from 'web3-eth-contract';
+import { SmartContractContext } from './SmartContractContext';
 
-const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
+interface SmartContractProviderProps {
+    children: React.ReactNode;
+}
 
-const Getweb3: React.FC = () => {
+const contractABI: any = landcontract.abi;
+const contratAddress = process.env.CONTRACT_ADDRESS;
+
+export const SmartContractProvider: React.FC<SmartContractProviderProps> = ({ children }) => {
+
+
+
     const [web3, setWeb3] = useState<Web3 | null>(null);
-    const [contract, setContract] = useState<any>(null);
+    const [landContract, setLandContract] = useState<Contract | null>(null);
 
     useEffect(() => {
         const initWeb3 = async () => {
@@ -23,19 +32,14 @@ const Getweb3: React.FC = () => {
 
     useEffect(() => {
         if (web3) {
-            const contractInstance = new web3.eth.Contract(contractABI, CONTRACT_ADDRESS);
-            setContract(contractInstance);
+            const contractInstance = new web3.eth.Contract(contractABI, contratAddress);
+            setLandContract(contractInstance);
         }
     }, [web3]);
 
-
-
-
     return (
-        <div>
-            {/* Your app code here */}
-        </div>
+        <SmartContractContext.Provider value={{ landContract, setLandContract }}>
+            {children}
+        </SmartContractContext.Provider>
     );
 };
-
-export default Getweb3;

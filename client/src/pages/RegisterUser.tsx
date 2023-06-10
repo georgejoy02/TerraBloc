@@ -4,7 +4,11 @@ import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Appbar } from "../components/Appbar";
 import { useState } from "react";
+import { ConnectMmButton } from "../components/ConnectMmButton";
 import axios from "axios";
+import { useContext } from 'react';
+import { SmartContractContext } from '../utils/SmartContractContext';
+
 
 const FormContainer = styled("form")(({ theme }) => ({
   display: "flex",
@@ -19,7 +23,8 @@ const FormContainer = styled("form")(({ theme }) => ({
 
 const drawerWidth = 240;
 
-const RegisterUser = () => {
+const RegisterUser: React.FC = () => {
+
   const [name, setName] = useState("");
   const [age, setAge] = useState<number | null>(null);
   const [address, setAddress] = useState<string>("");
@@ -31,41 +36,7 @@ const RegisterUser = () => {
   const [errorMessageAadhar, setErrorMessageAadhar] = useState<string>("");
   const [errorMessagePan, setErrorMessagePan] = useState<string>("");
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (aadhar.length !== 12) {
-      setErrorMessageAadhar("Aadhar number should be exactly 12 digits.");
-      return;
-    }
-
-    if (pan.length !== 10) {
-      setErrorMessagePan("PAN number should be exactly 10 digits.");
-      return;
-    }
-
-    if (!aadharDoc) {
-      setErrorMessageDoc("Please upload Aadhar Document.");
-      return;
-    }
-
-    try {
-      const formData = new FormData();
-      // formData.append("name", name);
-      // formData.append("age", age?.toString() ?? "");
-      // formData.append("city", address);
-      // formData.append("aadharNo", aadhar);
-      // formData.append("panNo", pan);
-      // formData.append("email", email);
-      formData.append("file", aadharDoc as File);
-
-      const response = await axios.post("http://localhost:4000/userreg", formData);
-
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { landContract } = useContext(SmartContractContext);
 
   const handleAadharDocChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -91,9 +62,47 @@ const RegisterUser = () => {
     }
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (aadhar.length !== 12) {
+      setErrorMessageAadhar("Aadhar number should be exactly 12 digits.");
+      return;
+    }
+    if (pan.length !== 10) {
+      setErrorMessagePan("PAN number should be exactly 10 digits.");
+      return;
+    }
+    if (!aadharDoc) {
+      setErrorMessageDoc("Please upload Aadhar Document.");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("file", aadharDoc as File);
+
+      const res = await axios.post("http://localhost:4000/userreg", formData);
+      console.log(res.data);
+      const docUrl = res.data;
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+      const account = accounts[0];
+      console.log(account)
+      if (landContract) {
+        const test = await landContract.methods.registerUser(name, age, address, aadhar, pan, docUrl, email)
+          .send({ from: account });
+        console.log(test);
+      } else {
+        console.log("parameters not defined")
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
-      <Appbar title="Register User" hideIconButton={true} />
+      <Appbar title="Register User" />{/*hideIconButton={true}  */}
       <Box marginTop={4}>
         <Container maxWidth="md">
           <FormContainer onSubmit={handleSubmit}>
@@ -194,11 +203,13 @@ const RegisterUser = () => {
             >
               Submit
             </Button>
+            < ConnectMmButton />
           </FormContainer>
         </Container>
       </Box>
     </div>
   );
+
 };
 
 export default RegisterUser;

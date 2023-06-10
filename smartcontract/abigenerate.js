@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const abiDir1 = path.join(__dirname, "../server/abiandnetwork/");
-const abiDir2 = path.join(__dirname, "../client/abiandnetwork/");
+const abiDir2 = path.join(__dirname, "../client/src/abiandnetwork/");
 const jsonFilePath = path.join(__dirname, 'artifacts/Land.json');
 // const artifacts=path.join(__dirname, 'artifacts/');
 
