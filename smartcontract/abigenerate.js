@@ -11,9 +11,11 @@ const deleteFiles = (abiDir) => {
     if (err) console.error(err);
 
     for (const file of files) {
-      fs.unlink(path.join(abiDir, file), err => {
-        if (err) console.error(err);
-      });
+      if (file != ".gitkeep") {
+        fs.unlink(path.join(abiDir, file), err => {
+          if (err) console.error(err);
+        });
+      }
     }
     console.log(`deleted all files from ${abiDir}`);
   });

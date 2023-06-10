@@ -7,17 +7,47 @@ import { SmartContractContext } from './SmartContractContext';
 interface SmartContractProviderProps {
     children: React.ReactNode;
 }
+interface Artifact {
+    networks: {
+        [key: number]: {
+            address: string;
+        };
+    };
+}
 
 const contractABI: any = landcontract.abi;
-const contratAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
-//  || "0x2aC3001ACd7e2E59ABA277885f94f1F78AaB24C6";
 
 export const SmartContractProvider: React.FC<SmartContractProviderProps> = ({ children }) => {
 
 
-
+    const [contractAddress, setContractAddress] = useState<string | null>(null);
     const [web3, setWeb3] = useState<Web3 | null>(null);
     const [landContract, setLandContract] = useState<Contract | null>(null);
+
+
+    const getContractAddress = async () => {
+        const landcntract = landcontract as Artifact;
+
+        try {
+            if (window.ethereum) {
+                const web3 = new Web3(window.ethereum);
+                const networkId = await web3.eth.net.getId();
+                console.log("Network ID:", networkId);
+                const address = landcntract.networks[networkId]?.address;
+                if (address) {
+                    console.log("Contract address:", address);
+                    setContractAddress(address);
+                } else {
+                    console.error("Contract address not found for the current network");
+                }
+            } else {
+                console.error("MetaMask not installed");
+            }
+        } catch (error) {
+            console.error("Error getting contract address:", error);
+        }
+    };
+    getContractAddress();
 
     useEffect(() => {
         const initWeb3 = async () => {
@@ -32,11 +62,11 @@ export const SmartContractProvider: React.FC<SmartContractProviderProps> = ({ ch
     }, []);
 
     useEffect(() => {
-        if (web3) {
-            const contractInstance = new web3.eth.Contract(contractABI, contratAddress);
+        if (web3 && contractAddress) {
+            const contractInstance = new web3.eth.Contract(contractABI, contractAddress);
             setLandContract(contractInstance);
         }
-    }, [web3]);
+    }, [web3, contractAddress]);
 
     return (
         <SmartContractContext.Provider value={{ landContract, setLandContract }}>
