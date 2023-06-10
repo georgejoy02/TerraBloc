@@ -30,3 +30,5 @@
 .vscode/
 /smartcontract/node_modules
 /smartcontract/.env
+/client/abiandnetwork/abi.json
+/server/abiandnetwork/abi.json

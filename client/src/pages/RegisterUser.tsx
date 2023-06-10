@@ -51,15 +51,15 @@ const RegisterUser = () => {
 
     try {
       const formData = new FormData();
-      formData.append("name", name);
-      formData.append("age", age?.toString() ?? "");
-      formData.append("city", address);
-      formData.append("aadharNo", aadhar);
-      formData.append("panNo", pan);
-      formData.append("email", email);
+      // formData.append("name", name);
+      // formData.append("age", age?.toString() ?? "");
+      // formData.append("city", address);
+      // formData.append("aadharNo", aadhar);
+      // formData.append("panNo", pan);
+      // formData.append("email", email);
       formData.append("file", aadharDoc as File);
 
-      const response = await axios.post("/demo/user-registration", formData);
+      const response = await axios.post("http://localhost:4000/userreg", formData);
 
       console.log(response.data);
     } catch (error) {
@@ -93,7 +93,7 @@ const RegisterUser = () => {
 
   return (
     <div>
-      <Appbar title="Register User" hideIconButton={true}/>
+      <Appbar title="Register User" hideIconButton={true} />
       <Box marginTop={4}>
         <Container maxWidth="md">
           <FormContainer onSubmit={handleSubmit}>
