@@ -11,6 +11,7 @@ import RegisterUser from "./pages/RegisterUser";
 import './App.css';
 import TransferOwnershipFinal from "./pages/TransferOwnershipFinal";
 import RegisterAdmin from "./pages/RegisterAdmin";
+import Map from "./pages/Map";
 
 
 export default function App() {
@@ -23,7 +24,8 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<TransferOwnershipFinal />} />
-          <Route path="*" element={<Pagenotfound />} />
+          {/* <Route path="*" element={<Pagenotfound />} /> */}
+          <Route path="*" element={<Map />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           {/* <Route path="/landgallery" element={<LandGallery />} /> */}
@@ -33,7 +35,7 @@ export default function App() {
           <Route path="/registeruser" element={<RegisterUser />} />
         </Routes>
       </BrowserRouter>
-      
+      {/* <Map/> */}
     </div>
   )
 }
