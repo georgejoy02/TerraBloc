@@ -17,11 +17,11 @@ import {
   TransferWithinAStationRounded,
   VerifiedUser,
 } from "@mui/icons-material";
-import LandInDashboard from "../pages/AdminDashboard";
+import LandInDashboard from "../pages/admin/AdminDashboard";
 import { useState } from "react";
-import VerifyUser from "../pages/AdminVerifyUser";
-import { AdminVerifyLand } from "../pages/AdminVerifyLand";
-import TransferOwnership from "../pages/TransferOwnership";
+import VerifyUser from "../pages/admin/AdminVerifyUser";
+import { AdminVerifyLand } from "../pages/admin/AdminVerifyLand";
+import TransferOwnership from "../pages/admin/TransferOwnership";
 import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;

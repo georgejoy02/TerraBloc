@@ -1,5 +1,5 @@
 import { Appbar } from '../components/Appbar'
-import PopupTest from './PopupTest'
+import PopupTest from '../components/PopupTest'
 
 export const Pagenotfound = () => {
   return (

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Button, Menu, MenuItem, Grid } from "@mui/material";
-import { IData, initialData } from "../components/DummyData";
-import Lcard from "../components/Lcard";
-import { Appbar } from "../components/Appbar";
+import { IData, initialData } from "../../components/DummyData";
+import Lcard from "../../components/Lcard";
+import { Appbar } from "../../components/Appbar";
 
 const LandGallery = () => {
   const [filteredData, setFilteredData] = useState<IData[]>(initialData);

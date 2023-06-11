@@ -15,9 +15,9 @@ import {
   Person as PersonIcon,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import RegisterAdmin from "../../pages/RegisterAdmin";
-import ListAdmin from "../../pages/ListAdmin";
-import ChangeSuperAdmin from "../../pages/ChangeSuperAdmin";
+import RegisterAdmin from "../../pages/owner/RegisterAdmin";
+import ListAdmin from "../../pages/owner/ListAdmin";
+import ChangeSuperAdmin from "../../pages/owner/ChangeSuperAdmin";
 
 const Sidebar = () => {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Stack, Typography, Button, TextField } from "@mui/material";
-import Sidebar from "../components/layouts/Sidebar";
-import { Appbar } from "../components/Appbar";
+import Sidebar from "../../components/layouts/OwnerSidebar";
+import { Appbar } from "../../components/Appbar";
 import axios from "axios";
 
 const RegisterAdmin = () => {

@@ -1,7 +1,7 @@
 // Parent Component
 
 import { useState } from "react";
-import ConfirmPaymentPopup from "../components/ConfirmPayementPopup";
+import ConfirmPaymentPopup from "./ConfirmPayementPopup";
 import { Button } from "@mui/material";
 
 const PopupTest = () => {

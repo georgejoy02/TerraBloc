@@ -1,7 +1,7 @@
-import { Profile } from "../components/Profile";
+import { Profile } from "../../components/Profile";
 import "./transfer.css";
-import { Appbar } from "../components/Appbar";
-import { Landinfo } from "../components/Landinfo";
+import { Appbar } from "../../components/Appbar";
+import { Landinfo } from "../../components/Landinfo";
 import { Button } from "@mui/material";
 
 export default function TransferOwnershipFinal() {

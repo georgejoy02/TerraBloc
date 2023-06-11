@@ -1,4 +1,4 @@
-import Sidebar from '../components/AdminSidebar'
+import Sidebar from '../../components/AdminSidebar'
 
 function Admin() {
     return (

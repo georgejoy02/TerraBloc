@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
-import Signup from "./pages/RegisterAdmin";
+import Signup from "./pages/owner/RegisterAdmin";
 import { Login } from "./pages/Login";
 import { Contact } from "./pages/Contact";
 import { Pagenotfound } from "./pages/Pagenotfound";
-import LandGallery from "./pages/LandGallery";
+import LandGallery from "./pages/user/LandGallery";
 import LoginPage from "./pages/LoginOptions";
-import Admin from "./pages/Admin";
+import Admin from "./pages/admin/Admin";
 import RegisterUser from "./pages/RegisterUser";
 import './App.css';
-import TransferOwnershipFinal from "./pages/TransferOwnershipFinal";
-import RegisterAdmin from "./pages/RegisterAdmin";
+import TransferOwnershipFinal from "./pages/admin/FinalTransferOwnership";
+import RegisterAdmin from "./pages/owner/RegisterAdmin";
 
 
 export default function App() {
