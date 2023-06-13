@@ -43,8 +43,6 @@ const RegisterAdmin = () => {
 
   return (
     <div>
-      <Appbar title="Super Admin Dashboard" hideIconButton={true} />
-      <Sidebar />
       <Box sx={{ display: "flex" }}>
         <Box
           component="form"
