@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import {
+  AppBar,
   Box,
+  CssBaseline,
   Drawer,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  Toolbar,
   Typography,
 } from "@mui/material";
 import {
@@ -19,14 +22,23 @@ import RegisterAdmin from "../../pages/owner/RegisterAdmin";
 import ListAdmin from "../../pages/owner/ListAdmin";
 import ChangeSuperAdmin from "../../pages/owner/ChangeSuperAdmin";
 
-const Sidebar = () => {
+const drawerWidth = 240;
+
+interface MenuItem {
+  label: string;
+  icon: React.ReactNode;
+  component?: React.ReactNode;
+  onClick: () => void;
+}
+
+const Sidebar: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedItem, setSelectedItem] = useState("Add admin");
-  const menuItems = [
+  const [selectedItem, setSelectedItem] = useState<string>("Add admin");
+  const menuItems: MenuItem[] = [
     {
       label: "Add admin",
       icon: <AddBoxIcon />,
-      component: <RegisterAdmin />,
+      component:<RegisterAdmin />,
       onClick: () => setSelectedItem("Add admin"),
     },
     {
@@ -50,7 +62,27 @@ const Sidebar = () => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <Drawer variant="permanent" sx={{ width: 240, backgroundColor: "#E6F7FF" }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+      >
+        <Toolbar>
+          <Typography variant="h6" textAlign='center' noWrap component="div">
+            Super Admin
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          }, }}
+          variant="permanent"
+          anchor="left"
+          >
         <Box
           sx={{
             display: "flex",
@@ -87,7 +119,7 @@ const Sidebar = () => {
           ))}
         </List>
       </Drawer>
-      {/* <Box
+      <Box
         component="main"
         sx={{
           flexGrow: 1,
@@ -99,7 +131,7 @@ const Sidebar = () => {
         {menuItems.map(({ label, component }) =>
           selectedItem === label ? component : null
         )}
-      </Box> */}
+      </Box>
     </Box>
   );
 };
