@@ -9,6 +9,8 @@ import './App.css';
 import TransferOwnershipFinal from "./pages/admin/FinalTransferOwnership";
 import Map from "./pages/user/Map";
 import Owner from "./pages/owner/Owner";
+import User from "./pages/user/User";
+import LandDetails from "./pages/user/LandDetails";
 
 
 export default function App() {
