@@ -1,0 +1,23 @@
+.details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 22px;
+    font-family: sans-serif;
+  }
+  
+  .detail-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 21px;
+    width: 100%;
+    margin-top: 15px;
+    padding-left: 930px;
+  }
+  
+  .detail-row h4 {
+    margin-right: 10px;
+  }
+  
