@@ -6,6 +6,8 @@
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@mapbox/mapbox-gl-draw": "^1.4.1",
+    "@mapbox/mapbox-gl-geocoder": "^5.0.1",
+    "@mapbox/mapbox-sdk": "^0.15.2",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.13.2",
     "@mui/x-data-grid": "^6.3.0",
@@ -67,6 +69,8 @@
   },
   "devDependencies": {
     "@types/mapbox__mapbox-gl-draw": "^1.4.0",
+    "@types/mapbox__mapbox-gl-geocoder": "^4.7.3",
+    "@types/mapbox__mapbox-sdk": "^0.13.4",
     "eslint-plugin-react-hooks": "^4.6.0"
   }
 }

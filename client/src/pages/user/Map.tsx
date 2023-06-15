@@ -5,12 +5,16 @@ import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import "mapbox-gl/dist/mapbox-gl.css";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import ClearIcon from "@mui/icons-material/Clear";
+import SaveIcon from "@mui/icons-material/Save";
+import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
-// Set your Mapbox access token here
 (mapboxgl as any).accessToken =
   process.env.REACT_APP_MAPBOX_KEY ||
   "pk.eyJ1IjoiZ2VvcmdleDAyMDMiLCJhIjoiY2xnMTE5ZWQ1MWd6azNocXl4M3ZtbmVyaCJ9.fyd3VjwhS9S5MnyfspAzhg";
-// mapboxgl.accessToken(process.env.REACT_APP_MAPBOX_KEY);
 
 interface LatLng {
   lat: number;
@@ -23,18 +27,16 @@ const Map: React.FC = () => {
   const [polygon, setPolygon] = useState<LatLng[]>([]);
   const [mapStyle, setMapStyle] = useState("streets");
 
-
-
   useEffect(() => {
     handleMapLoad();
-  }, []); // Empty dependency array to run the effect only once
+  }, []);
 
   const handleMapLoad = () => {
     const newMap = new mapboxgl.Map({
       container: "map-container",
       style: "mapbox://styles/mapbox/streets-v11",
-      center: [76.43786808224138, 9.460519999710499], // Initial center of the map
-      zoom: 15, // Initial zoom level
+      center: [76.43786808224138, 9.460519999710499],
+      zoom: 15,
     });
 
     const newDraw = new MapboxDraw({
@@ -48,21 +50,30 @@ const Map: React.FC = () => {
     newMap.addControl(newDraw);
     newMap.on("draw.create", handleDrawCreate);
 
+    const geocoder = new MapboxGeocoder({
+      accessToken: (mapboxgl as any).accessToken,
+      mapboxgl: mapboxgl,
+      marker: false,
+    });
+
+    newMap.addControl(geocoder);
+
     setMap(newMap);
     setDraw(newDraw);
   };
 
   const handleDrawCreate = (event: any) => {
     const { features } = event;
-    const newPolygon = features[0].geometry.coordinates[0].map((coord: any) => ({
-      lat: coord[1],
-      lng: coord[0],
-    }));
-  
+    const newPolygon = features[0].geometry.coordinates[0].map(
+      (coord: any) => ({
+        lat: coord[1],
+        lng: coord[0],
+      })
+    );
+
     console.log("Polygon:", newPolygon);
     setPolygon(newPolygon);
   };
-  
 
   const handleDrawClick = () => {
     if (draw) {
@@ -79,8 +90,6 @@ const Map: React.FC = () => {
   const handleSaveClick = async () => {
     if (polygon.length > 0) {
       try {
-        // Replace this with your actual smart contract implementation
-        // await savePolygonToSmartContract(polygon);
         console.log("Polygon saved to the backend.");
       } catch (error) {
         console.error("Error saving polygon to the backend:", error);
@@ -89,7 +98,6 @@ const Map: React.FC = () => {
       console.log("No polygon to save.");
     }
   };
-  
 
   const handleStyleClick = () => {
     if (map) {
@@ -101,7 +109,6 @@ const Map: React.FC = () => {
       map.setStyle(newStyle);
     }
   };
-  
 
   return (
     <div>
@@ -124,15 +131,31 @@ const Map: React.FC = () => {
         }}
       >
         <Button variant="contained" onClick={handleDrawClick}>
+          <AddIcon />
           Draw
         </Button>
-        <Button variant="contained" onClick={handleClearClick} style={{ marginLeft: "10px" }}>
+        <Button
+          variant="contained"
+          onClick={handleClearClick}
+          style={{ marginLeft: "10px" }}
+        >
+          <ClearIcon />
           Clear
         </Button>
-        <Button variant="contained" onClick={handleSaveClick} style={{ marginLeft: "10px" }}>
+        <Button
+          variant="contained"
+          onClick={handleSaveClick}
+          style={{ marginLeft: "10px" }}
+        >
+          <SaveIcon />
           Save
         </Button>
-        <Button variant="contained" onClick={handleStyleClick} style={{ marginLeft: "10px" }}>
+        <Button
+          variant="contained"
+          onClick={handleStyleClick}
+          style={{ marginLeft: "10px" }}
+        >
+          <ChangeCircleIcon />
           Switch Style
         </Button>
       </div>
@@ -141,4 +164,3 @@ const Map: React.FC = () => {
 };
 
 export default Map;
-
