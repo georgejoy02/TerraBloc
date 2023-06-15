@@ -1,12 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Web3 from 'web3';
 import FoxImage from "../images/fox.png";
 import { Button } from '@mui/material';
 
 export const ConnectMmButton: React.FC = () => {
-  const [msg, setMsg] = useState<string | undefined>();
+  // const [msg, setMsg] = useState<string | undefined>();
+  const msg = useRef("");
   const [web3, setWeb3] = useState<Web3 | null>(null);
   const [acnts, setAcnts] = useState<string[]>([]);
+
+  useEffect(() => {
+    try {
+      const web3Instance = new Web3(window.ethereum);
+      setWeb3(web3Instance);
+    } catch (error) {
+      console.log(error)
+    }
+  }, [])
+
 
   useEffect(() => {
     if (web3) {
@@ -17,23 +28,18 @@ export const ConnectMmButton: React.FC = () => {
   }, [web3, msg]);
 
   const mmHandle = async () => {
-
     try {
-      const web3Instance = new Web3(window.ethereum);
-      setWeb3(web3Instance);
-
       await window.ethereum.request({ method: 'eth_requestAccounts' })
         .then(
           (accounts: any) => {
-            let msg;
+            let mesg;
             setAcnts(accounts);
-
             web3 && acnts.length > 0 ?
-              msg = `Connected to MetaMask with account: ${acnts[0]}`
+              mesg = `Connected to MetaMask with account: ${acnts[0]}`
               :
-              msg = "Not connected to MetaMask";
+              mesg = "Not connected to MetaMask";
 
-            setMsg(msg)
+            msg.current = mesg;
           },
           (err: any) => {
             console.log(err.message)
@@ -42,7 +48,7 @@ export const ConnectMmButton: React.FC = () => {
 
     } catch (error) {
       console.log(error)
-      setMsg(`Error connecting to MetaMask`);
+      msg.current = `Error connecting to MetaMask`;
     }
 
   }
@@ -66,6 +72,6 @@ export const ConnectMmButton: React.FC = () => {
     />
     M E T A M A S K
   </Button><br />
-    {msg}
+    {msg.current}
   </div >);
 };

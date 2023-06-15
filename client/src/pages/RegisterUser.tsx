@@ -3,11 +3,12 @@ import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Appbar } from "../components/Appbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ConnectMmButton } from "../components/ConnectMmButton";
 import axios from "axios";
 import { useContext } from 'react';
 import { SmartContractContext } from '../utils/SmartContractContext';
+import { useNavigate } from "react-router-dom";
 
 
 const FormContainer = styled("form")(({ theme }) => ({
@@ -35,7 +36,10 @@ const RegisterUser: React.FC = () => {
   const [errorMessageAadhar, setErrorMessageAadhar] = useState<string>("");
   const [errorMessagePan, setErrorMessagePan] = useState<string>("");
 
+  // const checkAccnt = useRef(false);
   const { landContract } = useContext(SmartContractContext);
+
+  const navigate = useNavigate();
 
   const handleAadharDocChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -78,19 +82,33 @@ const RegisterUser: React.FC = () => {
     }
 
     try {
-      const formData = new FormData();
-      formData.append("file", aadharDoc as File);
 
-      const res = await axios.post("http://localhost:4000/userreg", formData);
-      console.log(res.data);
-      const docUrl = res.data;
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
       const account = accounts[0];
+
       console.log(account)
       if (landContract) {
+        const result = await landContract.methods.ReturnAllUserList().call();
+        console.log(result)
+        for (let i = 0; i < result.length; i++) {
+          if (result[i].toLowerCase() === account) {
+            console.log(`${result[i].toLowerCase()} === ${account}`);
+            alert("account already registered");
+            navigate("/login");
+            return;
+          }
+        }
+        const formData = new FormData();
+        formData.append("file", aadharDoc as File);
+        const res = await axios.post("http://localhost:4000/userreg", formData);
+        console.log(res.data);
+        const docUrl = res.data;
+
         const test = await landContract.methods.registerUser(name, age, address, aadhar, pan, docUrl, email)
           .send({ from: account });
-        console.log(test);
+        console.log(JSON.stringify(test));
+        navigate("/login");
+
       } else {
         console.log("parameters not defined")
       }
