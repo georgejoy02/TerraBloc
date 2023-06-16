@@ -88,15 +88,12 @@ const RegisterUser: React.FC = () => {
 
       console.log(account)
       if (landContract) {
-        const result = await landContract.methods.ReturnAllUserList().call();
+        const result = await landContract.methods.isUserRegistered(account).call();
         console.log(result)
-        for (let i = 0; i < result.length; i++) {
-          if (result[i].toLowerCase() === account) {
-            console.log(`${result[i].toLowerCase()} === ${account}`);
-            alert("account already registered");
-            navigate("/loginuser");
-            return;
-          }
+        if (result == true) {
+          alert("account already registered");
+          navigate("/loginuser");
+          return;
         }
         const formData = new FormData();
         formData.append("file", aadharDoc as File);
