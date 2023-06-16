@@ -5,19 +5,16 @@ import { Appbar } from '../components/Appbar';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
   const handleUserlogin = () => {
-
     navigate("/loginuser")
-
-
-
   }
-
-
-
-
-
-
+  const handleAdminlogin = () => {
+    navigate("/loginadmin")
+  }
+  const handleOwnerlogin = () => {
+    navigate("/loginowner")
+  }
 
   return (
     <div>
@@ -32,8 +29,7 @@ const LoginPage = () => {
         }}
       >
         <Button
-          component={Link}
-          to="/login"
+          onClick={handleOwnerlogin}
           variant="contained"
           color="primary"
           size="large"
@@ -42,8 +38,7 @@ const LoginPage = () => {
           Login as Super Admin
         </Button>
         <Button
-          component={Link}
-          to="/admin"
+          onClick={handleAdminlogin}
           variant="contained"
           color="primary"
           size="large"
@@ -60,6 +55,7 @@ const LoginPage = () => {
         >
           Login as User
         </Button>
+
         <Button
           component={Link}
           to="/userdashboard"

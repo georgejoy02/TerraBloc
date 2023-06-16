@@ -10,7 +10,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 interface IMyProps {
-  myValue: string,
+  value: string,
 }
 
 const FormContainer = styled("form")(({ theme }) => ({
@@ -42,18 +42,56 @@ export const Login: React.FC<IMyProps> = (props: IMyProps) => {
 
   const onSubmitHandle = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      // const formData = new FormData();
-      // formData.append("key", key);
-      // console.log(key)
-      // console.log(formData)
-      const res = await axios.post("http://localhost:4000/userlogin", {"key": key});
-      console.log(res);
-      if (res.data == true) {
-        navigate("/userdashboard")
-      }
-    } catch (error) {
-      console.log(error)
+
+    switch (props.value) {
+      case "user":
+        try {
+          // const formData = new FormData();
+          // formData.append("key", key);
+          // console.log(key)
+          // console.log(formData)
+          const res = await axios.post("http://localhost:4000/userlogin", { "key": key });
+          console.log(res);
+          if (res.data == true) {
+            navigate("/userdashboard")
+          } else {
+            alert("user not found")
+          }
+        } catch (error) {
+          console.log(error)
+        }
+        break;
+      case "admin":
+        try {
+          const res = await axios.post("http://localhost:4000/adminlogin", { "key": key });
+          console.log(res);
+          if (res.data == true) {
+            navigate("/admin")
+          } else {
+            alert("address doesnt match any admin")
+          }
+
+        } catch (error) {
+          console.log(error)
+        }
+
+        break;
+      case "owner":
+        try {
+          const res = await axios.post("http://localhost:4000/ownerlogin", { "key": key });
+          console.log(res);
+          if (res.data == true) {
+            navigate("/owner")
+          } else {
+            alert("you are not the contract owner")
+          }
+
+        } catch (error) {
+          console.log(error)
+        }
+
+        break;
+      default: alert("click the correct option");
     }
   }
 
