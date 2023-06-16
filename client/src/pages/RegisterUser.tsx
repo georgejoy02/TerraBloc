@@ -94,7 +94,7 @@ const RegisterUser: React.FC = () => {
           if (result[i].toLowerCase() === account) {
             console.log(`${result[i].toLowerCase()} === ${account}`);
             alert("account already registered");
-            navigate("/login");
+            navigate("/loginuser");
             return;
           }
         }

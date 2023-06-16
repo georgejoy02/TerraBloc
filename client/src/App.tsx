@@ -14,7 +14,7 @@ import LandDetails from "./pages/user/LandDetails";
 
 
 export default function App() {
-  
+
 
   return (
     <div>
@@ -24,16 +24,21 @@ export default function App() {
           <Route path="/contact" element={<TransferOwnershipFinal />} />
           <Route path="*" element={<LandDetails />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
+          {/* <Route path="/login" element={<Login />} /> */}
+
+          <Route path="/loginuser" element={<Login myValue="user" />} />
+          <Route path="/loginadmin" element={<Login myValue="admin" />} />
+          <Route path="/loginsuperadmin" element={<Login myValue="superadmin" />} />
+          
           {/* <Route path="/landgallery" element={<LandGallery />} /> */}
           <Route path="/userdashboard" element={<User />} />
-          <Route path="/landgallery" element={<Owner/>} />
+          <Route path="/landgallery" element={<Owner />} />
           <Route path="/loginoption" element={<LoginPage />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/registeruser" element={<RegisterUser />} />
         </Routes>
       </BrowserRouter>
-      
+
     </div>
   )
 }

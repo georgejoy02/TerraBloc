@@ -1,21 +1,68 @@
 import { Box, Typography, TextField, Button, Link, Grid } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const UserDashboardContent = () => {
+const UserDashboardContent: React.FC = () => {
+
+    const [acnt, setAcnt] = useState<string>();
+    const [name, setName] = useState()
+    const [age, setage] = useState()
+    const [city, setCity] = useState()
+    const [aadhar, setAadhar] = useState()
+    const [pan, setPan] = useState()
+    const [docurl, setDocurl] = useState()
+    const [mail, setMail] = useState()
+    const [userVerified, setUserVerified] = useState()
+
+
+
+    useEffect(() => {
+        const test = async () => {
+            try {
+                await window.ethereum.request({ method: 'eth_requestAccounts' })
+                    .then(async (accounts: any) => {
+                        // console.log(accounts)
+                        const key = accounts[0];
+                        const res = await axios.post("http://localhost:4000/getuserdata", { "key": key });
+                        console.log("id: ", res.data);
+                        setAcnt(res.data.id)
+                        setName(res.data.name)
+                        setage(res.data.age)
+                        setCity(res.data.city)
+                        setAadhar(res.data.aadharNumber)
+                        setPan(res.data.panNumber)
+                        setDocurl(res.data.document)
+                        setMail(res.data.email)
+                        setUserVerified(res.data.userVerified)
+                    },
+                        (err: any) => {
+                            console.log(err.message)
+                        }
+                    );
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        test();
+    }, [])
+
+
     const formData = {
-        walletAddress: "0x1234567890",
-        name: "John Doe",
-        age: "30",
-        city: "City",
-        aadharNumber: "1234 5678 9012",
-        pan: "ABCDE1234F",
-        email: "johndoe@example.com",
+        walletAddress: `${acnt}`,
+        name: `${name}`,
+        age: `${age}`,
+        city: `${city}`,
+        aadharNumber: `${aadhar}`,
+        pan: `${pan}`,
+        email: `${mail}`,
     };
 
     const openDocument = () => {
         // Logic to open the PDF document
         // Replace the placeholder URL with the actual URL of the PDF document
-        window.open("https://example.com/document.pdf", "_blank");
+        window.open(docurl, "_blank");
     };
 
     return (

@@ -1,20 +1,60 @@
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-
+import { styled } from "@mui/material/styles";
 import bgImage from "../images/bgLogin.png";
 import { Navbar } from "../components/layouts/Navbar"
 import { Box, InputAdornment, Stack, TextField, IconButton, Typography, Button } from "@mui/material";
 import { ConnectMmButton } from "../components/ConnectMmButton";
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export const Login: React.FC = () => {
+interface IMyProps {
+  myValue: string,
+}
+
+const FormContainer = styled("form")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  "& > *": {
+    margin: theme.spacing(2),
+    width: "100%",
+    maxWidth: 600,
+  },
+}));
+
+export const Login: React.FC<IMyProps> = (props: IMyProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
+  const navigate = useNavigate()
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const onSubmitHandle = () => {
+  const [key, setKey] = useState("")
 
+
+  const handleKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value)
+    setKey(e.target.value)
+  }
+
+
+  const onSubmitHandle = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      // const formData = new FormData();
+      // formData.append("key", key);
+      // console.log(key)
+      // console.log(formData)
+      const res = await axios.post("http://localhost:4000/userlogin", {"key": key});
+      console.log(res);
+      if (res.data == true) {
+        navigate("/userdashboard")
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 
@@ -22,76 +62,79 @@ export const Login: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          backgroundImage: `url(${bgImage})`,
-          backgroundSize: "cover",
-        }}
-      >
-
-        <Stack
-          spacing={4}
-          justifyContent="center"
-          alignItems="center"
-          display="flex"
+      <FormContainer onSubmit={onSubmitHandle}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+            backgroundImage: `url(${bgImage})`,
+            backgroundSize: "cover",
+          }}
         >
-          <Typography
-            variant="subtitle2"
-            color="textSecondary"
-            mb={-3}
-            sx={{ fontSize: "10px" }}
-          >
-            You can enter private key of your wallet Or you connect Metamask
-            wallet
-          </Typography>
-          <Stack direction="row" spacing={2}>
-            <TextField
-              type={showPassword ? "text" : "password"}
-              label="Private Key"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={handleShowPassword}>
-                      {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              sx={{ width: "450px" }}
-            />
-          </Stack>
-          <Stack>
-            <Button variant="contained" sx={{ width: "250px" }}>
-              Continue
-            </Button>
-          </Stack>
-          <Typography
-            variant="subtitle2"
-            color="textSecondary"
-            mb={0}
-            sx={{ fontSize: "10px" }}
-          >
-            Or Click to connect Metamask
-          </Typography>
+
           <Stack
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 1,
-              textAlign: "center",
-            }}
+            spacing={4}
+            justifyContent="center"
+            alignItems="center"
+            display="flex"
           >
-            {/* <form onSubmit={onSubmitHandle}> */}
+            <Typography
+              variant="subtitle2"
+              color="textSecondary"
+              mb={-3}
+              sx={{ fontSize: "10px" }}
+            >
+              You can enter private key of your wallet Or you connect Metamask
+              wallet
+            </Typography>
+            <Stack direction="row" spacing={2}>
+              <TextField
+                type={showPassword ? "text" : "password"}
+                label="Private Key"
+                name="key"
+                onChange={handleKeyChange}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleShowPassword}>
+                        {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                sx={{ width: "450px" }}
+              />
+            </Stack>
+            <Stack>
+              <Button variant="contained" sx={{ width: "250px" }} type="submit">
+                Continue
+              </Button>
+            </Stack>
+            <Typography
+              variant="subtitle2"
+              color="textSecondary"
+              mb={0}
+              sx={{ fontSize: "10px" }}
+            >
+              Or Click to connect Metamask
+            </Typography>
+            <Stack
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 1,
+                textAlign: "center",
+              }}
+            >
               <ConnectMmButton />
 
+            </Stack>
           </Stack>
-        </Stack>
-      </Box>
+        </Box>
+      </FormContainer>
     </div >
   );
 };

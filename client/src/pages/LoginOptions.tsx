@@ -1,9 +1,24 @@
 import React from 'react';
 import { Button, Container, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Appbar } from '../components/Appbar';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const handleUserlogin = () => {
+
+    navigate("/loginuser")
+
+
+
+  }
+
+
+
+
+
+
+
   return (
     <div>
       <Appbar title="Login" />
@@ -37,8 +52,7 @@ const LoginPage = () => {
           Login as Admin
         </Button>
         <Button
-          component={Link}
-          to="/login"
+          onClick={handleUserlogin}
           variant="contained"
           color="primary"
           size="large"

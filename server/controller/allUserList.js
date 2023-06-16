@@ -4,7 +4,7 @@ const allUserList = async (req, res) => {
     try {
         const land_contract = await getWeb3();
         const result = await land_contract.methods.ReturnAllUserList().call();
-        if (result.lenth !== 0) {
+        if (result.length !== 0) {
             res.json(result)
         } else {
             res.json("not added any")

@@ -50,15 +50,12 @@ export const SmartContractProvider: React.FC<SmartContractProviderProps> = ({ ch
     getContractAddress();
 
     useEffect(() => {
-        const initWeb3 = async () => {
-            if (window.ethereum) {
-                const web3Instance = new Web3(window.ethereum);
-                setWeb3(web3Instance);
-            } else {
-                console.log('Please install MetaMask!');
-            }
-        };
-        initWeb3();
+        if (window.ethereum) {
+            const web3Instance = new Web3(window.ethereum);
+            setWeb3(web3Instance);
+        } else {
+            console.log('Please install MetaMask!');
+        }
     }, []);
 
     useEffect(() => {
