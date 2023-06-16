@@ -6,8 +6,6 @@ import Mainlogo from "../images/bcIcon2.svg"
 
 
 export const Home = () => {
-    
-
 
     const Blurbox = styled(Box)({
         background: '#transparent',
@@ -24,7 +22,7 @@ export const Home = () => {
             <Navbar />
 
             <Box p={10} sx={{ flexGrow: 1 }}>
-                <ParticleJs />
+                {/* <ParticleJs /> */}
                 <Grid container spacing={10} >
                     <Grid item xs={12} sx={{ margin: "200px" }}>
                         <Grid container justifyContent={"center"}>
