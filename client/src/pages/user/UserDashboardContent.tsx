@@ -1,7 +1,8 @@
 import { Box, Typography, TextField, Button, Link, Grid } from "@mui/material";
-import { CheckCircle } from "@mui/icons-material";
+import { Cancel, CheckCircle } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const UserDashboardContent: React.FC = () => {
 
@@ -65,56 +66,100 @@ const UserDashboardContent: React.FC = () => {
         window.open(docurl, "_blank");
     };
 
+    const theme = createTheme({
+        palette: {
+            text: {
+                disabled: "black" // Set the disabled text color to white
+            }
+        }
+    });
+
     return (
-        <Box sx={{ textAlign: "center" }}>
+        <ThemeProvider theme={theme}>
+            <Box sx={{ textAlign: "center", px: 50 }}>
             <Typography variant="h4" mb={2}>
                 Your Profile
             </Typography>
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mb: 2 }}>
-                <CheckCircle sx={{ color: "green", mr: 1 }} />
-                <Typography variant="subtitle1" sx={{ color: "green" }}>
-                    Verified
-                </Typography>
+
+                    {userVerified ?
+                        (<><CheckCircle sx={{ color: "green", mr: 1 }} />
+                            <Typography variant="subtitle1" sx={{ color: "green" }}>
+                                Verified
+                            </Typography></>) :
+                        (<><Cancel sx={{ color: "red", mr: 1 }} />
+                            <Typography variant="subtitle1" sx={{ color: "red" }}>
+                                Unverified
+                            </Typography></>)
+                    }
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mb: 2 }}>
+                    <TextField label="Wallet Address" value={formData.walletAddress} disabled fullWidth
+                        InputProps={{
+                            sx: {
+                                color: "white",
+                                backgroundColor: "lightgrey"
+                            }
+                        }} />
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mb: 2 }}>
+                    <TextField label="Name" value={formData.name} disabled fullWidth
+                        InputProps={{
+                            sx: {
+                                color: "darkblack",
+                                backgroundColor: "lightgrey"
+                            }
+                        }} />
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mb: 2 }}>
+                    <TextField label="Age" value={formData.age} disabled fullWidth
+                        InputProps={{
+                            sx: {
+                                color: "darkblack",
+                                backgroundColor: "lightgrey"
+                            }
+                        }} />
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mb: 2 }}>
+                    <TextField label="City" value={formData.city} disabled fullWidth
+                        InputProps={{
+                            sx: {
+                                color: "darkblack",
+                                backgroundColor: "lightgrey"
+                            }
+                        }} />
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mb: 2 }}>
+                    <TextField label="Aadhar Number" value={formData.aadharNumber} disabled fullWidth InputProps={{
+                        sx: {
+                            color: "darkblack",
+                            backgroundColor: "lightgrey"
+                        }
+                    }} />
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mb: 2 }}>
+                    <TextField label="PAN" value={formData.pan} disabled fullWidth InputProps={{
+                        sx: {
+                            color: "darkblack",
+                            backgroundColor: "lightgrey"
+                        }
+                    }} />
+                </Box>
+                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mb: 2 }}>
+                    <TextField label="Email" value={formData.email} disabled fullWidth InputProps={{
+                        sx: {
+                            color: "darkblack",
+                            backgroundColor: "lightgrey"
+                        }
+                    }} />
             </Box>
-            <Grid container spacing={2} alignItems="center" justifyContent="center">
-                <Grid item xs={12} md={6}>
-                    <TextField
-                        label="Wallet Address"
-                        value={formData.walletAddress}
-                        disabled
-                        fullWidth
-                    />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField label="Name" value={formData.name} disabled fullWidth />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField label="Age" value={formData.age} disabled fullWidth />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField label="City" value={formData.city} disabled fullWidth />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField
-                        label="Aadhar Number"
-                        value={formData.aadharNumber}
-                        disabled
-                        fullWidth
-                    />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField label="PAN" value={formData.pan} disabled fullWidth />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField label="Email" value={formData.email} disabled fullWidth />
-                </Grid>
-                <Grid item xs={12}>
+                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", mb: 2 }}>
                     <Link component="button" variant="body2" onClick={openDocument}>
                         View Document
                     </Link>
-                </Grid>
-            </Grid>
-        </Box>
+                </Box>
+            </Box>
+        </ThemeProvider>
     );
 };
 
