@@ -146,6 +146,7 @@ const RegisterUser: React.FC = () => {
             <TextField
               required
               label="Aadhar Number"
+              type="number"
               value={aadhar}
               style={{ marginBottom: "20px" }}
               onChange={(event) => {

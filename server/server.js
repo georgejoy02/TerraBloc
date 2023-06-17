@@ -4,6 +4,7 @@ const express = require('express')
 const app = express()
 const cors = require("cors")
 // const bodyParser = require("body-parser");
+console.clear()
 // app.use(
 //   bodyParser.urlencoded({
 //     extended: true,
@@ -24,7 +25,6 @@ test();
 const router = require('./router/router')
 
 app.use(express.json())
-
 app.use('/', router)
 //------------------------------MAIN----------------------------------------------------------------
 
