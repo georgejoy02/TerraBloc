@@ -104,10 +104,10 @@ const RegisterUser: React.FC = () => {
         const test = await landContract.methods.registerUser(name, age, address, aadhar, pan, docUrl, email)
           .send({ from: account });
         console.log(JSON.stringify(test));
-        navigate("/login");
+        navigate("/loginuser");
 
       } else {
-        console.log("parameters not defined")
+        console.log("contract instance not found")
       }
     } catch (error) {
       console.error(error);
