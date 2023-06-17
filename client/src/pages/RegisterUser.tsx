@@ -100,12 +100,14 @@ const RegisterUser: React.FC = () => {
         const res = await axios.post("http://localhost:4000/userreg", formData);
         console.log(res.data);
         const docUrl = res.data;
-
-        const test = await landContract.methods.registerUser(name, age, address, aadhar, pan, docUrl, email)
-          .send({ from: account });
-        console.log(JSON.stringify(test));
-        navigate("/loginuser");
-
+        if (docUrl) {
+          const test = await landContract.methods.registerUser(name, age, address, aadhar, pan, docUrl, email)
+            .send({ from: account });
+          console.log(JSON.stringify(test));
+          navigate("/loginuser");
+        } else {
+          alert("error in fetching document url")
+        }
       } else {
         console.log("contract instance not found")
       }

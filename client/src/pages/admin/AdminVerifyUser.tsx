@@ -30,6 +30,7 @@ const VerifyUser = () => {
 
     const [addresses, setAddresses] = useState<Address[]>([]);
     const [rows, setRows] = useState<AddressDetails[]>([]);
+    const [verify, setVerify] = useState<boolean>()
 
 
     const createData = (
@@ -83,20 +84,19 @@ const VerifyUser = () => {
         if (addresses.length > 0) {
             fetchAddressDetails();
         }
-    }, [addresses]);
+    }, [addresses, verify]);
 
 
     const handleVerify = async (address: any) => {
         try {
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
             const account = accounts[0];
-
             console.log(account)
             if (landContract) {
                 const test = await landContract.methods.verifyUser(address)
                     .send({ from: account });
                 console.log(JSON.stringify(test));
-
+                setVerify(true);
             }
             else {
                 console.log("contract instance not found")
@@ -104,7 +104,6 @@ const VerifyUser = () => {
         } catch (error) {
             console.log(error)
         }
-
     }
 
 
