@@ -4,8 +4,7 @@ import FoxImage from "../images/fox.png";
 import { Button } from '@mui/material';
 
 export const ConnectMmButton: React.FC = () => {
-  // const [msg, setMsg] = useState<string | undefined>();
-  const msg = useRef("");
+  const [msg, setMsg] = useState<string | undefined>();
   const [web3, setWeb3] = useState<Web3 | null>(null);
   const [acnts, setAcnts] = useState<string[]>([]);
 
@@ -25,32 +24,20 @@ export const ConnectMmButton: React.FC = () => {
         setAcnts(accounts);
       });
     }
-  }, [web3, msg]);
+  }, [web3, acnts]);
 
   const mmHandle = async () => {
     try {
-      await window.ethereum.request({ method: 'eth_requestAccounts' })
-        .then(
-          (accounts: any) => {
-            let mesg;
-            setAcnts(accounts);
-            web3 && acnts.length > 0 ?
-              mesg = `Connected to MetaMask with account: ${acnts[0]}`
-              :
-              mesg = "Not connected to MetaMask";
-
-            msg.current = mesg;
-          },
-          (err: any) => {
-            console.log(err.message)
-          }
-        );
-
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+      setAcnts(accounts);
+      web3 && accounts.length > 0 ?
+        setMsg(`Connected to MetaMask with account: ${accounts[0]}`)
+        :
+        setMsg("Not connected to MetaMask");
     } catch (error) {
       console.log(error)
-      msg.current = `Error connecting to MetaMask`;
+      setMsg(`Error connecting to MetaMask`);
     }
-
   }
 
   return (<div><Button
@@ -62,8 +49,7 @@ export const ConnectMmButton: React.FC = () => {
       textTransform: "none",
       fontSize: "20px",
     }}
-    onClick={() => mmHandle()
-    }
+    onClick={mmHandle}
   >
     <img
       src={FoxImage}
@@ -72,6 +58,6 @@ export const ConnectMmButton: React.FC = () => {
     />
     M E T A M A S K
   </Button><br />
-    {msg.current}
+    {msg}
   </div >);
 };
