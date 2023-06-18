@@ -32,6 +32,7 @@ const RegisterUser: React.FC = () => {
   const [pan, setPan] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [aadharDoc, setAadharDoc] = useState<File | null>(null);
+  const [filename, setFilename] = useState("");
   const [errorMessageDoc, setErrorMessageDoc] = useState<string>("");
   const [errorMessageAadhar, setErrorMessageAadhar] = useState<string>("");
   const [errorMessagePan, setErrorMessagePan] = useState<string>("");
@@ -42,10 +43,13 @@ const RegisterUser: React.FC = () => {
   const navigate = useNavigate();
 
   const handleAadharDocChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    if (event.target.files) {
-      setAadharDoc(event.target.files[0]);
+    if (e.target.files) {
+      setAadharDoc(e.target.files[0]);
+      const file = e.target.files[0];
+      const { name } = file;
+      setFilename(name);
     }
   };
 
@@ -97,7 +101,7 @@ const RegisterUser: React.FC = () => {
         }
         const formData = new FormData();
         formData.append("file", aadharDoc as File);
-        const res = await axios.post("http://localhost:4000/userreg", formData);
+        const res = await axios.post("http://localhost:4000/fileupload", formData);
         console.log(res.data);
         const docUrl = res.data;
         if (docUrl) {
@@ -193,7 +197,7 @@ const RegisterUser: React.FC = () => {
                 type="file"
                 onChange={handleAadharDocChange}
               />
-              <label htmlFor="aadhar-upload">
+              <label htmlFor="aadhar-upload" >
                 <Button
                   variant="contained"
                   component="span"
@@ -202,8 +206,8 @@ const RegisterUser: React.FC = () => {
                 >
                   Upload Aadhar Document
                 </Button>
+                {filename}
               </label>
-
               {errorMessageDoc && (
                 <Typography variant="body1" color="error" align="center">
                   {errorMessageDoc}

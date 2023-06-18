@@ -1,3 +1,4 @@
+console.clear();
 const dotenv = require('dotenv')
 dotenv.config();
 const express = require('express')
@@ -21,16 +22,12 @@ const test = async () => {
 }
 test();
 
-const router = require('./router/router')
+const router = require('./router/router');
 
 app.use(express.json())
 
 app.use('/', router)
 //------------------------------MAIN----------------------------------------------------------------
-
-
-
-
 
 
 
