@@ -35,6 +35,8 @@ export default function App() {
           <Route path="/loginoption" element={<LoginPage />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/registeruser" element={<RegisterUser />} />
+          <Route path="/map" element={<Map />} />
+
         </Routes>
       </BrowserRouter>
     </div>
