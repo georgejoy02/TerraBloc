@@ -9,7 +9,7 @@ export const Home = () => {
   const Blurbox = styled(Box)({
     background: "#transparent",
     backdropFilter: "blur(3px)",
-    backgroundColor: "rgba(100, 100,100, 0.1)",
+    backgroundColor: "rgba(86, 176, 252, 0.1)",
     borderRadius: "20px",
     padding: "20px",
     boxShadow: "0px 0px 10px rgba(200, 200, 200, 0.8)",
@@ -20,7 +20,7 @@ export const Home = () => {
       <Navbar />
 
       <Box p={10} sx={{ flexGrow: 1 }}>
-        {/* <ParticleJs /> */}
+        <ParticleJs />
         <Grid container spacing={10}>
           <Grid item xs={12} sx={{ margin: "200px" }}>
             <Grid container justifyContent={"center"}>
@@ -29,11 +29,11 @@ export const Home = () => {
                 <Typography
                   align="center"
                   variant="h4"
-                  sx={{ fontWeight: 450, fontSize: 50 }}
+                  sx={{ fontWeight: 450, fontSize: 50, color:"#142f47" }}
                 >
                   TerraBloc
                 </Typography>
-                <Typography noWrap sx={{ fontWeight: 200, fontSize: 20 }}>
+                <Typography noWrap sx={{ fontWeight: 200, fontSize: 20, color:"#122f47" }}>
                   Revolutionizing property transactions with blockchain
                 </Typography>
               </Blurbox>
@@ -43,12 +43,12 @@ export const Home = () => {
             <Grid container spacing={6}>
               <Grid item xs={12} md={6}>
                 <Blurbox style={{height:"200px"}}>
-                  <Typography variant="h4" sx={{ fontWeight: 400, fontSize: 30 }} gutterBottom>
+                  <Typography variant="h4" sx={{ fontWeight: 400, fontSize: 30, color:"#122f47" }} gutterBottom>
                     What is TerraBloc?
                   </Typography>
                   <Typography
                     variant="h5"
-                    sx={{ fontWeight: 370, fontSize: 20 }}
+                    sx={{ fontWeight: 370, fontSize: 20, color:"#122f47" }}
                   >
                     TerraBloc is a secure and decentralized platform for buying
                     and selling land. Powered by blockchain technology, it
@@ -66,12 +66,12 @@ export const Home = () => {
             >
               <Grid item xs={12} md={6}>
                 <Blurbox style={{height:"200px"}}>
-                  <Typography variant="h4" sx={{ fontWeight: 400, fontSize: 30 }} gutterBottom>
+                  <Typography variant="h4" sx={{ fontWeight: 400, fontSize: 30, color:"#122f47" }} gutterBottom>
                     Secure and Transparent Transactions
                   </Typography>
                   <Typography
                     variant="h5"
-                    sx={{ fontWeight: 370, fontSize: 20 }}
+                    sx={{ fontWeight: 370, fontSize: 20, color:"#122f47" }}
                   >
                     With TerraBloc, every transaction is transparent and
                     tamper-proof. Our platform leverages blockchain technology
@@ -86,12 +86,12 @@ export const Home = () => {
             <Grid container spacing={6} style={{ marginTop: "30px" }}>
               <Grid item xs={12} md={6}>
                 <Blurbox style={{height:"200px"}}>
-                  <Typography variant="h4" sx={{ fontWeight: 400, fontSize: 30 }} gutterBottom>
+                  <Typography variant="h4" sx={{ fontWeight: 400, fontSize: 30, color:"#122f47" }} gutterBottom>
                     Protecting Property Rights and Preventing Fraud{" "}
                   </Typography>
                   <Typography
                     variant="h5"
-                    sx={{ fontWeight: 380, fontSize: 20 }}
+                    sx={{ fontWeight: 380, fontSize: 20, color:"#122f47" }}
                   >
                     Registering your land with TerraBloc offers increased
                     protection against fraud and upholds your property rights.
