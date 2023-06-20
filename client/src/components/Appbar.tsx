@@ -27,7 +27,7 @@ export const Appbar = (props: {
   };
 
   return (
-    <div>
+    <div style={{position: 'sticky', top: 0, zIndex:2}}>
       <AppBar
         position="static"
         style={{ background: "#ffffff", height: "70px" }}

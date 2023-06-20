@@ -10,7 +10,7 @@ import TransferOwnershipFinal from "./pages/admin/FinalTransferOwnership";
 import Map from "./pages/user/Map";
 import Owner from "./pages/owner/Owner";
 import User from "./pages/user/User";
-import LandDetails from "./pages/user/LandDetails";
+import LandGallery from "./pages/user/LandGallery";
 
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<TransferOwnershipFinal />} />
-          <Route path="*" element={<LandDetails />} />
+          <Route path="/landgallery" element={<LandGallery />} />
           <Route path="/signup" element={<Signup />} />
           {/* <Route path="/login" element={<Login />} /> */}
 
