@@ -3,7 +3,7 @@ import { Facebook, Twitter, LinkedIn } from '@mui/icons-material';
 
 export const Footer = () => {
   return (
-    <Box sx={{ bgcolor: '#EFEFEF', p: 1 }} component="footer">
+    <Box sx={{ bgcolor: '#dae6f0', p: 1 }} component="footer">
       <Typography variant="subtitle1" align="center" color="text.secondary" component="p">
       <IconButton color="primary">
           <Facebook />

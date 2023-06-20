@@ -119,7 +119,7 @@ const RegisterUser: React.FC = () => {
   return (
     <div>
       <Appbar title="Register User" />{/*hideIconButton={true}  */}
-      <Box marginTop={4}>
+      <Box marginTop={15}>
         <Container maxWidth="md">
           <FormContainer onSubmit={handleSubmit}>
             <TextField
@@ -220,7 +220,10 @@ const RegisterUser: React.FC = () => {
             >
               Submit
             </Button>
-            < ConnectMmButton />
+            <div style={{textAlign:"center"}}>
+              < ConnectMmButton/>
+            </div>
+            
           </FormContainer>
         </Container>
       </Box>

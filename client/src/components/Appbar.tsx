@@ -27,10 +27,10 @@ export const Appbar = (props: {
   };
 
   return (
-    <div style={{position: 'sticky', top: 0, zIndex:2}}>
+    <div style={{position: 'fixed', top: 0, zIndex:2, width: '100%'}}>
       <AppBar
         position="static"
-        style={{ background: "#ffffff", height: "70px" }}
+        style={{ background: "#a2cff5", height: "70px" }}
       >
         <Toolbar>
         {!props.hideIconButton && (
@@ -42,7 +42,7 @@ export const Appbar = (props: {
               size="large"
               sx={{ mr: 2 }}
             >
-              <ArrowBackIcon fontSize="large" />
+              <ArrowBackIcon fontSize="large" style={{color:"#082238"}} />
             </IconButton>
           )}
           <Box
@@ -55,7 +55,7 @@ export const Appbar = (props: {
             <Typography
               variant="h4"
               component="div"
-              color="primary.dark"
+              color="#082238"
               style={{
                 fontWeight: "bold",
                 textAlign: "center",
