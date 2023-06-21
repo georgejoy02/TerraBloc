@@ -5,17 +5,9 @@ import Divider from '@mui/material/Divider';
 import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#104775"
-      }
-    }
-  });
 
   return (
-    <ThemeProvider theme={theme}>
-      <AppBar position="fixed" style={{ backgroundColor: '#a2cff5', zIndex:1 }} >
+      <AppBar position="fixed" style={{ backgroundColor: '#fff', zIndex:1 }} >
         <Toolbar>
           <Box display="flex" flexGrow={1} alignItems="center" >
             <IconButton size="large" edge="start" aria-label="logo">
@@ -33,6 +25,5 @@ export const Navbar = () => {
           </Stack>
         </Toolbar>
       </AppBar>
-    </ThemeProvider>
   )
 }
