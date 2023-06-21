@@ -4,10 +4,16 @@ import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import TerrainIcon from "@mui/icons-material/Terrain";
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { Appbar } from "../../components/Appbar";
 import { SmartContractContext } from '../../utils/SmartContractContext';
 import axios from "axios";
+import { useNavigate, useLocation } from 'react-router-dom';
+import { resetState } from '../../redux/reset/resetAction';
+import purgePersistedState from '../../redux/utils/purgeState';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/rootReducer';
+import { setArea, setAddress, setLandPrice, setPid, setSurveyNo } from '../../redux/formSlice';
 
 
 const FormContainer = styled("form")(({ theme }) => ({
@@ -21,26 +27,31 @@ const FormContainer = styled("form")(({ theme }) => ({
     },
 }));
 
+interface LatLng {
+    lat: number;
+    lng: number;
+}
+
+
 const AddLands: React.FC = () => {
-    const [area, setArea] = useState<number | null>(null);
-    const [address, setAddress] = useState<string>("");
-    const [landPrice, setLandPrice] = useState<number | null>(null);
-    const [allLatLong, setAllLatLong] = useState();
-    const [pid, setPid] = useState<number | null>(null);
-    const [surveyNo, setSurveyNo] = useState<number | null>(null);
-    const [landDoc, setLandDoc] = useState<File | null>(null);
-    const [filename, setFilename] = useState("");
-    // const [errorMessageDoc, setErrorMessageDoc] = useState<string>("");
-    // const [errorMessageAadhar, setErrorMessageAadhar] = useState<string>("");
-    // const [errorMessagePan, setErrorMessagePan] = useState<string>("");
 
     const { landContract } = useContext(SmartContractContext);
 
+    const dispatch = useDispatch();
+    const { area, address, landPrice, pid, surveyNo } = useSelector((state: RootState) => state.form);
+    const [landDoc, setLandDoc] = useState<File | null>(null);
+    const [filename, setFilename] = useState("");
+    // const [plotMsg, setPlotMsg] = useState("")
+
+
+
+
 
     const navigate = useNavigate();
+    const location = useLocation();
+    console.log("uselocation:", location)
 
     const handleDrawLandOnMap = () => {
-        // Navigate to the map integration page
         navigate("/map");
     };
 
@@ -57,6 +68,9 @@ const AddLands: React.FC = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+
+
         try {
 
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
@@ -66,22 +80,31 @@ const AddLands: React.FC = () => {
             if (landContract) {
 
                 const result = await axios.post("http://localhost:4000/islandreg", { "pid": pid });
-                if (result.data == true) {
+                if (result.data === true) {
                     alert("land already registered");
                     return;
                 }
                 const formData = new FormData();
                 formData.append("file", landDoc as File);
-                const res = await axios.post("http://localhost:4000/fileupload", formData);
-                console.log(res.data);
-                const docUrl = res.data;
-                if (docUrl) {
-                    const test = await landContract.methods.addLand(area, address, landPrice, allLatLong, pid, surveyNo, docUrl)
-                        .send({ from: account });
-                    console.log(JSON.stringify(test));
-                    alert("land successfully added");
+                const data = location.state?.polygon;
+                if (data && data.length >= 4) {
+                    const res = await axios.post("http://localhost:4000/fileupload", formData);
+                    console.log(res.data);
+                    const docUrl = res.data;
+                    if (docUrl) {
+                        const plot = JSON.stringify(data)
+                        console.log(plot)
+                        const test = await landContract.methods.addLand(area, address, landPrice, plot, pid, surveyNo, docUrl)
+                            .send({ from: account });
+                        console.log(JSON.stringify(test));
+                        alert("land successfully added");
+                        dispatch(resetState());
+                        purgePersistedState();
+                    } else {
+                        alert("error in fetching document url")
+                    }
                 } else {
-                    alert("error in fetching document url")
+                    alert("land plot coordinated not found")
                 }
             } else {
                 console.log("contract instance not found")
@@ -107,14 +130,14 @@ const AddLands: React.FC = () => {
                             label="Area (SqFt)"
                             value={area ?? ""}
                             style={{ marginBottom: "16px" }}
-                            onChange={(event) => setArea(parseInputValue(event.target.value))}
+                            onChange={(event) => dispatch(setArea(parseInputValue(event.target.value)))}
                         />
                         <TextField
                             required
                             label="Address"
                             value={address}
                             style={{ marginBottom: "16px" }}
-                            onChange={(event) => setAddress(event.target.value)}
+                            onChange={(event) => dispatch(setAddress(event.target.value))}
                         />
                         <TextField
                             required
@@ -123,25 +146,25 @@ const AddLands: React.FC = () => {
                             value={landPrice ?? ""}
                             style={{ marginBottom: "16px" }}
                             onChange={(event) =>
-                                setLandPrice(parseInputValue(event.target.value))
+                                dispatch(setLandPrice(parseInputValue(event.target.value)))
                             }
                         />
                         <TextField
                             required
                             label="PID"
                             inputProps={{ inputMode: "numeric" }}
-                            value={pid ?? ""}
+                            value={pid}
                             style={{ marginBottom: "16px" }}
-                            onChange={(event) => setPid(parseInputValue(event.target.value))}
+                            onChange={(event) => dispatch(setPid(parseInputValue(event.target.value)))}
                         />
                         <TextField
                             required
                             label="Survey No"
                             inputProps={{ inputMode: "numeric" }}
-                            value={surveyNo ?? ""}
+                            value={surveyNo}
                             style={{ marginBottom: "16px" }}
                             onChange={(event) =>
-                                setSurveyNo(parseInputValue(event.target.value))
+                                dispatch(setSurveyNo(parseInputValue(event.target.value)))
                             }
                         />
                         <Box display="flex" flexDirection="column">
@@ -154,6 +177,13 @@ const AddLands: React.FC = () => {
                             >
                                 Draw Land on Map
                             </Button>
+                            {/* {
+                                polygon?.map((i) => (
+                                    <>
+                                        lat{i} : {i.lat}
+                                        lng{i}: {i.lng}
+                                    </>
+                                ))} */}
                             <Box>
                                 <input
                                     accept="application/pdf,image/*"

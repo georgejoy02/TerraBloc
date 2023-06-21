@@ -258,6 +258,18 @@ contract Land {
     }
 
     //-----------------------------------------------Land-----------------------------------------------
+    event landAddition(
+        address indexed owner,
+        uint256 LandId,
+        uint256 area,
+        string Address,
+        uint256 LandPrice,
+        string AllLatiLongi,
+        uint256 PropertyPID,
+        string SurveyNum,
+        string Document
+    );
+
     function addLand(
         uint256 _area,
         string memory _address,
@@ -283,6 +295,17 @@ contract Land {
         );
         UserLandsMap[msg.sender].push(landsCount);
         allLandListMap[1].push(landsCount);
+        emit landAddition(
+            msg.sender,
+            landsCount,
+            _area,
+            _address,
+            _landPrice,
+            _allLatiLongi,
+            _propertyPID,
+            _surveyNum,
+            _document
+        );
     }
 
     function ReturnAllLandList() public view returns (uint256[] memory) {

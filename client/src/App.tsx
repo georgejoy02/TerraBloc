@@ -28,9 +28,9 @@ export default function App() {
           <Route path="/loginuser" element={<Login value="user" />} />
           <Route path="/loginadmin" element={<Login value="admin" />} />
           <Route path="/loginowner" element={<Login value="owner" />} />
-          
+
           {/* <Route path="/landgallery" element={<LandGallery />} /> */}
-          <Route path="/userdashboard" element={<User />} />
+          <Route path="/userdashboard/*" element={<User />} />
           <Route path="/owner" element={<Owner />} />
           <Route path="/loginoption" element={<LoginPage />} />
           <Route path="/admin" element={<Admin />} />

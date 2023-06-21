@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import { Link } from 'react-router-dom';
 import {
   Box,
   Drawer,
@@ -27,9 +28,12 @@ import MyReceivedRequests from "../user/MyReceivedRequests";
 import MySentLandRequests from "../user/MySentLandRequests";
 import UserDashboardContent from "../user/UserDashboardContent";
 import AddLands from "./AddLands";
+import { ListItemButton } from '@mui/material';
+
 
 const drawerWidth = 240;
-const UserSidebar = () => {
+const UserSidebar = (props: any) => {
+
   const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState("Dashboard");
   const menuItems = [
@@ -37,37 +41,56 @@ const UserSidebar = () => {
       label: "Dashboard",
       icon: <Dashboard />,
       component: <UserDashboardContent />,
-      onClick: () => setSelectedItem("Dashboard"),
+      onClick: () => {
+        setSelectedItem("Dashboard")
+        navigate("")
+      }
     },
     {
       label: "Land Gallery",
       icon: <Landscape />,
-      component: <LandGallery />,
-      onClick: () => setSelectedItem("Land Gallery"),
+      // component: <LandGallery />,
+      onClick: () => {
+        setSelectedItem("Land Gallery");
+        navigate("landgallery")
+      }
     },
     {
       label: "Add Land",
       icon: <Landscape />,
-      component: <AddLands />,
-      onClick: () => setSelectedItem("Add Land"),
+      // component: <AddLands />,
+      onClick: () => {
+        setSelectedItem("Add Land");
+        navigate("addland")
+      },
     },
     {
       label: "My Lands",
       icon: <Landscape />,
-      component: <MyLands />,
-      onClick: () => setSelectedItem("My Lands"),
+      // component: <MyLands />,
+      onClick: () => {
+        setSelectedItem("My Lands")
+        navigate("mylands")
+
+      }
     },
     {
       label: "My Received Request",
       icon: <RequestPage />,
-      component: <MyReceivedRequests />,
-      onClick: () => setSelectedItem("My Received Request"),
+      // component: <MyReceivedRequests />,
+      onClick: () => {
+        setSelectedItem("My Received Request")
+        navigate("receivedreq")
+      }
     },
     {
       label: "My Sent Land Request",
       icon: <RequestPage />,
-      component: <MySentLandRequests />,
-      onClick: () => setSelectedItem("My Sent Land Request"),
+      // component: <MySentLandRequests />,
+      onClick: () => {
+        setSelectedItem("My Sent Land Request")
+        navigate("sentreq")
+      }
     },
     {
       label: "Logout",
@@ -120,10 +143,10 @@ const UserSidebar = () => {
         </Box>
         <List>
           {menuItems.map(({ label, icon, onClick }) => (
-            <ListItem button key={label} onClick={onClick}>
+            <ListItemButton key={label} onClick={onClick}>
               <ListItemIcon>{icon}</ListItemIcon>
               <ListItemText primary={label} />
-            </ListItem>
+            </ListItemButton>
           ))}
         </List>
       </Drawer>
@@ -136,9 +159,9 @@ const UserSidebar = () => {
           paddingTop: 3,
         }}
       >
-        {menuItems.map(({ label, component }) =>
+        {/* {menuItems.map(({ label, component }) =>
           selectedItem === label ? component : null
-        )}
+        )} */}
       </Box>
     </Box >
 
