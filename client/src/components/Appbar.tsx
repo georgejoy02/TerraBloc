@@ -30,7 +30,7 @@ export const Appbar = (props: {
     <div style={{position: 'fixed', top: 0, zIndex:2, width: '100%'}}>
       <AppBar
         position="static"
-        style={{ background: "#a2cff5", height: "70px" }}
+        style={{ background: "#fff", height: "70px" }}
       >
         <Toolbar>
         {!props.hideIconButton && (

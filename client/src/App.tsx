@@ -5,40 +5,48 @@ import { Login } from "./pages/Login";
 import LoginPage from "./pages/LoginOptions";
 import Admin from "./pages/admin/Admin";
 import RegisterUser from "./pages/RegisterUser";
-import './App.css';
+import "./App.css";
 import TransferOwnershipFinal from "./pages/admin/FinalTransferOwnership";
 import Map from "./pages/user/Map";
 import Owner from "./pages/owner/Owner";
 import User from "./pages/user/User";
 import LandGallery from "./pages/user/LandGallery";
-
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 export default function App() {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#104775",
+      },
+    },
+  });
 
   return (
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<TransferOwnershipFinal />} />
-          <Route path="/landgallery" element={<LandGallery />} />
-          <Route path="/signup" element={<Signup />} />
-          {/* <Route path="/login" element={<Login />} /> */}
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/contact" element={<TransferOwnershipFinal />} />
+            <Route path="/landgallery" element={<LandGallery />} />
+            <Route path="/signup" element={<Signup />} />
+            {/* <Route path="/login" element={<Login />} /> */}
 
-          <Route path="/loginuser" element={<Login value="user" />} />
-          <Route path="/loginadmin" element={<Login value="admin" />} />
-          <Route path="/loginowner" element={<Login value="owner" />} />
-          
-          {/* <Route path="/landgallery" element={<LandGallery />} /> */}
-          <Route path="/userdashboard" element={<User />} />
-          <Route path="/owner" element={<Owner />} />
-          <Route path="/loginoption" element={<LoginPage />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/registeruser" element={<RegisterUser />} />
-          <Route path="/map" element={<Map />} />
+            <Route path="/loginuser" element={<Login value="user" />} />
+            <Route path="/loginadmin" element={<Login value="admin" />} />
+            <Route path="/loginowner" element={<Login value="owner" />} />
 
-        </Routes>
-      </BrowserRouter>
+            {/* <Route path="/landgallery" element={<LandGallery />} /> */}
+            <Route path="/userdashboard" element={<User />} />
+            <Route path="/owner" element={<Owner />} />
+            <Route path="/loginoption" element={<LoginPage />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/registeruser" element={<RegisterUser />} />
+            <Route path="/map" element={<Map />} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
     </div>
-  )
+  );
 }
