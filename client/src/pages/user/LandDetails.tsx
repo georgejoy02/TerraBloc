@@ -1,53 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRef, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Divider } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import './landDetails.css'
 
-function LandDetails() {
+
+interface LandData {
+  id: number;
+  area: number;
+  landAddress: string;
+  landPrice: number;
+  allLatitudeLongitude: string;
+  propertyPID: number;
+  physicalSurveyNumber: string;
+  document: string;
+  isforSell: boolean;
+  ownerAddress: string;
+  landVerified: boolean;
+}
+
+const LandDetails: React.FC = () => {
+
   const mapContainer = useRef(null);
   const map = useRef<mapboxgl.Map | null>(null);
+  const location = useLocation();
+  // const [plot, setPlot] = useState<any[][]>();
+  const [product, setProduct] = useState<LandData | undefined>()
+
+  useEffect(() => {
+    const product = location.state?.item;
+    console.log(product)
+    setProduct(product)
+  }, [location.state?.item])
+
+  interface LatLng {
+    lng: number;
+    lat: number;
+  }
 
   mapboxgl.accessToken =
     "pk.eyJ1IjoiZ2VvcmdleDAyMDMiLCJhIjoiY2xnMTE5ZWQ1MWd6azNocXl4M3ZtbmVyaCJ9.fyd3VjwhS9S5MnyfspAzhg";
 
   useEffect(() => {
-    if (map.current) return; // initialize map only once
+    const product = location.state?.item;
+    const plot: LatLng[] = JSON.parse(product.allLatitudeLongitude)
+    // console.log("arraypol: ", array)
+    const array: number[][] = [];
+    for (let i = 0; i < plot.length; i++) {
+      const element = [plot[i].lng, plot[i].lat];
+      array.push(element)
+    }
+    console.log("plot2: ", JSON.stringify(plot))
+    if (map.current) return;
     map.current = new mapboxgl.Map({
       container: mapContainer.current || "",
       style: "mapbox://styles/mapbox/streets-v9",
-      center: [76.43708146069565, 9.460144297513693],
+      center: plot[0],
       zoom: 16,
       attributionControl: false,
       interactive: true,
       hash: true,
     });
-
-    //When fetching from backend
-
-    // map.current.on("load", async () => {
-    //   // Replace with your backend API URL
-    //   const API_URL = "https://your-backend-api-url/coordinates";
-
-    //   // Fetch the coordinates from the backend using Axios
-    //   const response = await axios.get(API_URL);
-    //   const coordinates = response.data.coordinates;
-
-    //   // Add a GeoJSON source containing the polygon coordinates
-    //   map.current?.addSource("polygon", {
-    //     type: "geojson",
-    //     data: {
-    //       type: "Feature",
-    //       properties: {},
-    //       geometry: {
-    //         type: "Polygon",
-    //         coordinates: [coordinates],
-    //       },
-    //     },
-    //   });
-
     map.current.on("load", () => {
       // Add a GeoJSON source containing the polygon coordinates
       map.current?.addSource("polygon", {
@@ -58,19 +73,7 @@ function LandDetails() {
           geometry: {
             type: "Polygon",
             coordinates: [
-              [
-                [76.43721546355016, 9.460912787582345],
-                [76.43708146069565, 9.460144297513693],
-                [76.43859912093797, 9.4598030873737],
-                [76.43889829010368, 9.461232478944737],
-                [76.43862093539059, 9.461297032021093],
-                [76.43863340077269, 9.461330845506367],
-                [76.4380607298014, 9.461492239982363],
-                [76.43804254977005, 9.461429475472329],
-                [76.43788801950706, 9.461442925011312],
-                [76.43766076912044, 9.460864594371913],
-                [76.43721546355016, 9.460912787582345],
-              ],
+              array,
             ],
           },
         },
@@ -83,12 +86,12 @@ function LandDetails() {
         source: "polygon",
         layout: {},
         paint: {
-          "fill-color": "#088", // Change the fill color of the polygon
-          "fill-opacity": 0.8, // Change the opacity of the polygon
+          "fill-color": "#ff0011", // Change the fill color of the polygon
+          "fill-opacity": 0.5, // Change the opacity of the polygon
         },
       });
     });
-  });
+  }, []);
 
   return (
     <div>
@@ -114,44 +117,43 @@ function LandDetails() {
           marginTop: "20px",
         }}
       >
-        <h1 style={{fontFamily:'sans-serif', color:'#087EA4'}}>Details</h1>
-        
+        <h1 style={{ fontFamily: 'sans-serif', color: '#087EA4' }}>Details</h1>
       </div>
-      
-      <div
-        className="details-container"
-      >
-        <Divider style={{width:'700px'}}/>
-        
-        <div className="detail-row">
-          <h4>Area:</h4>
-          <p>1000 sqft</p>
+      {product &&
+        <div
+          className="details-container"
+        >
+          <Divider style={{ width: '700px' }} />
+          <div className="detail-row">
+            <h4>Area:</h4>
+            <p>{product.area} sq.ft</p>
+          </div>
+          <div className="detail-row">
+            <h4>Owner Address:</h4>
+            <p>{product.ownerAddress}</p>
+          </div>
+          <div className="detail-row">
+            <h4>Address:</h4>
+            <p>{product.landAddress}</p>
+          </div>
+          <div className="detail-row">
+            <h4>Price:</h4>
+            <p>{product.landPrice}</p>
+          </div>
+          <div className="detail-row">
+            <h4>Survey No:</h4>
+            <p>{product.physicalSurveyNumber}</p>
+          </div>
+          <div className="detail-row">
+            <h4>Property ID:</h4>
+            <p>{product.propertyPID}</p>
+          </div>
+          <div className="detail-row">
+            <h4>Document:</h4>
+            <p><a href={product.document}>view document</a></p>
+          </div>
         </div>
-        <div className="detail-row">
-          <h4>Owner Address:</h4>
-          <p>zksfuhwi64w3iuf87we4t83rw34thw837rhfaw74wd3g5384</p>
-        </div>
-        <div className="detail-row">
-          <h4>Address:</h4>
-          <p>kozhikode,kerala</p>
-        </div>
-        <div className="detail-row">
-          <h4>Price:</h4>
-          <p>50,000</p>
-        </div>
-        <div className="detail-row">
-          <h4>Survey No:</h4>
-          <p>13323443</p>
-        </div>
-        <div className="detail-row">
-          <h4>Property ID:</h4>
-          <p>43243</p>
-        </div>
-        <div className="detail-row">
-        <h4>Document:</h4>
-          <p><a href="">view document</a></p>
-        </div>
-      </div>
+      }
     </div>
   );
 }

@@ -7,9 +7,10 @@ import LandGallery from './LandGallery';
 import MyReceivedRequests from './MyReceivedRequests';
 import MySentLandRequests from './MySentLandRequests';
 import UserDashboardContent from './UserDashboardContent';
+import LandDetails from './LandDetails';
 
 
-function User() {
+const User: React.FC= ()=> {
 
     let { pathname } = useLocation();
     const navigate = useNavigate()

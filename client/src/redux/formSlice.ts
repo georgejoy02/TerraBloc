@@ -5,7 +5,7 @@ interface FormState {
     address: string;
     landPrice: number | null;
     pid: number | null;
-    surveyNo: number | null;
+    surveyNo: string;
 }
 
 const initialState: FormState = {
@@ -13,7 +13,7 @@ const initialState: FormState = {
     address: '',
     landPrice: null,
     pid: null,
-    surveyNo: null
+    surveyNo: ""
 };
 
 const formSlice = createSlice({
@@ -32,7 +32,7 @@ const formSlice = createSlice({
         setPid(state, action: PayloadAction<number | null>) {
             state.pid = action.payload;
         },
-        setSurveyNo(state, action: PayloadAction<number | null>) {
+        setSurveyNo(state, action: PayloadAction<string>) {
             state.surveyNo = action.payload;
         },
     },

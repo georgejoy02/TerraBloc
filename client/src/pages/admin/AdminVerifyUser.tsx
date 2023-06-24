@@ -6,9 +6,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button, Link } from '@mui/material';
-import { useEffect, useContext, useState, SetStateAction } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { SmartContractContext } from '../../utils/SmartContractContext';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 interface Address {
     address: any;
@@ -87,7 +87,7 @@ const VerifyUser = () => {
     }, [addresses, verify]);
 
 
-    const handleVerify = async (address: any) => {
+    const handleVerify = async (address: any,) => {
         try {
             const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
             const account = accounts[0];
@@ -96,7 +96,7 @@ const VerifyUser = () => {
                 const test = await landContract.methods.verifyUser(address)
                     .send({ from: account });
                 console.log(JSON.stringify(test));
-                setVerify(true);
+                setVerify(!verify);
             }
             else {
                 console.log("contract instance not found")

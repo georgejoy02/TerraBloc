@@ -15,6 +15,11 @@ const getUserData = require('../controller/getUserData');
 const adminLogin = require('../controller/adminLogin');
 const ownerLogin = require('../controller/ownerLogin');
 const isLandReg = require('../controller/isLandReg');
+const landList = require('../controller/landList');
+const myLandList = require('../controller/myLandList');
+const allLandList = require('../controller/allLandList');
+const mySentRequest = require('../controller/mySentRequest');
+
 
 router.route('/checkowner').post(checkOwner)
 router.route('/addli').post(addLinsp)
@@ -27,6 +32,10 @@ router.route('/getuserdata').post(getUserData)
 router.route('/adminlogin').post(adminLogin)
 router.route('/ownerlogin').post(ownerLogin)
 router.route('/islandreg').post(isLandReg)
+router.route('/landlist').get(landList)
+router.route('/alllandlist').get(allLandList)
+router.route('/mylandlist').post(myLandList)
+router.route('/mysentrequest').post(mySentRequest)
 
 
 module.exports = router;

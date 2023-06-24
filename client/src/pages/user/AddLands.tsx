@@ -98,7 +98,12 @@ const AddLands: React.FC = () => {
                             .send({ from: account });
                         console.log(JSON.stringify(test));
                         alert("land successfully added");
-                        dispatch(resetState());
+                        dispatch(setArea(null))
+                        dispatch(setAddress(""))
+                        dispatch(setLandPrice(null))
+                        dispatch(setPid(null))
+                        dispatch(setSurveyNo(""))
+                        // dispatch(resetState());
                         purgePersistedState();
                     } else {
                         alert("error in fetching document url")
@@ -128,6 +133,7 @@ const AddLands: React.FC = () => {
                         <TextField
                             required
                             label="Area (SqFt)"
+                            inputProps={{ inputMode: "numeric" }}
                             value={area ?? ""}
                             style={{ marginBottom: "16px" }}
                             onChange={(event) => dispatch(setArea(parseInputValue(event.target.value)))}
@@ -153,18 +159,17 @@ const AddLands: React.FC = () => {
                             required
                             label="PID"
                             inputProps={{ inputMode: "numeric" }}
-                            value={pid}
+                            value={pid ?? ""}
                             style={{ marginBottom: "16px" }}
                             onChange={(event) => dispatch(setPid(parseInputValue(event.target.value)))}
                         />
                         <TextField
                             required
                             label="Survey No"
-                            inputProps={{ inputMode: "numeric" }}
                             value={surveyNo}
                             style={{ marginBottom: "16px" }}
                             onChange={(event) =>
-                                dispatch(setSurveyNo(parseInputValue(event.target.value)))
+                                dispatch(setSurveyNo(event.target.value))
                             }
                         />
                         <Box display="flex" flexDirection="column">
@@ -186,6 +191,7 @@ const AddLands: React.FC = () => {
                                 ))} */}
                             <Box>
                                 <input
+                                    required
                                     accept="application/pdf,image/*"
                                     style={{ display: "none" }}
                                     id="doc-upload"

@@ -337,6 +337,22 @@ contract Land {
             isLandVerified(_landId),
             "requestforBuy function restricted to verified lands"
         );
+        require(
+            landsMap[_landId].ownerAddress != msg.sender,
+            "no self purchasing!!"
+        );
+        require(
+            landsMap[_landId].isforSell,
+            "land is not made for sell by the owner"
+        );
+        bool alreadysent = true;
+        uint256[] memory arr = mySentLandRequests(msg.sender);
+        for (uint256 i = 0; i < arr.length; i++) {
+            if (LandRequestMap[arr[i]].landId == _landId) {
+                alreadysent = false;
+            }
+        }
+        require(alreadysent, "you have alredy sent request for this land");
         requestCount++;
         LandRequestMap[requestCount] = LandRequest(
             requestCount,
@@ -352,12 +368,16 @@ contract Land {
         SentLandRequestMap[msg.sender].push(requestCount);
     }
 
-    function myReceivedLandRequests() public view returns (uint256[] memory) {
-        return ReceivedLandRequestMap[msg.sender];
+    function myReceivedLandRequests(
+        address id
+    ) public view returns (uint256[] memory) {
+        return ReceivedLandRequestMap[id];
     }
 
-    function mySentLandRequests() public view returns (uint256[] memory) {
-        return SentLandRequestMap[msg.sender];
+    function mySentLandRequests(
+        address id
+    ) public view returns (uint256[] memory) {
+        return SentLandRequestMap[id];
     }
 
     function acceptRequest(
