@@ -43,11 +43,12 @@ const App: React.FC = () => {
             <Route path="/userdashboard/*" element={<User />} />
             <Route path="/owner" element={<Owner />} />
             <Route path="/loginoption" element={<LoginPage />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/*" element={<Admin />} />
             <Route path="/registeruser" element={<RegisterUser />} />
             <Route path="/map" element={<Map />} />
             <Route path='/userdashboard/landgallery/:id' element={<LandDetails />} />
             <Route path='/userdashboard/mylands/:id' element={<LandDetails />} />
+            <Route path="/admin/transferownership" element={<TransferOwnershipFinal />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

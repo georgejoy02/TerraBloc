@@ -19,6 +19,10 @@ const landList = require('../controller/landList');
 const myLandList = require('../controller/myLandList');
 const allLandList = require('../controller/allLandList');
 const mySentRequest = require('../controller/mySentRequest');
+const myReceivedRequest = require('../controller/myReceivedRequest');
+const sentReqStatus = require('../controller/sentReqStatus');
+const transferList = require('../controller/transferList');
+const getLandData = require('../controller/getLandData');
 
 
 router.route('/checkowner').post(checkOwner)
@@ -36,6 +40,10 @@ router.route('/landlist').get(landList)
 router.route('/alllandlist').get(allLandList)
 router.route('/mylandlist').post(myLandList)
 router.route('/mysentrequest').post(mySentRequest)
+router.route('/myreceivedrequest').post(myReceivedRequest)
+router.route('/sentreqstatus').post(sentReqStatus)
+router.route('/transferlist').get(transferList)
+router.route('/getlanddata').post(getLandData)
 
 
 module.exports = router;

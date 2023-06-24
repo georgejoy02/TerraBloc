@@ -160,7 +160,3 @@ const Lcard: React.FC<LandComponentProps> = ({ item, setIsForSell = () => { }, r
   );
 }
 export default Lcard;
-
-// Lcard.defaultProps = {
-//   setIsForSell: () => { }
-// };

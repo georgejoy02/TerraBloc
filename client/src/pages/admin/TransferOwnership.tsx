@@ -6,23 +6,55 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
+import axios from 'axios';
+import { useState, useContext, useEffect } from 'react';
+import { SmartContractContext } from '../../utils/SmartContractContext';
+import { useNavigate } from "react-router-dom";
 
-function createData(
-    si: number,
-    landId: number,
-    buyerAddress: string,
-    sellerAddress: string,
-    status: string,
-    transferOwnership: any,
-) {
-    return { si, landId, sellerAddress, buyerAddress, status, transferOwnership };
+
+const rows = ["requested", "accepted", "rejected", "payment done", "completed"];
+
+
+
+
+interface LandRequest {
+    reqId: number;
+    sellerId: string;
+    buyerId: string;
+    landId: number;
+    requestStatus: string;
+    isPaymentDone: boolean;
+    landPrice: string;
 }
 
-const rows = [
-    createData(1, 123456, "890381283498092832", "890381283498092832", "Payment done", <Button variant="contained">Transfer</Button>),
-];
-
 const TransferOwnership = () => {
+
+    const navigate = useNavigate();
+
+    const [landReq, setLandReq] = useState<LandRequest[]>([])
+    const [reload, setReload] = useState(false)
+
+
+    const { landContract } = useContext(SmartContractContext);
+
+    useEffect(() => {
+        const fetchreceivedrequest = async () => {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+            const account = accounts[0];
+            console.log(account)
+            const res = await axios.get("http://localhost:4000/transferlist")
+            console.log(res.data)
+            setLandReq(res.data)
+        }
+        fetchreceivedrequest();
+
+    }, [reload])
+
+
+
+
+
+
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -37,21 +69,27 @@ const TransferOwnership = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {landReq.map((row) => (
                         <TableRow
-                            key={row.landId}
+                            key={row.reqId}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
-                            <TableCell>{row.si}</TableCell>
+                            <TableCell>{row.reqId}</TableCell>
                             <TableCell>{row.landId}</TableCell>
                             <TableCell component="th" scope="row">
-                                {row.sellerAddress}
+                                {row.sellerId}
                             </TableCell>
                             <TableCell component="th" scope="row">
-                                {row.buyerAddress}
+                                {row.buyerId}
                             </TableCell>
-                            <TableCell>{row.status}</TableCell>
-                            <TableCell>{row.transferOwnership}</TableCell>
+                            <TableCell>{rows[parseInt(row.requestStatus)]}</TableCell>
+                            <TableCell><Button
+                                variant="contained"
+                                disabled={["0", "1", "2", "4"].includes(row.requestStatus)}
+                                onClick={() => navigate("transferownership", { state: { sellerId: row.sellerId, buyerId: row.buyerId, landId: row.landId } })}
+                            >
+                                Transfer
+                            </Button></TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

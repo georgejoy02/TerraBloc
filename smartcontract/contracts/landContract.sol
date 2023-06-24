@@ -56,7 +56,7 @@ contract Land {
         accepted,
         rejected,
         paymentdone,
-        commpleted
+        completed
     }
 
     uint256 inspectorsCount;
@@ -435,7 +435,7 @@ contract Land {
             "Payment should be done before invoking transferOwnership function"
         );
         documentId++;
-        LandRequestMap[_requestId].requestStatus = reqStatus.commpleted;
+        LandRequestMap[_requestId].requestStatus = reqStatus.completed;
         UserLandsMap[LandRequestMap[_requestId].buyerId].push(
             LandRequestMap[_requestId].landId
         );
