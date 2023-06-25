@@ -1,20 +1,20 @@
-import React from 'react';
-import { Button, Container, Typography } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import { Appbar } from '../components/Appbar';
+import { Button, Container, Typography } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import { Appbar } from "../components/Appbar";
+import React from "react";
 
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleUserlogin = () => {
-    navigate("/loginuser")
-  }
+    navigate("/loginuser");
+  };
   const handleAdminlogin = () => {
-    navigate("/loginadmin")
-  }
+    navigate("/loginadmin");
+  };
   const handleOwnerlogin = () => {
-    navigate("/loginowner")
-  }
+    navigate("/loginowner");
+  };
 
   return (
     <div>
@@ -55,7 +55,6 @@ const LoginPage = () => {
         >
           Login as User
         </Button>
-
         <Button
           component={Link}
           to="/userdashboard"

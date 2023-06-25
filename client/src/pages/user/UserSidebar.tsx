@@ -1,10 +1,8 @@
-import React, { useMemo, useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
 import {
   Box,
   Drawer,
   List,
-  ListItem,
   ListItemIcon,
   ListItemText,
   Typography,
@@ -14,83 +12,67 @@ import {
   Person as PersonIcon,
   Logout,
   Landscape,
-  RequestPage
-
+  RequestPage,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 
 import Toolbar from "@mui/material/Toolbar";
-// import UserDashboard from "../pages/UserDashboard";
-import LandGallery from "../user/LandGallery";
-import MyLands from "../user/MyLands";
-import MyReceivedRequests from "../user/MyReceivedRequests";
-import MySentLandRequests from "../user/MySentLandRequests";
-import UserDashboardContent from "../user/UserDashboardContent";
-import AddLands from "./AddLands";
-import { ListItemButton } from '@mui/material';
-
+import { ListItemButton } from "@mui/material";
 
 const drawerWidth = 240;
-const UserSidebar = (props: any) => {
 
+const UserSidebar: React.FC = () => {
   const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState("Dashboard");
   const menuItems = [
     {
       label: "Dashboard",
       icon: <Dashboard />,
-      component: <UserDashboardContent />,
       onClick: () => {
-        setSelectedItem("Dashboard")
-        navigate("")
-      }
+        setSelectedItem("Dashboard");
+        navigate("");
+      },
     },
     {
       label: "Land Gallery",
       icon: <Landscape />,
-      // component: <LandGallery />,
       onClick: () => {
         setSelectedItem("Land Gallery");
-        navigate("landgallery")
-      }
+        navigate("landgallery");
+      },
     },
     {
       label: "Add Land",
       icon: <Landscape />,
-      // component: <AddLands />,
       onClick: () => {
         setSelectedItem("Add Land");
-        navigate("addland")
+        navigate("addland");
       },
     },
     {
       label: "My Lands",
       icon: <Landscape />,
-      // component: <MyLands />,
       onClick: () => {
-        setSelectedItem("My Lands")
-        navigate("mylands")
-
-      }
+        setSelectedItem("My Lands");
+        navigate("mylands");
+      },
     },
     {
       label: "My Received Request",
       icon: <RequestPage />,
-      // component: <MyReceivedRequests />,
       onClick: () => {
-        setSelectedItem("My Received Request")
-        navigate("receivedreq")
-      }
+        setSelectedItem("My Received Request");
+        navigate("receivedreq");
+      },
     },
     {
       label: "My Sent Land Request",
       icon: <RequestPage />,
-      // component: <MySentLandRequests />,
       onClick: () => {
-        setSelectedItem("My Sent Land Request")
-        navigate("sentreq")
-      }
+        setSelectedItem("My Sent Land Request");
+        navigate("sentreq");
+      },
     },
     {
       label: "Logout",
@@ -104,16 +86,20 @@ const UserSidebar = (props: any) => {
       <AppBar
         position="fixed"
         sx={{
-          width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`
+          width: `calc(100% - ${drawerWidth}px)`,
+          ml: `${drawerWidth}px`,
         }}
       >
         <Toolbar>
-          <Typography variant="h6" textAlign='center' noWrap component="div">
+          <Typography variant="h6" textAlign="center" noWrap component="div">
             User Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" sx={{ width: 240, backgroundColor: "#E6F7FF" }}>
+      <Drawer
+        variant="permanent"
+        sx={{ width: 240, backgroundColor: "#E6F7FF" }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -158,13 +144,8 @@ const UserSidebar = (props: any) => {
           bgcolor: "background.default",
           paddingTop: 3,
         }}
-      >
-        {/* {menuItems.map(({ label, component }) =>
-          selectedItem === label ? component : null
-        )} */}
-      </Box>
-    </Box >
-
+      ></Box>
+    </Box>
   );
 };
 

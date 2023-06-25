@@ -4,8 +4,9 @@ import { ParticleJs } from "../components/particles";
 import { styled } from "@mui/system";
 import Mainlogo from "../images/bcIcon2.svg";
 import { Footer } from "./Footer";
+import React from "react";
 
-export const Home = () => {
+export const Home: React.FC = () => {
   const Blurbox = styled(Box)({
     background: "#transparent",
     backdropFilter: "blur(3px)",
@@ -29,11 +30,14 @@ export const Home = () => {
                 <Typography
                   align="center"
                   variant="h4"
-                  sx={{ fontWeight: 450, fontSize: 50, color:"#142f47" }}
+                  sx={{ fontWeight: 450, fontSize: 50, color: "#142f47" }}
                 >
                   TerraBloc
                 </Typography>
-                <Typography noWrap sx={{ fontWeight: 200, fontSize: 20, color:"#122f47" }}>
+                <Typography
+                  noWrap
+                  sx={{ fontWeight: 200, fontSize: 20, color: "#122f47" }}
+                >
                   Revolutionizing property transactions with blockchain
                 </Typography>
               </Blurbox>
@@ -42,13 +46,17 @@ export const Home = () => {
           <Grid item xs={12}>
             <Grid container spacing={6}>
               <Grid item xs={12} md={6}>
-                <Blurbox>
-                  <Typography variant="h4" sx={{ fontWeight: 400, fontSize: 30, color:"#122f47" }} gutterBottom>
+                <Blurbox style={{ height: "200px" }}>
+                  <Typography
+                    variant="h4"
+                    sx={{ fontWeight: 400, fontSize: 30, color: "#122f47" }}
+                    gutterBottom
+                  >
                     What is TerraBloc?
                   </Typography>
                   <Typography
                     variant="h5"
-                    sx={{ fontWeight: 370, fontSize: 20, color:"#122f47" }}
+                    sx={{ fontWeight: 370, fontSize: 20, color: "#122f47" }}
                   >
                     TerraBloc is a secure and decentralized platform for buying
                     and selling land. Powered by blockchain technology, it
@@ -65,13 +73,17 @@ export const Home = () => {
               style={{ marginLeft: "700px", marginTop: "30px" }}
             >
               <Grid item xs={12} md={6}>
-                <Blurbox>
-                  <Typography variant="h4" sx={{ fontWeight: 400, fontSize: 30, color:"#122f47" }} gutterBottom>
+                <Blurbox style={{ height: "200px" }}>
+                  <Typography
+                    variant="h4"
+                    sx={{ fontWeight: 400, fontSize: 30, color: "#122f47" }}
+                    gutterBottom
+                  >
                     Secure and Transparent Transactions
                   </Typography>
                   <Typography
                     variant="h5"
-                    sx={{ fontWeight: 370, fontSize: 20, color:"#122f47" }}
+                    sx={{ fontWeight: 370, fontSize: 20, color: "#122f47" }}
                   >
                     With TerraBloc, every transaction is transparent and
                     tamper-proof. Our platform leverages blockchain technology
@@ -85,13 +97,17 @@ export const Home = () => {
             </Grid>
             <Grid container spacing={6} style={{ marginTop: "30px" }}>
               <Grid item xs={12} md={6}>
-                <Blurbox>
-                  <Typography variant="h4" sx={{ fontWeight: 400, fontSize: 30, color:"#122f47" }} gutterBottom>
+                <Blurbox style={{ height: "200px" }}>
+                  <Typography
+                    variant="h4"
+                    sx={{ fontWeight: 400, fontSize: 30, color: "#122f47" }}
+                    gutterBottom
+                  >
                     Protecting Property Rights and Preventing Fraud{" "}
                   </Typography>
                   <Typography
                     variant="h5"
-                    sx={{ fontWeight: 380, fontSize: 20, color:"#122f47" }}
+                    sx={{ fontWeight: 380, fontSize: 20, color: "#122f47" }}
                   >
                     Registering your land with TerraBloc offers increased
                     protection against fraud and upholds your property rights.

@@ -1,9 +1,11 @@
 import Sidebar from "../../components/layouts/OwnerSidebar";
 
-function Owner() {
+const Owner: React.FC = () => {
   return (
-    <div><Sidebar/></div>
-  )
-}
+    <div>
+      <Sidebar />
+    </div>
+  );
+};
 
-export default Owner
+export default Owner;

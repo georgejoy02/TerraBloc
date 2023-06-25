@@ -1,13 +1,11 @@
+import React from "react";
+import { Appbar } from "../components/Appbar";
 
-
-import { Appbar } from '../components/Appbar';
-
-export const Contact = () => {
+export const Contact: React.FC = () => {
   return (
     <div>
-      <Appbar title='Contact' />
-      <div>
-      </div>
+      <Appbar title="Contact" />
+      <div></div>
     </div>
   );
 };

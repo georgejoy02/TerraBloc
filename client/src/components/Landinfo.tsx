@@ -3,7 +3,6 @@ import "./landinfo.css";
 import { Link } from "@mui/material";
 import axios from "axios";
 
-
 interface LandData {
   id: number | null;
   area: number | null;
@@ -19,7 +18,6 @@ interface LandData {
 }
 
 export const Landinfo = (props: { landId: string }) => {
-
   const [landData, setLandData] = useState<LandData>({
     id: null,
     area: null,
@@ -32,19 +30,18 @@ export const Landinfo = (props: { landId: string }) => {
     isforSell: false,
     ownerAddress: "",
     landVerified: false,
-  })
+  });
 
   useEffect(() => {
     const fetchLandData = async () => {
-      const res = await axios.post("http://localhost:4000/getlanddata", { "landId": props.landId })
-      console.log("getlanddata Axios", res.data)
+      const res = await axios.post("http://localhost:4000/getlanddata", {
+        landId: props.landId,
+      });
+      console.log("getlanddata Axios", res.data);
       setLandData(res.data);
-    }
+    };
     fetchLandData();
-  }, [])
-
-
-
+  }, []);
 
   return (
     <div className="landbox">

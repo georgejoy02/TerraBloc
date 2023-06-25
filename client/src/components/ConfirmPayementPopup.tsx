@@ -1,6 +1,13 @@
 import React from "react";
-import { Dialog, DialogTitle, DialogContent, Typography, Button, Box } from "@mui/material";
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Typography,
+  Button,
+  Box,
+} from "@mui/material";
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 
 type ConfirmPaymentPopupProps = {
   open: boolean;
@@ -26,11 +33,17 @@ const ConfirmPaymentPopup: React.FC<ConfirmPaymentPopupProps> = ({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+    >
       <DialogTitle align="center">Confirm Payment</DialogTitle>
       <DialogContent sx={{ textAlign: "center" }}>
         <Typography align="center">{userAddress1}</Typography>
-        <ArrowCircleDownIcon sx={{ fontSize: 40, alignSelf: "center", mt: 2 }} />
+        <ArrowCircleDownIcon
+          sx={{ fontSize: 40, alignSelf: "center", mt: 2 }}
+        />
         <Typography align="center">{userAddress2}</Typography>
         <hr style={{ margin: "16px 0" }} />
         <Typography variant="h6">Total amount in ₹</Typography>
@@ -39,8 +52,16 @@ const ConfirmPaymentPopup: React.FC<ConfirmPaymentPopupProps> = ({
         <Typography variant="h6">Total ETH:</Typography>
         <Typography variant="h4">{totalAmountInEth} ETH</Typography>
         <Box sx={{ mt: 2 }}>
-          <Button variant="outlined" onClick={onClose}>Cancel</Button>
-          <Button variant="contained" onClick={handleConfirm} sx={{ marginLeft: 2 }}>Confirm</Button>
+          <Button variant="outlined" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleConfirm}
+            sx={{ marginLeft: 2 }}
+          >
+            Confirm
+          </Button>
         </Box>
       </DialogContent>
     </Dialog>

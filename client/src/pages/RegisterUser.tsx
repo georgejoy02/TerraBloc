@@ -3,13 +3,12 @@ import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { Appbar } from "../components/Appbar";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ConnectMmButton } from "../components/ConnectMmButton";
 import axios from "axios";
-import { useContext } from 'react';
-import { SmartContractContext } from '../utils/SmartContractContext';
+import { useContext } from "react";
+import { SmartContractContext } from "../utils/SmartContractContext";
 import { useNavigate } from "react-router-dom";
-
 
 const FormContainer = styled("form")(({ theme }) => ({
   display: "flex",
@@ -22,9 +21,7 @@ const FormContainer = styled("form")(({ theme }) => ({
   },
 }));
 
-
 const RegisterUser: React.FC = () => {
-
   const [name, setName] = useState("");
   const [age, setAge] = useState<number | null>(null);
   const [address, setAddress] = useState<string>("");
@@ -37,14 +34,11 @@ const RegisterUser: React.FC = () => {
   const [errorMessageAadhar, setErrorMessageAadhar] = useState<string>("");
   const [errorMessagePan, setErrorMessagePan] = useState<string>("");
 
-  // const checkAccnt = useRef(false);
   const { landContract } = useContext(SmartContractContext);
 
   const navigate = useNavigate();
 
-  const handleAadharDocChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleAadharDocChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setAadharDoc(e.target.files[0]);
       const file = e.target.files[0];
@@ -86,14 +80,17 @@ const RegisterUser: React.FC = () => {
     }
 
     try {
-
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
       const account = accounts[0];
 
-      console.log(account)
+      console.log(account);
       if (landContract) {
-        const result = await landContract.methods.isUserRegistered(account).call();
-        console.log(result)
+        const result = await landContract.methods
+          .isUserRegistered(account)
+          .call();
+        console.log(result);
         if (result == true) {
           alert("account already registered");
           navigate("/loginuser");
@@ -101,19 +98,23 @@ const RegisterUser: React.FC = () => {
         }
         const formData = new FormData();
         formData.append("file", aadharDoc as File);
-        const res = await axios.post("http://localhost:4000/fileupload", formData);
+        const res = await axios.post(
+          "http://localhost:4000/fileupload",
+          formData
+        );
         console.log(res.data);
         const docUrl = res.data;
         if (docUrl) {
-          const test = await landContract.methods.registerUser(name, age, address, aadhar, pan, docUrl, email)
+          const test = await landContract.methods
+            .registerUser(name, age, address, aadhar, pan, docUrl, email)
             .send({ from: account });
           console.log(JSON.stringify(test));
           navigate("/loginuser");
         } else {
-          alert("error in fetching document url")
+          alert("error in fetching document url");
         }
       } else {
-        console.log("contract instance not found")
+        console.log("contract instance not found");
       }
     } catch (error) {
       console.error(error);
@@ -122,7 +123,8 @@ const RegisterUser: React.FC = () => {
 
   return (
     <div>
-      <Appbar title="Register User" />{/*hideIconButton={true}  */}
+      <Appbar title="Register User" />
+      {/*hideIconButton={true}  */}
       <Box marginTop={15}>
         <Container maxWidth="md">
           <FormContainer onSubmit={handleSubmit}>
@@ -198,7 +200,7 @@ const RegisterUser: React.FC = () => {
                 type="file"
                 onChange={handleAadharDocChange}
               />
-              <label htmlFor="aadhar-upload" >
+              <label htmlFor="aadhar-upload">
                 <Button
                   variant="contained"
                   component="span"
@@ -224,16 +226,14 @@ const RegisterUser: React.FC = () => {
             >
               Submit
             </Button>
-            <div style={{textAlign:"center"}}>
-              < ConnectMmButton/>
+            <div style={{ textAlign: "center" }}>
+              <ConnectMmButton />
             </div>
-            
           </FormContainer>
         </Container>
       </Box>
     </div>
   );
-
 };
 
 export default RegisterUser;

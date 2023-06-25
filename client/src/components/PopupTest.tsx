@@ -1,5 +1,3 @@
-// Parent Component
-
 import { useState } from "react";
 import ConfirmPaymentPopup from "./ConfirmPayementPopup";
 import { Button } from "@mui/material";
@@ -17,7 +15,9 @@ const PopupTest = () => {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen}>Open Popup</Button>
+      <Button variant="contained" onClick={handleOpen}>
+        Open Popup
+      </Button>
       <ConfirmPaymentPopup
         open={open}
         onClose={handleClose}

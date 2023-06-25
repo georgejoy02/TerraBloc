@@ -11,47 +11,22 @@ import SaveIcon from "@mui/icons-material/Save";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
-// import { landPlotContext } from "./landPlotContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-(mapboxgl as any).accessToken =
-  process.env.REACT_APP_MAPBOX_KEY ||
-  "pk.eyJ1IjoiZ2VvcmdleDAyMDMiLCJhIjoiY2xnMTE5ZWQ1MWd6azNocXl4M3ZtbmVyaCJ9.fyd3VjwhS9S5MnyfspAzhg";
+(mapboxgl as any).accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 
 interface LatLng {
   lat: number;
   lng: number;
 }
-// interface MapPlotProviderProps {
-//   children: React.ReactNode;
-// }
-
-// interface LocationState {
-//   from: string;
-//   setPolygon: (polygon: {
-//     lat: number;
-//     lng: number;
-//   }[]) => void;
-// }
-
-
-interface LocationState {
-  data: LatLng[];
-}
-
-
 
 const Map: React.FC = () => {
-
   const navigate = useNavigate();
-
 
   const [map, setMap] = useState<mapboxgl.Map | null>(null);
   const [draw, setDraw] = useState<MapboxDraw | null>(null);
   const [polygon, setPolygon] = useState<LatLng[]>([]);
   const [mapStyle, setMapStyle] = useState("streets");
-
-
 
   useEffect(() => {
     handleMapLoad();
@@ -116,13 +91,8 @@ const Map: React.FC = () => {
   const handleSaveClick = async () => {
     if (polygon.length >= 4) {
       try {
-
-
         console.log("Polygon saved to the backend.");
-        navigate('/userdashboard/addland', { state: { polygon } })
-
-
-
+        navigate("/userdashboard/addland", { state: { polygon } });
       } catch (error) {
         console.error("Error saving polygon to the backend:", error);
       }
@@ -191,9 +161,6 @@ const Map: React.FC = () => {
           Switch Style
         </Button>
       </div>
-      {/* <landPlotContext.Provider value={{ polygon, setPolygon }}>
-        {children}
-      </landPlotContext.Provider> */}
     </div>
   );
 };

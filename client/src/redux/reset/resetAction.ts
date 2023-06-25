@@ -1,4 +1,4 @@
-import { RESET_STATE } from './resetType';
+import { RESET_STATE } from "./resetType";
 
 export const resetState = () => {
   return {

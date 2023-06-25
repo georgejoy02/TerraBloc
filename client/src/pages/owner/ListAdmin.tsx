@@ -1,14 +1,12 @@
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { Button, Link, TextField } from '@mui/material';
-import { useEffect, useContext, useState } from 'react';
-import { SmartContractContext } from '../../utils/SmartContractContext';
-import axios from 'axios';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface Address {
   address: any;
@@ -23,9 +21,7 @@ interface AddressDetails {
   city: any;
 }
 
-const ListAdmin = () => {
-  const { landContract } = useContext(SmartContractContext);
-
+const ListAdmin:React.FC = () => {
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [rows, setRows] = useState<AddressDetails[]>([]);
 
@@ -43,14 +39,16 @@ const ListAdmin = () => {
   useEffect(() => {
     const fetchAddresses = async () => {
       try {
-        const response = await axios.get<Address[]>('http://localhost:4000/alluserlist');
+        const response = await axios.get<Address[]>(
+          "http://localhost:4000/alluserlist"
+        );
         if (Array.isArray(response.data)) {
           setAddresses(response.data);
         } else {
-          console.log('No users found');
+          console.log("No users found");
         }
       } catch (error) {
-        console.error('Error fetching addresses:', error);
+        console.error("Error fetching addresses:", error);
       }
     };
 
@@ -63,14 +61,26 @@ const ListAdmin = () => {
       let i = 1;
       for (const address of addresses) {
         try {
-          const res = await axios.post('http://localhost:4000/getuserdata', { key: address });
+          const res = await axios.post("http://localhost:4000/getuserdata", {
+            key: address,
+          });
           console.log(res.data);
           detailsArray.push(
-            createData(i, res.data.id, res.data.name, res.data.age, res.data.designation, res.data.city)
+            createData(
+              i,
+              res.data.id,
+              res.data.name,
+              res.data.age,
+              res.data.designation,
+              res.data.city
+            )
           );
           i++;
         } catch (error) {
-          console.error(`Error fetching details for address ${address}:`, error);
+          console.error(
+            `Error fetching details for address ${address}:`,
+            error
+          );
         }
       }
       setRows(detailsArray);
@@ -96,7 +106,10 @@ const ListAdmin = () => {
         </TableHead>
         <TableBody>
           {rows.map((row: any) => (
-            <TableRow key={row.si} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            <TableRow
+              key={row.si}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
               <TableCell>{row.si}</TableCell>
               <TableCell component="th" scope="row">
                 {row.address}

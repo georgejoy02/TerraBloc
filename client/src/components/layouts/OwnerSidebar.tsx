@@ -38,7 +38,7 @@ const Sidebar: React.FC = () => {
     {
       label: "Add admin",
       icon: <AddBoxIcon />,
-      component:<RegisterAdmin />,
+      component: <RegisterAdmin />,
       onClick: () => setSelectedItem("Add admin"),
     },
     {
@@ -68,21 +68,23 @@ const Sidebar: React.FC = () => {
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
         <Toolbar>
-          <Typography variant="h6" textAlign='center' noWrap component="div">
+          <Typography variant="h6" textAlign="center" noWrap component="div">
             Super Admin
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer sx={{
+      <Drawer
+        sx={{
           width: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
-          }, }}
-          variant="permanent"
-          anchor="left"
-          >
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
         <Box
           sx={{
             display: "flex",

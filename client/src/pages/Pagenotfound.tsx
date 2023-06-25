@@ -1,11 +1,12 @@
-import { Appbar } from '../components/Appbar'
-import PopupTest from '../components/PopupTest'
+import React from "react";
+import { Appbar } from "../components/Appbar";
+import PopupTest from "../components/PopupTest";
 
-export const Pagenotfound = () => {
+export const Pagenotfound: React.FC = () => {
   return (
     <div>
-      <Appbar title='News'/>
-      <PopupTest/>
+      <Appbar title="News" />
+      <PopupTest />
     </div>
-  )
-}
+  );
+};

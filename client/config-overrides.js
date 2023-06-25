@@ -4,12 +4,12 @@ const { useBabelRc, override } = require('customize-cra');
 
 module.exports = override(useBabelRc());
 module.exports = function override(config) {
-    return {
-      ...config,
-      ignoreWarnings: [
-        {
-          module: /node_modules\/web3/,
-        },
-      ],
-    }
+  return {
+    ...config,
+    ignoreWarnings: [
+      {
+        module: /node_modules\/web3/,
+      },
+    ],
   }
+}

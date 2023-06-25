@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Menu, MenuItem, Grid } from "@mui/material";
-// import { initialData } from "../../components/DummyData";
 import Lcard from "../../components/Lcard";
 import { Appbar } from "../../components/Appbar";
 import axios from "axios";
-
 
 interface LandData {
   id: number;
@@ -21,26 +19,25 @@ interface LandData {
 }
 
 const LandGallery: React.FC = () => {
-
-  // const [filteredData, setFilteredData] = useState<LandData[]>([]);
-  const [filterAnchorEl, setFilterAnchorEl] = useState<null | HTMLElement>(null);
+  const [filterAnchorEl, setFilterAnchorEl] = useState<null | HTMLElement>(
+    null
+  );
   const [filterId, setFilterId] = useState<number | null>(null);
   const [landArr, setLandArr] = useState<LandData[]>([]);
-  const [checkReq, setCheckReq] = useState(false)
+  const [checkReq, setCheckReq] = useState(false);
 
   useEffect(() => {
     const fetchLAndData = async () => {
-      const res = await axios.get("http://localhost:4000/landlist")
-      console.log(res.data)
-      setLandArr(res.data)
-    }
+      const res = await axios.get("http://localhost:4000/landlist");
+      console.log(res.data);
+      setLandArr(res.data);
+    };
     fetchLAndData();
-  }, [])
+  }, []);
 
   useEffect(() => {
-console.log("reloading ....")
-  }, [checkReq])
-
+    console.log("reloading ....");
+  }, [checkReq]);
 
   const handleFilterClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setFilterAnchorEl(event.currentTarget);
@@ -74,7 +71,12 @@ console.log("reloading ....")
         <Grid container spacing={2}>
           {landArr.map((i) => (
             <Grid item xs={3} key={i.id}>
-              <Lcard item={i} request={true} setCheckReq={setCheckReq} checkReq={checkReq} />
+              <Lcard
+                item={i}
+                request={true}
+                setCheckReq={setCheckReq}
+                checkReq={checkReq}
+              />
             </Grid>
           ))}
         </Grid>

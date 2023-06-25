@@ -2,15 +2,23 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { styled } from "@mui/material/styles";
 import bgImage from "../images/bgLogin.png";
-import { Navbar } from "../components/layouts/Navbar"
-import { Box, InputAdornment, Stack, TextField, IconButton, Typography, Button } from "@mui/material";
+import { Navbar } from "../components/layouts/Navbar";
+import {
+  Box,
+  InputAdornment,
+  Stack,
+  TextField,
+  IconButton,
+  Typography,
+  Button,
+} from "@mui/material";
 import { ConnectMmButton } from "../components/ConnectMmButton";
-import { SetStateAction, useState } from 'react';
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 interface IMyProps {
-  value: string,
+  value: string;
 }
 
 const FormContainer = styled("form")(({ theme }) => ({
@@ -27,18 +35,16 @@ const FormContainer = styled("form")(({ theme }) => ({
 export const Login: React.FC<IMyProps> = (props: IMyProps) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const [key, setKey] = useState("")
-
+  const [key, setKey] = useState("");
 
   const handleKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value)
-    setKey(e.target.value)
-  }
-
+    console.log(e.target.value);
+    setKey(e.target.value);
+  };
 
   const onSubmitHandle = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,56 +52,55 @@ export const Login: React.FC<IMyProps> = (props: IMyProps) => {
     switch (props.value) {
       case "user":
         try {
-          // const formData = new FormData();
-          // formData.append("key", key);
-          // console.log(key)
-          // console.log(formData)
-          const res = await axios.post("http://localhost:4000/userlogin", { "key": key });
+          const res = await axios.post("http://localhost:4000/userlogin", {
+            key: key,
+          });
           console.log(res);
           if (res.data == true) {
-            navigate("/userdashboard")
+            navigate("/userdashboard");
           } else {
-            alert("user not found")
+            alert("user not found");
           }
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
         break;
       case "admin":
         try {
-          const res = await axios.post("http://localhost:4000/adminlogin", { "key": key });
+          const res = await axios.post("http://localhost:4000/adminlogin", {
+            key: key,
+          });
           console.log(res);
           if (res.data == true) {
-            navigate("/admin")
+            navigate("/admin");
           } else {
-            alert("address doesnt match any admin")
+            alert("address doesnt match any admin");
           }
-
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
 
         break;
       case "owner":
         try {
-          const res = await axios.post("http://localhost:4000/ownerlogin", { "key": key });
+          const res = await axios.post("http://localhost:4000/ownerlogin", {
+            key: key,
+          });
           console.log(res);
           if (res.data == true) {
-            navigate("/owner")
+            navigate("/owner");
           } else {
-            alert("you are not the contract owner")
+            alert("you are not the contract owner");
           }
-
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
 
         break;
-      default: alert("click the correct option");
+      default:
+        alert("click the correct option");
     }
-  }
-
-
+  };
 
   return (
     <div>
@@ -111,7 +116,6 @@ export const Login: React.FC<IMyProps> = (props: IMyProps) => {
             backgroundSize: "cover",
           }}
         >
-
           <Stack
             spacing={4}
             justifyContent="center"
@@ -137,7 +141,11 @@ export const Login: React.FC<IMyProps> = (props: IMyProps) => {
                   endAdornment: (
                     <InputAdornment position="end">
                       <IconButton onClick={handleShowPassword}>
-                        {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                        {showPassword ? (
+                          <VisibilityOffIcon />
+                        ) : (
+                          <VisibilityIcon />
+                        )}
                       </IconButton>
                     </InputAdornment>
                   ),
@@ -168,11 +176,10 @@ export const Login: React.FC<IMyProps> = (props: IMyProps) => {
               }}
             >
               <ConnectMmButton />
-
             </Stack>
           </Stack>
         </Box>
       </FormContainer>
-    </div >
+    </div>
   );
 };

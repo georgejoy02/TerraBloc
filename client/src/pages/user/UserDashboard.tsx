@@ -1,6 +1,4 @@
-// import {Box, Grid} from "@mui/material";
 import "./UserDashboard.css";
-// import React, {useState} from "react";
 
 const UserDashboard: React.FC = () => {
   return (

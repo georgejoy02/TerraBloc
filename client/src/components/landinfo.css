@@ -1,45 +1,45 @@
 .landbox {
-    width: 600px;
-    /* height: 350px; */
-    background-color: #fff;
-    margin: 0 auto;
-    margin-top: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-    font-family: sans-serif;
-  }
-  .landbox h2 {
-    padding-left: 20px;
-    padding-top: 20px;
-    margin: 0;
-  }
-  
-  .landbox h5 {
-    display: flex;
-    padding-left: 20px;
-    margin: 0;
-    color: rgb(19, 92, 208);
-  }
+  width: 600px;
+  /* height: 350px; */
+  background-color: #fff;
+  margin: 0 auto;
+  margin-top: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  font-family: sans-serif;
+}
+.landbox h2 {
+  padding-left: 20px;
+  padding-top: 20px;
+  margin: 0;
+}
 
-  .landbox .link{
-    display: flex;
-    flex-direction: column;
-    padding-left: 20px;
-    margin: 20px;
-  }
+.landbox h5 {
+  display: flex;
+  padding-left: 20px;
+  margin: 0;
+  color: rgb(19, 92, 208);
+}
 
-  .landbox .link div {
-    display: flex;
-    align-items: center;
-  }
-  
-  .landbox .link h4 {
-    padding-bottom: 20px;
-    margin-right: 3px;
-  }
-  
-  .landbox .link p {
-    margin: 0;
-    padding-bottom: 20px;
-  }
+.landbox .link {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  margin: 20px;
+}
+
+.landbox .link div {
+  display: flex;
+  align-items: center;
+}
+
+.landbox .link h4 {
+  padding-bottom: 20px;
+  margin-right: 3px;
+}
+
+.landbox .link p {
+  margin: 0;
+  padding-bottom: 20px;
+}

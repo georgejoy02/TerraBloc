@@ -1,11 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Box, Stack, Typography, Button, TextField } from "@mui/material";
-import Sidebar from "../../components/layouts/OwnerSidebar";
-import { Appbar } from "../../components/Appbar";
-import { SmartContractContext } from '../../utils/SmartContractContext';
+import { SmartContractContext } from "../../utils/SmartContractContext";
 
-
-const RegisterAdmin = () => {
+const RegisterAdmin:React.FC = () => {
   const [open, setOpen] = useState(false);
   const [address, setAddress] = useState("");
   const [name, setName] = useState("");
@@ -23,27 +20,31 @@ const RegisterAdmin = () => {
 
   const { landContract } = useContext(SmartContractContext);
 
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
       const account = accounts[0];
 
-      console.log(account)
+      console.log(account);
       if (landContract) {
-        const result = await landContract.methods.isLandInspector(account).call();
-        console.log(result)
+        const result = await landContract.methods
+          .isLandInspector(account)
+          .call();
+        console.log(result);
         if (result == true) {
           alert("account already registered");
           return;
         }
-        const test = await landContract.methods.addLandInspector(address, name, age, designation, city)
+        const test = await landContract.methods
+          .addLandInspector(address, name, age, designation, city)
           .send({ from: account });
         console.log(JSON.stringify(test));
       } else {
-        console.log("parameters not defined")
+        console.log("parameters not defined");
       }
     } catch (error) {
       console.error(error);

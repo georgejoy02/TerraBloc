@@ -1,25 +1,12 @@
 import { AppBar, Toolbar, IconButton, Typography, Box } from "@mui/material";
-import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactFragment,
-  ReactPortal,
-} from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 
-export const Appbar = (props: {
-  title:
-    | string
-    | number
-    | boolean
-    | ReactElement<any, string | JSXElementConstructor<any>>
-    | ReactFragment
-    | ReactPortal
-    | null
-    | undefined;
-    hideIconButton?: boolean;
-}) => {
+interface props {
+  title: string;
+  hideIconButton?: boolean;
+}
+export const Appbar: React.FC<props> = ({ title, hideIconButton }) => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -27,13 +14,10 @@ export const Appbar = (props: {
   };
 
   return (
-    <div style={{position: 'fixed', top: 0, zIndex:2, width: '100%'}}>
-      <AppBar
-        position="static"
-        style={{ background: "#fff", height: "70px" }}
-      >
+    <div style={{ position: "fixed", top: 0, zIndex: 2, width: "100%" }}>
+      <AppBar position="static" style={{ background: "#fff", height: "70px" }}>
         <Toolbar>
-        {!props.hideIconButton && (
+          {!hideIconButton && (
             <IconButton
               edge="start"
               color="primary"
@@ -42,7 +26,7 @@ export const Appbar = (props: {
               size="large"
               sx={{ mr: 2 }}
             >
-              <ArrowBackIcon fontSize="large" />
+              <ArrowBackIcon fontSize="large" style={{ color: "#082238" }} />
             </IconButton>
           )}
           <Box
@@ -63,7 +47,7 @@ export const Appbar = (props: {
                 marginRight: "100px",
               }}
             >
-              {props.title}
+              {title}
             </Typography>
           </Box>
         </Toolbar>

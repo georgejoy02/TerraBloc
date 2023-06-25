@@ -3,30 +3,42 @@ const path = require("path");
 const getWeb3 = require("../web3/getweb3");
 const ipfsUrlRetrieve = require("./ipfsUrlRetrieve");
 
-
 const generatePDF = async (req, res) => {
-    const { sellerImg, buyerrImg, sellerId, buyerId, landId } = req.body;
-    const land_contract = await getWeb3();
-    const sellerinfo = await land_contract.methods.UserMap(sellerId).call();
-    console.log("sellerinfo", sellerinfo)
-    const buyerinfo = await land_contract.methods.UserMap(buyerId).call();
-    console.log("buyerinfo", buyerinfo)
-    const landinfo = await land_contract.methods.landsMap(landId).call();
-    console.log("landinfo", landinfo)
+  const { sellerImg, buyerrImg, sellerId, buyerId, landId } = req.body;
+  const land_contract = await getWeb3();
+  const sellerinfo = await land_contract.methods.UserMap(sellerId).call();
+  console.log("sellerinfo", sellerinfo);
+  const buyerinfo = await land_contract.methods.UserMap(buyerId).call();
+  console.log("buyerinfo", buyerinfo);
+  const landinfo = await land_contract.methods.landsMap(landId).call();
+  console.log("landinfo", landinfo);
 
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
 
-    const date = new Date()
-    const currentDay = String(date.getDate()).padStart(2, '0');
+  const date = new Date();
+  const currentDay = String(date.getDate()).padStart(2, "0");
 
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
-    const currentMonth = months[date.getMonth()];
+  const currentMonth = months[date.getMonth()];
 
-    const currentYear = date.getFullYear();
+  const currentYear = date.getFullYear();
 
-    const htmlContent = `
+  const htmlContent = `
     <!DOCTYPE html>
     <html>
     <head>
@@ -193,29 +205,28 @@ const generatePDF = async (req, res) => {
     </html>
 `;
 
-    await page.setContent(htmlContent);
+  await page.setContent(htmlContent);
 
-    console.log("Generating PDF...");
+  console.log("Generating PDF...");
 
+  const pdfPath = path.join(__dirname, "FinalDoc.pdf");
+  const buffer = await page.pdf({ format: "A4", printBackground: true });
+  console.log("pdfres: ", buffer);
+  console.log("Generated PDF");
+  const file = {
+    buffer: buffer,
+    originalname: `${sellerinfo.id}_to_${buyerinfo.id}.pdf`,
+    mimetype: "pdf",
+  };
 
-    const pdfPath = path.join(__dirname, "FinalDoc.pdf");
-    const buffer = await page.pdf({ format: "A4", printBackground: true });
-    console.log("pdfres: ", buffer);
-    console.log("Generated PDF");
-    const file = {
-        "buffer": buffer,
-        "originalname": `${sellerinfo.id}_to_${buyerinfo.id}.pdf`,
-        "mimetype": "pdf",
-    }
-
-    await browser.close();
-    const filelink = await ipfsUrlRetrieve(file);
-    console.log(filelink)
-    if(filelink){
-        res.json(filelink)
-    }else{
-        res.json(false);
-    }
+  await browser.close();
+  const filelink = await ipfsUrlRetrieve(file);
+  console.log(filelink);
+  if (filelink) {
+    res.json(filelink);
+  } else {
+    res.json(false);
+  }
 };
 
 module.exports = generatePDF;

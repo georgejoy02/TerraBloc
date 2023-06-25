@@ -26,7 +26,7 @@ import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
-export default function Sidebar() {
+const Sidebar: React.FC = () => {
   const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState("Dashboard");
   const menuItems = [
@@ -61,11 +61,6 @@ export default function Sidebar() {
     },
   ];
 
-    const renderComponent = () => {
-    const menuItem = menuItems.find((item) => item.label === selectedItem);
-    return menuItem ? menuItem.component : null;
-  };
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -74,13 +69,11 @@ export default function Sidebar() {
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
       >
         <Toolbar>
-          <Typography variant="h6" textAlign='center' noWrap component="div">
+          <Typography variant="h6" textAlign="center" noWrap component="div">
             LandInspector
           </Typography>
         </Toolbar>
       </AppBar>
-      {/* <Appbar 
-      title="Land Inspector" /> */}
       <Drawer
         sx={{
           width: drawerWidth,
@@ -148,4 +141,5 @@ export default function Sidebar() {
       </Box>
     </Box>
   );
-}
+};
+export default Sidebar;
