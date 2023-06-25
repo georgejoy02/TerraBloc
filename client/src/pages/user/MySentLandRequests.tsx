@@ -6,66 +6,110 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import axios from 'axios';
+import { useState, useContext, useEffect } from 'react';
+import { SmartContractContext } from '../../utils/SmartContractContext';
 
-function createData(
-    si: number,
-    landId: string,
-    ownerAddress: string,
-    status: string,
-    price: string
-) {
-    return { si, landId, ownerAddress, status, price };
+
+
+const rows = ["requested", "accepted", "rejected", "payment done", "completed"];
+
+
+
+
+interface LandRequest {
+    reqId: number;
+    sellerId: string;
+    buyerId: string;
+    landId: number;
+    requestStatus: string;
+    isPaymentDone: boolean;
+    landPrice: string;
 }
 
-const rows = [
-    createData(1, "890381283498092832", "Owner's Address 1", "Pending", "₹50000"),
-    createData(2, "783920183409283047", "Owner's Address 2", "Completed", "₹75000"),
-];
-
 const MySentLandRequests = () => {
-    const handleMakePayment = (row: any) => {
-        // Perform make payment action
-        console.log("Make Payment clicked for row:", row);
+
+
+
+    const [landReq, setLandReq] = useState<LandRequest[]>([])
+    const [reload, setReload] = useState(false)
+
+
+    const { landContract } = useContext(SmartContractContext);
+
+    useEffect(() => {
+        const fetchreceivedrequest = async () => {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+            const account = accounts[0];
+            console.log(account)
+            const res = await axios.post("http://localhost:4000/sentreqstatus", { "key": account })
+            console.log(res.data)
+            setLandReq(res.data)
+        }
+        fetchreceivedrequest();
+
+    }, [reload])
+
+    const handleMakePayment = async (landPrice: string, reqId: number) => {
+        const amount = parseInt(landPrice);
+
+        try {
+            if (landContract) {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+                const account = accounts[0];
+                const test = await landContract.methods.makePayment(reqId)
+                    .send({ from: account, value: amount });
+                console.log(JSON.stringify(test));
+                setReload(!reload)
+            } else {
+                console.log("contract instance not found")
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
     };
 
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>#</TableCell>
-                        <TableCell>Land Id</TableCell>
-                        <TableCell>Owner Address</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Price (in ₹)</TableCell>
-                        <TableCell>Make Payment</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                        <TableRow
-                            key={row.landId}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell>{row.si}</TableCell>
-                            <TableCell>{row.landId}</TableCell>
-                            <TableCell>{row.ownerAddress}</TableCell>
-                            <TableCell>{row.status}</TableCell>
-                            <TableCell>{row.price}</TableCell>
-                            <TableCell>
-                                <Button
-                                    variant="contained"
-                                    disabled={row.status === "Completed"}
-                                    onClick={() => handleMakePayment(row)}
-                                >
-                                    Make Payment
-                                </Button>
-                            </TableCell>
+        <div style={{ marginLeft: "270px", marginRight: "10px" }}>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>#</TableCell>
+                            <TableCell>Land Id</TableCell>
+                            <TableCell>Owner Address</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>Price (in ₹)</TableCell>
+                            <TableCell>Make Payment</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {landReq.map((row) => (
+                            <TableRow
+                                key={row.landId}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell>{row.reqId}</TableCell>
+                                <TableCell>{row.landId}</TableCell>
+                                <TableCell>{row.sellerId}</TableCell>
+                                <TableCell>{rows[parseInt(row.requestStatus)]}</TableCell>
+                                <TableCell>{row.landPrice}</TableCell>
+                                <TableCell>
+                                    <Button
+                                        variant="contained"
+                                        disabled={["0", "2", "3", "4"].includes(row.requestStatus)}
+                                        onClick={() => handleMakePayment(row.landPrice, row.reqId)}
+                                    >
+                                        Make Payment
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </div>
     );
 };
 

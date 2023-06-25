@@ -92,8 +92,8 @@ const Map: React.FC = () => {
     const { features } = event;
     const newPolygon = features[0].geometry.coordinates[0].map(
       (coord: any) => ({
-        lat: coord[1],
         lng: coord[0],
+        lat: coord[1],
       })
     );
 

@@ -12,8 +12,10 @@ import Owner from "./pages/owner/Owner";
 import User from "./pages/user/User";
 import LandGallery from "./pages/user/LandGallery";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import LandDetails from "./pages/user/LandDetails";
 
-export default function App() {
+
+const App: React.FC = () => {
   const theme = createTheme({
     palette: {
       primary: {
@@ -29,7 +31,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/contact" element={<TransferOwnershipFinal />} />
-            <Route path="/landgallery" element={<LandGallery />} />
+            {/* <Route path="/landgallery" element={<LandGallery />} /> */}
             <Route path="/signup" element={<Signup />} />
             {/* <Route path="/login" element={<Login />} /> */}
 
@@ -41,12 +43,17 @@ export default function App() {
             <Route path="/userdashboard/*" element={<User />} />
             <Route path="/owner" element={<Owner />} />
             <Route path="/loginoption" element={<LoginPage />} />
-            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/*" element={<Admin />} />
             <Route path="/registeruser" element={<RegisterUser />} />
             <Route path="/map" element={<Map />} />
+            <Route path='/userdashboard/landgallery/:id' element={<LandDetails />} />
+            <Route path='/userdashboard/mylands/:id' element={<LandDetails />} />
+            <Route path="/admin/transferownership" element={<TransferOwnershipFinal />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
     </div>
   );
 }
+
+export default App;
