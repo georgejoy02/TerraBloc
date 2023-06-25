@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { Dispatch, ReactNode, SetStateAction, useEffect, useState } from "react";
 import WebcamImage from "./WebcamImage";
 import "./profile.css";
 import VerifiedIcon from "@mui/icons-material/Verified";
@@ -16,8 +16,15 @@ interface User {
   email: string,
   userVerified: boolean
 }
+interface props {
+  title: string,
+  Address: string,
+  setImg: Dispatch<SetStateAction<string | null>>,
+  img: string | null
+}
 
-export const Profile = (props: { title: string, Address: string }) => {
+
+export const Profile: React.FC<props> = ({ title, Address, setImg, img }) => {
 
   const [userdata, setUserdata] = useState<User>({
     id: "",
@@ -35,7 +42,7 @@ export const Profile = (props: { title: string, Address: string }) => {
   useEffect(() => {
     const test = async () => {
       try {
-        const res = await axios.post("http://localhost:4000/getuserdata", { "key": props.Address });
+        const res = await axios.post("http://localhost:4000/getuserdata", { "key": Address });
         console.log("getuserdata Axios: ", res.data);
         setUserdata({
           id: res.data.id,
@@ -59,7 +66,7 @@ export const Profile = (props: { title: string, Address: string }) => {
 
   return (
     <div className="box">
-      <h3>{props.title}</h3>
+      <h3>{title}</h3>
       <div>
         <h5>
           {
@@ -70,7 +77,7 @@ export const Profile = (props: { title: string, Address: string }) => {
         </h5>
       </div>
       <div className="webcamImageContainer">
-        <WebcamImage />
+        <WebcamImage setImg={setImg} img={img} />
       </div>
       <div
         className="inputContainer"
@@ -84,14 +91,17 @@ export const Profile = (props: { title: string, Address: string }) => {
           disabled
         />
         <TextField label="Name" variant="outlined" className="inputField" value={userdata.name} disabled />
-        <TextField label="Age" variant="outlined" className="inputField" value={userdata.age} disabled />
-        <TextField label="City" variant="outlined" className="inputField" value={userdata.city} disabled />
+        <TextField label="Age" type="text" variant="outlined" className="inputField" value={userdata.age} disabled />
+        <TextField label="City" variant="outlined" className="inputField" value={userdata.city} disabled
+
+        />
         <TextField
           label="Adhar Number"
           variant="outlined"
           className="inputField"
           value={userdata.aadharNumber}
           disabled
+
         />
         <TextField label="PAN" variant="outlined" className="inputField" value={userdata.panNumber} disabled />
         <TextField label="Mail" variant="outlined" className="inputField" value={userdata.email} disabled />

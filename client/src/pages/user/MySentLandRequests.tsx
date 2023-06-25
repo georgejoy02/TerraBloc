@@ -44,7 +44,9 @@ const MySentLandRequests = () => {
             console.log(account)
             const res = await axios.post("http://localhost:4000/sentreqstatus", { "key": account })
             console.log(res.data)
-            setLandReq(res.data)
+            if (Array.isArray(res.data)) {
+                setLandReq(res.data)
+            }
         }
         fetchreceivedrequest();
 

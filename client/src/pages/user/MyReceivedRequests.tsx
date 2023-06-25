@@ -11,35 +11,13 @@ import axios from 'axios';
 import { Typography } from '@mui/material';
 import { SmartContractContext } from '../../utils/SmartContractContext';
 
-function createData(
-    si: number,
-    landId: string,
-    buyerAddress: string,
-    status: string,
-    paymentDone: string,
-    reject: boolean,
-    accept: boolean
-) {
-    return { si, landId, buyerAddress, status, paymentDone, reject, accept };
-}
+
 
 const rows = ["requested", "accepted", "rejected", "payment done", "completed"];
 
 
 
-// interface LandData {
-//     id: number;
-//     area: number;
-//     landAddress: string;
-//     landPrice: number;
-//     allLatitudeLongitude: string;
-//     propertyPID: number;
-//     physicalSurveyNumber: string;
-//     document: string;
-//     isforSell: boolean;
-//     ownerAddress: string;
-//     landVerified: boolean;
-// }
+
 
 interface LandRequest {
     reqId: number;
@@ -64,7 +42,9 @@ const MyReceivedRequests = () => {
             const account = accounts[0];
             console.log(account)
             const res = await axios.post("http://localhost:4000/myreceivedrequest", { "key": account })
+            if(Array.isArray(res.data)){
             setLandReq(res.data)
+            }
         }
         fetchreceivedrequest();
 

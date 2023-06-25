@@ -13,6 +13,8 @@ import User from "./pages/user/User";
 import LandGallery from "./pages/user/LandGallery";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import LandDetails from "./pages/user/LandDetails";
+import { Contacts } from "@mui/icons-material";
+import PopupTest from "./components/PopupTest";
 
 
 const App: React.FC = () => {
@@ -30,7 +32,7 @@ const App: React.FC = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/contact" element={<TransferOwnershipFinal />} />
+            <Route path="/contact" element={<Contacts/>} />
             {/* <Route path="/landgallery" element={<LandGallery />} /> */}
             <Route path="/signup" element={<Signup />} />
             {/* <Route path="/login" element={<Login />} /> */}
@@ -38,6 +40,7 @@ const App: React.FC = () => {
             <Route path="/loginuser" element={<Login value="user" />} />
             <Route path="/loginadmin" element={<Login value="admin" />} />
             <Route path="/loginowner" element={<Login value="owner" />} />
+            <Route path="/test" element={<PopupTest/>} />
 
             {/* <Route path="/landgallery" element={<LandGallery />} /> */}
             <Route path="/userdashboard/*" element={<User />} />
