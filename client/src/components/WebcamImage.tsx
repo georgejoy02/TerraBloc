@@ -1,9 +1,16 @@
 import { Button } from "@mui/material";
-import { useCallback, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 
-function WebcamImage() {
-  const [img, setImg] = useState<string | null>(null);
+
+interface props {
+  setImg: Dispatch<SetStateAction<string | null>>,
+  img: string | null
+}
+
+const WebcamImage: React.FC<props> = ({ setImg, img }) => {
+
+  // const [img, setImg] = useState<string | null>(null);
   const webcamRef = useRef<Webcam>(null);
 
   const videoConstraints = {
@@ -15,6 +22,7 @@ function WebcamImage() {
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
     setImg(imageSrc ?? null);
+    console.log(imageSrc)
   }, [webcamRef]);
 
   const retake = useCallback(() => {

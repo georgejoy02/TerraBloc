@@ -49,7 +49,7 @@ const VerifyUser = () => {
     useEffect(() => {
         const fetchAddresses = async () => {
             try {
-                const response = await axios.get<Address[]>('http://localhost:4000/alluserlist');
+                const response = await axios.get('http://localhost:4000/alluserlist');
                 if (Array.isArray(response.data)) {
                     setAddresses(response.data);
                 }

@@ -23,6 +23,7 @@ const myReceivedRequest = require('../controller/myReceivedRequest');
 const sentReqStatus = require('../controller/sentReqStatus');
 const transferList = require('../controller/transferList');
 const getLandData = require('../controller/getLandData');
+const generatePDF = require('../utils/PdfGenerate');
 
 
 router.route('/checkowner').post(checkOwner)
@@ -44,6 +45,7 @@ router.route('/myreceivedrequest').post(myReceivedRequest)
 router.route('/sentreqstatus').post(sentReqStatus)
 router.route('/transferlist').get(transferList)
 router.route('/getlanddata').post(getLandData)
+router.route('/saledeedgenerate').post(generatePDF)
 
 
 module.exports = router;

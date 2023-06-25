@@ -1,16 +1,31 @@
 const puppeteer = require("puppeteer");
 const path = require("path");
+const getWeb3 = require("../web3/getweb3");
+const ipfsUrlRetrieve = require("./ipfsUrlRetrieve");
 
-const generatePDF = async () =>
-  //   buyerProfile,
-  //   sellerProfile,
-  //   buyerImage,
-  //   sellerImage
-  {
+
+const generatePDF = async (req, res) => {
+    const { sellerImg, buyerrImg, sellerId, buyerId, landId } = req.body;
+    const land_contract = await getWeb3();
+    const sellerinfo = await land_contract.methods.UserMap(sellerId).call();
+    console.log("sellerinfo", sellerinfo)
+    const buyerinfo = await land_contract.methods.UserMap(buyerId).call();
+    console.log("buyerinfo", buyerinfo)
+    const landinfo = await land_contract.methods.landsMap(landId).call();
+    console.log("landinfo", landinfo)
+
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
-    // Set the content of the page
+    const date = new Date()
+    const currentDay = String(date.getDate()).padStart(2, '0');
+
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    const currentMonth = months[date.getMonth()];
+
+    const currentYear = date.getFullYear();
+
     const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -114,19 +129,19 @@ const generatePDF = async () =>
         <div class="content">
         <div class="page-1">
             <p>
-                This Deed of Sale is made and executed on this the [Day], [Month], [Year] by and between:
+                This Deed of Sale is made and executed on this the <b>${currentDay}th day of ${currentMonth} ${currentYear}</b> by and between:
             </p>
             <p>
-            [Seller's Name], aged about [Seller's Age], residing at [Seller's Address], hereinafter called the "SELLER" (which expression shall mean and include wherever the context so requires admits his heirs, executors, representatives and assigns) of the ONE PART;
+            <b>${sellerinfo.name}</b>, aged about <b>${sellerinfo.age}</b>, residing at <b>${sellerinfo.city}</b>, hereinafter called the "SELLER" (which expression shall mean and include wherever the context so requires admits his heirs, executors, representatives and assigns) of the ONE PART;
             </p>
             <p>
                 AND
             </p>
             <p>
-                [Buyer's Name], aged about [Buyer's Age], residing at [Buyer's Address], hereinafter called the "BUYER" (which expression shall mean and include wherever the context so requires, admits his heirs, executors, representatives and assigns) of the OTHER PART.
+            <b>${buyerinfo.name}</b>, aged about <b>${buyerinfo.age}</b>, residing at <b>${buyerinfo.city}</b>, hereinafter called the "BUYER" (which expression shall mean and include wherever the context so requires, admits his heirs, executors, representatives and assigns) of the OTHER PART.
             </p>
             <p>
-                The SELLER hereby acknowledges the receipt of a sum of [Amount] towards the full and final payment of the sale consideration of the schedule mentioned property.
+                The SELLER hereby acknowledges the receipt of a sum of <b>₹${landinfo.landPrice}</b> towards the full and final payment of the sale consideration of the schedule mentioned property.
             </p>
             <p>
                 The SELLER further assures the BUYER that the schedule mentioned property is free from all sorts of encumbrances such as prior sale, gifts, mortgage, litigation, disputes, stay orders, claims, demands, etc., and if any defect is found in the title at a later date, the SELLER shall be liable for all costs, charges and expenses for the clearance of the same.
@@ -142,28 +157,28 @@ const generatePDF = async () =>
                         <th>Price</th>
                     </tr>
                     <tr>
-                        <td>[Property ID]</td>
-                        <td>[Location]</td>
-                        <td>[Area]</td>
-                        <td>[Price]</td>
+                        <td><b>${landinfo.propertyPID}</b></td>
+                        <td><b>${landinfo.landAddress}</b></td>
+                        <td><b>${landinfo.area}</b></td>
+                        <td><b>₹${landinfo.landPrice}</b></td>
                     </tr>
                 </table>
                 <div class="container">
                     <div class="seller-info">
                         <h3>Seller</h3>
-                        <img src="https://i.postimg.cc/J0jpxKQq/WIN-20230618-22-26-02-Pro.jpg" alt="Seller Image">
-                        <p>Name: [Seller's Name]</p>
-                        <p>Address: [Seller's Address]</p>
-                        <p>PAN: [Seller's PAN]</p>
-                        <p>Signature: [Seller's Signature]</p>
+                        <img src=${sellerImg} alt="Seller Image">
+                        <p>Name: <b>${sellerinfo.name}</b></p>
+                        <p>Address: <b>${sellerinfo.city}</b></p>
+                        <p>PAN: <b>${sellerinfo.panNumber}</b></p>
+                        <p>Public Key: <b><small>${sellerinfo.id}</small></b></p>
                     </div>
                     <div class="buyer-info">
                         <h3>Buyer</h3>
-                        <img src="https://i.postimg.cc/nhSGv6Jx/WIN-20230618-22-26-38-Pro.jpg" alt="Buyer Image">
-                        <p>Name: [Buyer's Name]</p>
-                        <p>Address: [Buyer's Address]</p>
-                        <p>PAN: [Buyer's PAN]</p>
-                        <p>Signature: [Buyer's Signature]</p>
+                        <img src=${buyerrImg} alt="Buyer Image">
+                        <p>Name: <b>${buyerinfo.name}</b></p>
+                        <p>Address: <b>${buyerinfo.city}</b></p>
+                        <p>PAN: <b>${buyerinfo.panNumber}</b></p>
+                        <p>Public Key: <b><small>${buyerinfo.id}</small></b></p>
                     </div>
               </div>
               
@@ -171,7 +186,7 @@ const generatePDF = async () =>
             </div>
         </div>
         <div class="footer">
-            <p>Generated on: [Date]</p>
+            <p>Generated on: ${date}</p>
             <p>© 2023 TerraBloc. All rights reserved.</p>
         </div>
     </body>
@@ -182,13 +197,25 @@ const generatePDF = async () =>
 
     console.log("Generating PDF...");
 
-    // Generate the PDF file
+
     const pdfPath = path.join(__dirname, "FinalDoc.pdf");
-    await page.pdf({ path: pdfPath, format: "A4", printBackground: true });
+    const buffer = await page.pdf({ format: "A4", printBackground: true });
+    console.log("pdfres: ", buffer);
+    console.log("Generated PDF");
+    const file = {
+        "buffer": buffer,
+        "originalname": `${sellerinfo.id}_to_${buyerinfo.id}.pdf`,
+        "mimetype": "pdf",
+    }
 
     await browser.close();
-
-    return pdfPath;
-  };
+    const filelink = await ipfsUrlRetrieve(file);
+    console.log(filelink)
+    if(filelink){
+        res.json(filelink)
+    }else{
+        res.json(false);
+    }
+};
 
 module.exports = generatePDF;

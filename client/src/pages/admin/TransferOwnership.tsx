@@ -86,7 +86,7 @@ const TransferOwnership = () => {
                             <TableCell><Button
                                 variant="contained"
                                 disabled={["0", "1", "2", "4"].includes(row.requestStatus)}
-                                onClick={() => navigate("transferownership", { state: { sellerId: row.sellerId, buyerId: row.buyerId, landId: row.landId } })}
+                                onClick={() => navigate("transferownership", { state: { sellerId: row.sellerId, buyerId: row.buyerId, landId: row.landId, reqId: row.reqId } })}
                             >
                                 Transfer
                             </Button></TableCell>
