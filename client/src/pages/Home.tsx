@@ -42,7 +42,7 @@ export const Home = () => {
           <Grid item xs={12}>
             <Grid container spacing={6}>
               <Grid item xs={12} md={6}>
-                <Blurbox style={{height:"200px"}}>
+                <Blurbox>
                   <Typography variant="h4" sx={{ fontWeight: 400, fontSize: 30, color:"#122f47" }} gutterBottom>
                     What is TerraBloc?
                   </Typography>
@@ -65,7 +65,7 @@ export const Home = () => {
               style={{ marginLeft: "700px", marginTop: "30px" }}
             >
               <Grid item xs={12} md={6}>
-                <Blurbox style={{height:"200px"}}>
+                <Blurbox>
                   <Typography variant="h4" sx={{ fontWeight: 400, fontSize: 30, color:"#122f47" }} gutterBottom>
                     Secure and Transparent Transactions
                   </Typography>
@@ -85,7 +85,7 @@ export const Home = () => {
             </Grid>
             <Grid container spacing={6} style={{ marginTop: "30px" }}>
               <Grid item xs={12} md={6}>
-                <Blurbox style={{height:"200px"}}>
+                <Blurbox>
                   <Typography variant="h4" sx={{ fontWeight: 400, fontSize: 30, color:"#122f47" }} gutterBottom>
                     Protecting Property Rights and Preventing Fraud{" "}
                   </Typography>

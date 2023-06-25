@@ -42,7 +42,7 @@ export const Appbar = (props: {
               size="large"
               sx={{ mr: 2 }}
             >
-              <ArrowBackIcon fontSize="large" style={{color:"#082238"}} />
+              <ArrowBackIcon fontSize="large" />
             </IconButton>
           )}
           <Box
@@ -55,7 +55,7 @@ export const Appbar = (props: {
             <Typography
               variant="h4"
               component="div"
-              color="#082238"
+              color="primary"
               style={{
                 fontWeight: "bold",
                 textAlign: "center",
