@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -8,6 +8,7 @@ import {
   Box,
 } from "@mui/material";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import { SmartContractContext } from "../utils/SmartContractContext";
 
 type ConfirmPaymentPopupProps = {
   open: boolean;
@@ -17,6 +18,10 @@ type ConfirmPaymentPopupProps = {
   totalAmountInRupees: string;
   ethValue: string;
   totalAmountInEth: string;
+  setReload: React.Dispatch<React.SetStateAction<boolean>>;
+  reload: boolean;
+  reqId: number;
+  landPrice: string;
 };
 
 const ConfirmPaymentPopup: React.FC<ConfirmPaymentPopupProps> = ({
@@ -27,9 +32,33 @@ const ConfirmPaymentPopup: React.FC<ConfirmPaymentPopupProps> = ({
   totalAmountInRupees,
   ethValue,
   totalAmountInEth,
+  setReload,
+  reload,
+  reqId,
+  landPrice,
 }) => {
-  const handleConfirm = () => {
-    // Handle confirm logic here
+  const { landContract } = useContext(SmartContractContext);
+
+  const handleConfirm = async () => {
+    const amount = parseInt(landPrice);
+
+    try {
+      if (landContract) {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const account = accounts[0];
+        const test = await landContract.methods
+          .makePayment(reqId)
+          .send({ from: account, value: amount });
+        console.log(JSON.stringify(test));
+        setReload(!reload);
+      } else {
+        console.log("contract instance not found");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -48,7 +77,7 @@ const ConfirmPaymentPopup: React.FC<ConfirmPaymentPopupProps> = ({
         <hr style={{ margin: "16px 0" }} />
         <Typography variant="h6">Total amount in ₹</Typography>
         <Typography variant="h4">{totalAmountInRupees}</Typography>
-        <Typography variant="body2">1 ETH = {ethValue} ₹</Typography>
+        <Typography variant="body2">1 ETH =₹{ethValue}</Typography>
         <Typography variant="h6">Total ETH:</Typography>
         <Typography variant="h4">{totalAmountInEth} ETH</Typography>
         <Box sx={{ mt: 2 }}>
@@ -69,3 +98,5 @@ const ConfirmPaymentPopup: React.FC<ConfirmPaymentPopupProps> = ({
 };
 
 export default ConfirmPaymentPopup;
+
+//https://api.coingecko.com/api/v3/simple/price?ids=matic-network&vs_currencies=inr

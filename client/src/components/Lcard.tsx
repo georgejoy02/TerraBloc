@@ -61,7 +61,7 @@ const Lcard: React.FC<LandComponentProps> = ({
       }
     };
     fetchrequest();
-  }, []);
+  });
 
   const handleforsell = async (id: number) => {
     try {

@@ -7,8 +7,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import { useState, useContext, useEffect } from "react";
-import { SmartContractContext } from "../../utils/SmartContractContext";
+import { useState, useEffect } from "react";
+import ConfirmPaymentPopup from "../../components/ConfirmPayementPopup";
 
 const rows = ["requested", "accepted", "rejected", "payment done", "completed"];
 
@@ -23,10 +23,18 @@ interface LandRequest {
 }
 
 const MySentLandRequests = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   const [landReq, setLandReq] = useState<LandRequest[]>([]);
   const [reload, setReload] = useState(false);
-
-  const { landContract } = useContext(SmartContractContext);
 
   useEffect(() => {
     const fetchreceivedrequest = async () => {
@@ -45,28 +53,6 @@ const MySentLandRequests = () => {
     };
     fetchreceivedrequest();
   }, [reload]);
-
-  const handleMakePayment = async (landPrice: string, reqId: number) => {
-    const amount = parseInt(landPrice);
-
-    try {
-      if (landContract) {
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        const account = accounts[0];
-        const test = await landContract.methods
-          .makePayment(reqId)
-          .send({ from: account, value: amount });
-        console.log(JSON.stringify(test));
-        setReload(!reload);
-      } else {
-        console.log("contract instance not found");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <div style={{ marginLeft: "270px", marginRight: "10px" }}>
@@ -97,10 +83,24 @@ const MySentLandRequests = () => {
                   <Button
                     variant="contained"
                     disabled={["0", "2", "3", "4"].includes(row.requestStatus)}
-                    onClick={() => handleMakePayment(row.landPrice, row.reqId)}
+                    onClick={handleOpen}
+                    // handleMakePayment(row.landPrice, row.reqId)}
                   >
                     Make Payment
                   </Button>
+                  <ConfirmPaymentPopup
+                    open={open}
+                    onClose={handleClose}
+                    userAddress1={row.sellerId}
+                    userAddress2={row.buyerId}
+                    totalAmountInRupees={row.landPrice}
+                    ethValue={row.landPrice}
+                    totalAmountInEth={row.landPrice}
+                    setReload={setReload}
+                    reload={reload}
+                    reqId={row.reqId}
+                    landPrice={row.landPrice}
+                  />
                 </TableCell>
               </TableRow>
             ))}

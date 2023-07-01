@@ -1,19 +1,35 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
+import { SmartContractContext } from "../../utils/SmartContractContext";
 
 const ChangeSuperAdmin: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
+  const { landContract } = useContext(SmartContractContext);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // Display confirm pop-up
-    const confirmMessage = "Are you sure you want to change the Owner?";
-    const isConfirmed = window.confirm(confirmMessage);
+    const isConfirmed = window.confirm(
+      "Are you sure you want to change the Owner?"
+    );
 
     if (isConfirmed) {
-      // Handle form submission logic here
-      console.log("Submitted value:", inputValue);
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const account = accounts[0];
+        console.log(account);
+        if (landContract) {
+          const test = await landContract.methods
+            .changeContractOwner(inputValue)
+            .send({ from: account });
+          console.log(JSON.stringify(test));
+        } else {
+          console.log("contract instance not found");
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

@@ -5,45 +5,33 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-
-interface Address {
-  address: any;
-}
+import { Button } from "@mui/material";
+import { SmartContractContext } from "../../utils/SmartContractContext";
 
 interface AddressDetails {
-  si: any;
-  address: any;
-  name: any;
-  age: any;
-  designation: any;
-  city: any;
+  id: number;
+  _addr: string;
+  name: string;
+  age: number;
+  designation: string;
+  city: string;
 }
 
-const ListAdmin:React.FC = () => {
-  const [addresses, setAddresses] = useState<Address[]>([]);
+const ListAdmin: React.FC = () => {
   const [rows, setRows] = useState<AddressDetails[]>([]);
-
-  const createData = (
-    si: number,
-    address: string,
-    name: any,
-    age: any,
-    designation: any,
-    city: any
-  ) => {
-    return { si, address, name, age, designation, city };
-  };
+  const [verify, setVerify] = useState<boolean>(false);
+  const { landContract } = useContext(SmartContractContext);
 
   useEffect(() => {
     const fetchAddresses = async () => {
       try {
-        const response = await axios.get<Address[]>(
-          "http://localhost:4000/alluserlist"
-        );
+        setRows([]);
+        const response = await axios.get("http://localhost:4000/alllilist");
         if (Array.isArray(response.data)) {
-          setAddresses(response.data);
+          console.log(response.data);
+          setRows(response.data);
         } else {
           console.log("No users found");
         }
@@ -51,45 +39,29 @@ const ListAdmin:React.FC = () => {
         console.error("Error fetching addresses:", error);
       }
     };
-
     fetchAddresses();
-  }, []);
+  }, [verify]);
 
-  useEffect(() => {
-    const fetchAddressDetails = async () => {
-      const detailsArray: AddressDetails[] = [];
-      let i = 1;
-      for (const address of addresses) {
-        try {
-          const res = await axios.post("http://localhost:4000/getuserdata", {
-            key: address,
-          });
-          console.log(res.data);
-          detailsArray.push(
-            createData(
-              i,
-              res.data.id,
-              res.data.name,
-              res.data.age,
-              res.data.designation,
-              res.data.city
-            )
-          );
-          i++;
-        } catch (error) {
-          console.error(
-            `Error fetching details for address ${address}:`,
-            error
-          );
-        }
+  const handleRemove = async (address: string) => {
+    try {
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      const account = accounts[0];
+      console.log(account);
+      if (landContract) {
+        const test = await landContract.methods
+          .removeLandInspector(address)
+          .send({ from: account });
+        console.log(JSON.stringify(test));
+        setVerify(!verify);
+      } else {
+        console.log("contract instance not found");
       }
-      setRows(detailsArray);
-    };
-
-    if (addresses.length > 0) {
-      fetchAddressDetails();
+    } catch (error) {
+      console.log(error);
     }
-  }, [addresses]);
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -102,22 +74,32 @@ const ListAdmin:React.FC = () => {
             <TableCell>Age</TableCell>
             <TableCell>Designation</TableCell>
             <TableCell>City</TableCell>
+            <TableCell>remove</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row: any) => (
             <TableRow
-              key={row.si}
+              key={row.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell>{row.si}</TableCell>
+              <TableCell>{row.id}</TableCell>
               <TableCell component="th" scope="row">
-                {row.address}
+                {row._addr}
               </TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.age}</TableCell>
               <TableCell>{row.designation}</TableCell>
               <TableCell>{row.city}</TableCell>
+              <TableCell>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => handleRemove(row._addr)}
+                >
+                  remove
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

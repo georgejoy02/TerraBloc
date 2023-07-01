@@ -13,7 +13,6 @@ import User from "./pages/user/User";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import LandDetails from "./pages/user/LandDetails";
 import { Contacts } from "@mui/icons-material";
-import PopupTest from "./components/PopupTest";
 
 const App: React.FC = () => {
   const theme = createTheme({
@@ -35,7 +34,6 @@ const App: React.FC = () => {
             <Route path="/loginuser" element={<Login value="user" />} />
             <Route path="/loginadmin" element={<Login value="admin" />} />
             <Route path="/loginowner" element={<Login value="owner" />} />
-            <Route path="/test" element={<PopupTest />} />
             <Route path="/userdashboard/*" element={<User />} />
             <Route path="/owner" element={<Owner />} />
             <Route path="/loginoption" element={<LoginPage />} />

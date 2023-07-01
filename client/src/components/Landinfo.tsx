@@ -41,7 +41,7 @@ export const Landinfo = (props: { landId: string }) => {
       setLandData(res.data);
     };
     fetchLandData();
-  }, []);
+  });
 
   return (
     <div className="landbox">

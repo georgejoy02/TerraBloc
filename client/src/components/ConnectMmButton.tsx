@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import Web3 from "web3";
 import FoxImage from "../images/fox.png";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import DoneIcon from "@mui/icons-material/Done";
 
 export const ConnectMmButton: React.FC = () => {
-  const [msg, setMsg] = useState<string | undefined>();
+  const [msg, setMsg] = useState<string>("");
   const [web3, setWeb3] = useState<Web3 | null>(null);
   const [acnts, setAcnts] = useState<string[]>([]);
+  const [copied, setCopied] = useState<boolean>(false);
+  const [mmAcnt, setMmAcnt] = useState<boolean>(false);
 
   useEffect(() => {
     try {
@@ -21,6 +26,7 @@ export const ConnectMmButton: React.FC = () => {
     if (web3) {
       window.ethereum.on("accountsChanged", async (accounts: string[]) => {
         setAcnts(accounts);
+        setCopied(false);
       });
     }
   }, [web3, acnts]);
@@ -31,9 +37,12 @@ export const ConnectMmButton: React.FC = () => {
         method: "eth_requestAccounts",
       });
       setAcnts(accounts);
-      web3 && accounts.length > 0
-        ? setMsg(`Connected to MetaMask with account: ${accounts[0]}`)
-        : setMsg("Not connected to MetaMask");
+      if (web3 && accounts.length > 0) {
+        setMmAcnt(true);
+        setMsg(`${accounts[0]}`);
+      } else {
+        setMsg("Not connected to MetaMask");
+      }
     } catch (error) {
       console.log(error);
       setMsg(`Error connecting to MetaMask`);
@@ -61,7 +70,37 @@ export const ConnectMmButton: React.FC = () => {
         M E T A M A S K
       </Button>
       <br />
-      {msg}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          height: "100%",
+        }}
+      >
+        {mmAcnt ? (
+          <>
+            Connected to:
+            <TextField
+              value={msg}
+              sx={{ m: 1, width: "47ch" }}
+              InputProps={{
+                readOnly: true,
+                endAdornment: (
+                  <CopyToClipboard text={msg} onCopy={() => setCopied(true)}>
+                    {copied ? (
+                      <DoneIcon />
+                    ) : (
+                      <ContentCopyIcon style={{ cursor: "pointer" }} />
+                    )}
+                  </CopyToClipboard>
+                ),
+              }}
+            />
+          </>
+        ) : (
+          <>{msg}</>
+        )}
+      </div>
     </div>
   );
 };
