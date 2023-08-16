@@ -9,7 +9,7 @@ import { SmartContractContext } from "../../utils/SmartContractContext";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import purgePersistedState from "../../redux/utils/purgeState";
-
+import { Dna } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
 import {
@@ -40,7 +40,7 @@ const AddLands: React.FC = () => {
   );
   const [landDoc, setLandDoc] = useState<File | null>(null);
   const [filename, setFilename] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   console.log("uselocation:", location);
@@ -62,6 +62,7 @@ const AddLands: React.FC = () => {
     event.preventDefault();
 
     try {
+      setIsLoading(true);
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
@@ -112,6 +113,8 @@ const AddLands: React.FC = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -122,105 +125,119 @@ const AddLands: React.FC = () => {
 
   return (
     <div>
-      <Appbar title="Add Lands" />
-      <Box marginTop={4}>
-        <Container maxWidth="md">
-          <FormContainer onSubmit={handleSubmit}>
-            <TextField
-              required
-              label="Area (SqFt)"
-              inputProps={{ inputMode: "numeric" }}
-              value={area ?? ""}
-              style={{ marginBottom: "16px" }}
-              onChange={(event) =>
-                dispatch(setArea(parseInputValue(event.target.value)))
-              }
-            />
-            <TextField
-              required
-              label="Address"
-              value={address}
-              style={{ marginBottom: "16px" }}
-              onChange={(event) => dispatch(setAddress(event.target.value))}
-            />
-            <TextField
-              required
-              label="Land Price"
-              inputProps={{ inputMode: "numeric" }}
-              value={landPrice ?? ""}
-              style={{ marginBottom: "16px" }}
-              onChange={(event) =>
-                dispatch(setLandPrice(parseInputValue(event.target.value)))
-              }
-            />
-            <TextField
-              required
-              label="PID"
-              inputProps={{ inputMode: "numeric" }}
-              value={pid ?? ""}
-              style={{ marginBottom: "16px" }}
-              onChange={(event) =>
-                dispatch(setPid(parseInputValue(event.target.value)))
-              }
-            />
-            <TextField
-              required
-              label="Survey No"
-              value={surveyNo}
-              style={{ marginBottom: "16px" }}
-              onChange={(event) => dispatch(setSurveyNo(event.target.value))}
-            />
-            <Box display="flex" flexDirection="column">
+      {isLoading && (
+        <div className="loader-container">
+          <Dna
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="dna-loading"
+            wrapperStyle={{}}
+            wrapperClass="dna-wrapper"
+          />
+        </div>
+      )}{" "}
+      <div className={`app-container ${isLoading ? "blur" : ""}`}>
+        <Appbar title="Add Lands" />
+        <Box marginTop={4}>
+          <Container maxWidth="md">
+            <FormContainer onSubmit={handleSubmit}>
+              <TextField
+                required
+                label="Area (SqFt)"
+                inputProps={{ inputMode: "numeric" }}
+                value={area ?? ""}
+                style={{ marginBottom: "16px" }}
+                onChange={(event) =>
+                  dispatch(setArea(parseInputValue(event.target.value)))
+                }
+              />
+              <TextField
+                required
+                label="Address"
+                value={address}
+                style={{ marginBottom: "16px" }}
+                onChange={(event) => dispatch(setAddress(event.target.value))}
+              />
+              <TextField
+                required
+                label="Land Price"
+                inputProps={{ inputMode: "numeric" }}
+                value={landPrice ?? ""}
+                style={{ marginBottom: "16px" }}
+                onChange={(event) =>
+                  dispatch(setLandPrice(parseInputValue(event.target.value)))
+                }
+              />
+              <TextField
+                required
+                label="PID"
+                inputProps={{ inputMode: "numeric" }}
+                value={pid ?? ""}
+                style={{ marginBottom: "16px" }}
+                onChange={(event) =>
+                  dispatch(setPid(parseInputValue(event.target.value)))
+                }
+              />
+              <TextField
+                required
+                label="Survey No"
+                value={surveyNo}
+                style={{ marginBottom: "16px" }}
+                onChange={(event) => dispatch(setSurveyNo(event.target.value))}
+              />
+              <Box display="flex" flexDirection="column">
+                <Button
+                  variant="contained"
+                  color="inherit"
+                  startIcon={<TerrainIcon />}
+                  onClick={handleDrawLandOnMap}
+                  style={{ marginBottom: "16px" }}
+                >
+                  Draw Land on Map
+                </Button>
+                <Box>
+                  <input
+                    required
+                    accept="application/pdf,image/*"
+                    style={{ display: "none" }}
+                    id="doc-upload"
+                    type="file"
+                    onChange={handleUploadDocument}
+                  />
+                  <label htmlFor="doc-upload">
+                    <Button
+                      variant="contained"
+                      color="inherit"
+                      component="span"
+                      startIcon={<CloudUploadIcon />}
+                      style={{ marginBottom: "16px" }}
+                    >
+                      Upload Document
+                    </Button>
+                    {filename}
+                  </label>
+                </Box>
+              </Box>
               <Button
                 variant="contained"
-                color="inherit"
-                startIcon={<TerrainIcon />}
-                onClick={handleDrawLandOnMap}
-                style={{ marginBottom: "16px" }}
+                color="primary"
+                type="submit"
+                style={{ width: "30%", margin: "auto", marginTop: "16px" }}
+                sx={{
+                  width: "30%",
+                  margin: "auto",
+                  marginTop: "16px",
+                  fontSize: "1.5rem",
+                  padding: "12px",
+                }}
               >
-                Draw Land on Map
+                submit
               </Button>
-              <Box>
-                <input
-                  required
-                  accept="application/pdf,image/*"
-                  style={{ display: "none" }}
-                  id="doc-upload"
-                  type="file"
-                  onChange={handleUploadDocument}
-                />
-                <label htmlFor="doc-upload">
-                  <Button
-                    variant="contained"
-                    color="inherit"
-                    component="span"
-                    startIcon={<CloudUploadIcon />}
-                    style={{ marginBottom: "16px" }}
-                  >
-                    Upload Document
-                  </Button>
-                  {filename}
-                </label>
-              </Box>
-            </Box>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              style={{ width: "30%", margin: "auto", marginTop: "16px" }}
-              sx={{
-                width: "30%",
-                margin: "auto",
-                marginTop: "16px",
-                fontSize: "1.5rem",
-                padding: "12px",
-              }}
-            >
-              submit
-            </Button>
-          </FormContainer>
-        </Container>
-      </Box>
+            </FormContainer>
+          </Container>
+        </Box>
+      </div>
     </div>
   );
 };

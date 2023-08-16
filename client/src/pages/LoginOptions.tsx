@@ -55,7 +55,7 @@ const LoginPage: React.FC = () => {
         >
           Login as User
         </Button>
-        <Button
+        {/* <Button
           component={Link}
           to="/userdashboard"
           variant="contained"
@@ -64,7 +64,7 @@ const LoginPage: React.FC = () => {
           sx={{ mt: 5, width: "250px", height: "50px" }}
         >
           Dummy User Dashboard
-        </Button>{" "}
+        </Button>{" "} */}
         <Typography variant="caption" sx={{ mt: 2 }}>
           New to TerraBloc? <Link to="/RegisterUser">Register</Link>
         </Typography>

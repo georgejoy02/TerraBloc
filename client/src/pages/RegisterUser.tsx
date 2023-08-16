@@ -9,6 +9,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { SmartContractContext } from "../utils/SmartContractContext";
 import { useNavigate } from "react-router-dom";
+import { Dna } from "react-loader-spinner";
 
 const FormContainer = styled("form")(({ theme }) => ({
   display: "flex",
@@ -33,6 +34,7 @@ const RegisterUser: React.FC = () => {
   const [errorMessageDoc, setErrorMessageDoc] = useState<string>("");
   const [errorMessageAadhar, setErrorMessageAadhar] = useState<string>("");
   const [errorMessagePan, setErrorMessagePan] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const { landContract } = useContext(SmartContractContext);
 
@@ -80,6 +82,7 @@ const RegisterUser: React.FC = () => {
     }
 
     try {
+      setIsLoading(true);
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
@@ -118,120 +121,136 @@ const RegisterUser: React.FC = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div>
-      <Appbar title="Register User" />
-      {/*hideIconButton={true}  */}
-      <Box marginTop={15}>
-        <Container maxWidth="md">
-          <FormContainer onSubmit={handleSubmit}>
-            <TextField
-              required
-              label="Name"
-              type="text"
-              value={name}
-              style={{ marginBottom: "20px" }}
-              onChange={(event) => setName(event.target.value)}
-            />
-            <TextField
-              required
-              label="Age"
-              type="number"
-              value={age ?? ""}
-              style={{ marginBottom: "20px" }}
-              onChange={(event) => setAge(parseInt(event.target.value, 10))}
-            />
-            <TextField
-              required
-              label="Address"
-              value={address}
-              style={{ marginBottom: "20px" }}
-              onChange={(event) => setAddress(event.target.value)}
-            />
-            <TextField
-              required
-              label="Aadhar Number"
-              type="number"
-              value={aadhar}
-              style={{ marginBottom: "20px" }}
-              onChange={(event) => {
-                setAadhar(event.target.value);
-                setErrorMessageAadhar("");
-              }}
-              onBlur={validateAadhar}
-            />
-            {errorMessageAadhar && (
-              <Typography variant="body2" color="error">
-                {errorMessageAadhar}
-              </Typography>
-            )}
-            <TextField
-              required
-              label="Pan Number"
-              value={pan}
-              style={{ marginBottom: "20px" }}
-              onChange={(event) => {
-                setPan(event.target.value);
-                setErrorMessagePan("");
-              }}
-              onBlur={validatePan}
-            />
-            {errorMessagePan && (
-              <Typography variant="body2" color="error">
-                {errorMessagePan}
-              </Typography>
-            )}
-            <TextField
-              required
-              label="Email"
-              type="email"
-              value={email}
-              style={{ marginBottom: "20px" }}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <Box>
-              <input
-                accept="application/pdf,image/*"
-                style={{ display: "none" }}
-                id="aadhar-upload"
-                type="file"
-                onChange={handleAadharDocChange}
+      {isLoading && (
+        <div className="loader-container">
+          <Dna
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="dna-loading"
+            wrapperStyle={{}}
+            wrapperClass="dna-wrapper"
+          />
+        </div>
+      )}{" "}
+      <div className={`app-container ${isLoading ? "blur" : ""}`}>
+        <Appbar title="Register User" />
+        {/*hideIconButton={true}  */}
+        <Box marginTop={15}>
+          <Container maxWidth="md">
+            <FormContainer onSubmit={handleSubmit}>
+              <TextField
+                required
+                label="Name"
+                type="text"
+                value={name}
+                style={{ marginBottom: "20px" }}
+                onChange={(event) => setName(event.target.value)}
               />
-              <label htmlFor="aadhar-upload">
-                <Button
-                  variant="contained"
-                  component="span"
-                  startIcon={<CloudUploadIcon />}
-                  style={{ marginBottom: "20px" }}
-                >
-                  Upload Aadhar Document
-                </Button>
-                {filename}
-              </label>
-              {errorMessageDoc && (
-                <Typography variant="body1" color="error" align="center">
-                  {errorMessageDoc}
+              <TextField
+                required
+                label="Age"
+                type="number"
+                value={age ?? ""}
+                style={{ marginBottom: "20px" }}
+                onChange={(event) => setAge(parseInt(event.target.value, 10))}
+              />
+              <TextField
+                required
+                label="Address"
+                value={address}
+                style={{ marginBottom: "20px" }}
+                onChange={(event) => setAddress(event.target.value)}
+              />
+              <TextField
+                required
+                label="Aadhar Number"
+                type="number"
+                value={aadhar}
+                style={{ marginBottom: "20px" }}
+                onChange={(event) => {
+                  setAadhar(event.target.value);
+                  setErrorMessageAadhar("");
+                }}
+                onBlur={validateAadhar}
+              />
+              {errorMessageAadhar && (
+                <Typography variant="body2" color="error">
+                  {errorMessageAadhar}
                 </Typography>
               )}
-            </Box>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="large"
-              style={{ width: "30%" }}
-            >
-              Submit
-            </Button>
-            <div style={{ textAlign: "center" }}>
-              <ConnectMmButton />
-            </div>
-          </FormContainer>
-        </Container>
-      </Box>
+              <TextField
+                required
+                label="Pan Number"
+                value={pan}
+                style={{ marginBottom: "20px" }}
+                onChange={(event) => {
+                  setPan(event.target.value);
+                  setErrorMessagePan("");
+                }}
+                onBlur={validatePan}
+              />
+              {errorMessagePan && (
+                <Typography variant="body2" color="error">
+                  {errorMessagePan}
+                </Typography>
+              )}
+              <TextField
+                required
+                label="Email"
+                type="email"
+                value={email}
+                style={{ marginBottom: "20px" }}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <Box>
+                <input
+                  accept="application/pdf,image/*"
+                  style={{ display: "none" }}
+                  id="aadhar-upload"
+                  type="file"
+                  onChange={handleAadharDocChange}
+                />
+                <label htmlFor="aadhar-upload">
+                  <Button
+                    variant="contained"
+                    component="span"
+                    startIcon={<CloudUploadIcon />}
+                    style={{ marginBottom: "20px" }}
+                  >
+                    Upload Aadhar Document
+                  </Button>
+                  {filename}
+                </label>
+                {errorMessageDoc && (
+                  <Typography variant="body1" color="error" align="center">
+                    {errorMessageDoc}
+                  </Typography>
+                )}
+              </Box>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="large"
+                style={{ width: "30%" }}
+              >
+                Submit
+              </Button>
+              <div style={{ textAlign: "center" }}>
+                <ConnectMmButton />
+              </div>
+            </FormContainer>
+          </Container>
+        </Box>
+      </div>
     </div>
   );
 };

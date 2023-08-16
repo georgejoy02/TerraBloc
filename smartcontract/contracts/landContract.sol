@@ -19,6 +19,7 @@ contract Land {
         string document;
         bool isforSell;
         address payable ownerAddress;
+        string ownerEmail;
         bool landVerified;
     }
 
@@ -291,6 +292,7 @@ contract Land {
             _document,
             false,
             payable(msg.sender),
+            UserMap[msg.sender].email,
             false
         );
         UserLandsMap[msg.sender].push(landsCount);
@@ -439,6 +441,7 @@ contract Land {
         UserLandsMap[LandRequestMap[_requestId].buyerId].push(
             LandRequestMap[_requestId].landId
         );
+        // UserMap[msg.sender].email
 
         uint256 len = UserLandsMap[LandRequestMap[_requestId].sellerId].length;
         for (uint256 i = 0; i < len; i++) {
@@ -457,5 +460,8 @@ contract Land {
         landsMap[LandRequestMap[_requestId].landId].isforSell = false;
         landsMap[LandRequestMap[_requestId].landId]
             .ownerAddress = LandRequestMap[_requestId].buyerId;
+        landsMap[LandRequestMap[_requestId].landId].ownerEmail = UserMap[
+            LandRequestMap[_requestId].buyerId
+        ].email;
     }
 }

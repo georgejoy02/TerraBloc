@@ -74,6 +74,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/mapbox__mapbox-gl-draw": "^1.4.0",
     "@types/mapbox__mapbox-gl-geocoder": "^4.7.3",
     "@types/mapbox__mapbox-sdk": "^0.13.4",

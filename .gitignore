@@ -33,5 +33,5 @@
 /client/src/abiandnetwork/abi.json
 /server/abiandnetwork/abi.json
 /client/package-lock.json
-/client/package-lock.json
+/server/package-lock.json
 /smartcontract/package-lock.json

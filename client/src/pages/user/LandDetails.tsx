@@ -17,6 +17,7 @@ interface LandData {
   document: string;
   isforSell: boolean;
   ownerAddress: string;
+  ownerEmail: string;
   landVerified: boolean;
 }
 
@@ -120,6 +121,10 @@ const LandDetails: React.FC = () => {
           <div className="detail-row">
             <h4>Owner Address:</h4>
             <p>{product.ownerAddress}</p>
+          </div>
+          <div className="detail-row">
+            <h4>Owner Contact:</h4>
+            <p>{product.ownerEmail}</p>
           </div>
           <div className="detail-row">
             <h4>Address:</h4>

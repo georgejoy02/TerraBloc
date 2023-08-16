@@ -33,14 +33,22 @@ const TransferOwnership = () => {
 
   useEffect(() => {
     const fetchreceivedrequest = async () => {
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      const account = accounts[0];
-      console.log(account);
-      const res = await axios.get("http://localhost:4000/transferlist");
-      console.log(res.data);
-      setLandReq(res.data);
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        const account = accounts[0];
+        console.log(account);
+        const res = await axios.get("http://localhost:4000/transferlist");
+        console.log(res.data);
+        if (Array.isArray(res.data)) {
+          setLandReq(res.data);
+        } else {
+          alert("no properties is transfer phase");
+        }
+      } catch {
+        console.log("error occured in trnsfer ownership fetch");
+      }
     };
     fetchreceivedrequest();
   }, [reload]);
