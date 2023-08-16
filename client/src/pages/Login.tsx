@@ -1,7 +1,6 @@
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { styled } from "@mui/material/styles";
-import bgImage from "../images/bgLogin.png";
 import { Navbar } from "../components/layouts/Navbar";
 import {
   Box,
@@ -112,7 +111,6 @@ export const Login: React.FC<IMyProps> = (props: IMyProps) => {
             justifyContent: "center",
             alignItems: "center",
             height: "100vh",
-            backgroundImage: `url(${bgImage})`,
             backgroundSize: "cover",
           }}
         >
