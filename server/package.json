@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon  server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.1.3",
+    "express": "^4.18.2",
+    "fetch-blob": "^4.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "mime": "^3.0.0",
+    "multer": "^1.4.5-lts.1",
+    "nft.storage": "^7.1.0",
+    "puppeteer": "^20.7.2",
+    "web3": "^1.10.0",
+    "web3.storage": "^4.5.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "description": ""
+}
