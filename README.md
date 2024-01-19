@@ -1,46 +1,81 @@
-# Getting Started with Create React App
+# Project Setup and Installation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is built using React, TypeScript, Node.js, Express.js, Web3.js, Truffle, Ganache, and Solidity. It consists of a client-side application, a server-side application, and a smart contract for local deployment.
 
-## Available Scripts
+## Prerequisites
 
-In the project directory, you can run:
+Before getting started, make sure you have the following tools installed on your machine:
 
-### `npm start`
+- Node.js
+- Truffle
+- Ganache
+- Metamask browser extension
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Installation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+To set up the project, follow these steps:
 
-### `npm test`
+1. Clone the repository.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Run the following command from the `client`, `server`, and `smartcontract` directories to install the required dependencies:
 
-### `npm run build`
+    ```shell
+    npm install
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Install the Metamask extension in your browser to interact with the smart contract.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Configuration
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Server Configuration
 
-### `npm run eject`
+1. In the `server` directory, create a `.env` file and add the following environment variables:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    - `RPC_URL`: The RPC URL of the network where the smart contract will be deployed.
+    - `NFT_STORAGE_KEY`: The API key for NFT storage.
+    - `PORT`: The port number for the server.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Client Configuration
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. In the `client` directory, create a `.env` file and add the following environment variable:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    - `REACT_APP_MAPBOX_API_KEY`: The API key for Mapbox.
 
-## Learn More
+### Smart Contract Configuration
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. In the `smartcontract` directory, create a `.env` file and add the following environment variables:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    - `HDWALLET_MNEMONIC`: The mnemonic for the HD wallet.
+    - `RPC_URL`: The RPC URL of the network where the smart contract will be deployed.
+
+## Running the Project
+
+To run the project, follow these steps:
+
+1. In the `smartcontract` directory, run the following command to add the ABI of the smart contract to the `client` and `server` directories:
+
+    ```shell
+    npm start
+    ```
+
+2. In the `server` directory, run the following command to start the server:
+
+    ```shell
+    npm start
+    ```
+
+3. In the `client` directory, run the following command to start the client:
+
+    ```shell
+    npm start
+    ```
+
+## Usage
+
+Once the project is running, you can access the client application in your browser. Make sure the Metamask extension is connected to the appropriate network to interact with the smart contract.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+

@@ -1,7 +1,7 @@
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 require("dotenv").config();
-const mnemonic = process.env.MM_MNEMONIC;
-const mumbaiRpcUrl = process.env.MUMBAI_RPC_URL;
+const mnemonic = process.env.HDWALLET_MNEMONIC;
+const rpcUrl = process.env.RPC_URL;
 
 module.exports = {
   networks: {
@@ -11,7 +11,7 @@ module.exports = {
       network_id: "*",
     },
     matic: {
-      provider: () => new HDWalletProvider(mnemonic, mumbaiRpcUrl),
+      provider: () => new HDWalletProvider(mnemonic, rpcUrl),
       network_id: 80001,
       confirmations: 2,
       timeoutBlocks: 200,
